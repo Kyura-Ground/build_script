@@ -1,14 +1,23 @@
 rm -rf .repo/local_manifests/
 rm -rf prebuilts/clang/host/linux-x86
+rm -rf hardware/qcom-caf/msm8998/audio
+rm -rf hardware/qcom-caf/msm8998/display
+rm -rf hardware/qcom-caf/msm8998/media
+rm -rf device/asis/X00T
+rm -rf device/asus/X00TD
+rm -rf vendor/asus
+rm -rf device/asus/sdm660-common
+rm -rf vendor/lineage-priv/keys
+rm -rf vendor/lineage/signing/keys
 
 #repo init
-repo init -u https://github.com/The-Clover-Project/manifest.git -b 15-qpr2 --git-lfs
+repo init -u https://github.com/Evolution-X/manifest -b bka --git-lfs
 echo "=================="
 echo "Repo init success"
 echo "=================="
 
 #local_manifest
-git clone https://github.com/ikwfahmi/local_manifests.git -b Clover .repo/local_manifests
+git clone https://github.com/Kyura-Playground/local_manifests.git -b main .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
@@ -18,11 +27,6 @@ echo "============================"
 echo "============="
 echo "Sync success"
 echo "============="
-
-#nuke soong
-rm -rf build/soong
-
-git clone https://github.com/ikwfahmi/build_soong -b 15-qpr2 build/soong
 
 # Export
 export BUILD_USERNAME=kyura
@@ -34,4 +38,4 @@ echo "======= Export Done ======"
 echo "====== Envsetup Done ======="
 
 #build
-lunch clover_X00TD-bp1a-userdebug && make installclean && mka clover
+lunch lineage_X00TD-bp2a-userdebug && make installclean && m evolution
