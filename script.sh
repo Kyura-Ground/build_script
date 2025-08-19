@@ -11,7 +11,7 @@ rm -rf vendor/lineage-priv/keys
 rm -rf vendor/lineage/signing/keys
 
 #repo init
-repo init -u https://github.com/Evolution-X/manifest -b bka --git-lfs
+repo init -u https://github.com/Evolution-X/manifest -b udc --git-lfs
 echo "=================="
 echo "Repo init success"
 echo "=================="
@@ -38,4 +38,4 @@ echo "======= Export Done ======"
 echo "====== Envsetup Done ======="
 
 #build
-lunch lineage_X00TD-bp2a-userdebug && make installclean && m evolution
+lunch lineage_X00TD-userdebug && make installclean && m evolution
