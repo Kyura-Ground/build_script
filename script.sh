@@ -11,13 +11,13 @@ rm -rf vendor/lineage-priv/keys
 rm -rf vendor/lineage/signing/keys
 
 #repo init
-repo init -u https://github.com/Evolution-X/manifest -b udc --git-lfs
+repo init -u https://github.com/Spark-NEXT/manifest -b pyro-next --git-lfs
 echo "=================="
 echo "Repo init success"
 echo "=================="
 
 #local_manifest
-git clone https://github.com/Kyura-Playground/local_manifests.git -b main .repo/local_manifests
+git clone https://github.com/Kyura-Playground/local_manifests.git -b Spark .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
@@ -38,4 +38,4 @@ echo "======= Export Done ======"
 echo "====== Envsetup Done ======="
 
 #build
-lunch lineage_X00TD-userdebug && make installclean && m evolution
+lunch spark_X00T-userdebug && make installclean && mka bacon
