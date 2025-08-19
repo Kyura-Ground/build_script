@@ -1,5 +1,5 @@
 rm -rf .repo/local_manifests/
-rm -rf prebuilts/clang/host/linux-x86
+rm -rf external/chromium-webview
 rm -rf hardware/qcom-caf/msm8998/audio
 rm -rf hardware/qcom-caf/msm8998/display
 rm -rf hardware/qcom-caf/msm8998/media
