@@ -11,13 +11,13 @@ rm -rf vendor/lineage-priv/keys
 rm -rf vendor/lineage/signing/keys
 
 #repo init
-repo init -u https://github.com/Spark-NEXT/manifest -b pyro-next --git-lfs
+repo init -u https://github.com/DerpFest-AOSP/android_manifest.git -b 16 --git-lfs
 echo "=================="
 echo "Repo init success"
 echo "=================="
 
 #local_manifest
-git clone https://github.com/Kyura-Playground/local_manifests.git -b Spark .repo/local_manifests
+git clone https://github.com/Kyura-Playground/local_manifests.git -b Derp .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
@@ -27,6 +27,9 @@ echo "============================"
 echo "============="
 echo "Sync success"
 echo "============="
+
+rm -rf system/sepolicy
+git clone https://github.com/ikwfahmi/android_system_sepolicy -b 16 system/sepolicy
 
 # Export
 export BUILD_USERNAME=kyura
@@ -38,4 +41,4 @@ echo "======= Export Done ======"
 echo "====== Envsetup Done ======="
 
 #build
-lunch spark_X00T-userdebug && make installclean && mka bacon
+lunch lineage_X00TD-bp2a-userdebug && make installclean && mka derp
