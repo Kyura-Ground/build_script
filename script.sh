@@ -11,13 +11,13 @@ rm -rf vendor/lineage-priv/keys
 rm -rf vendor/lineage/signing/keys
 
 #repo init
-repo init -u https://github.com/DerpFest-AOSP/android_manifest.git -b 16 --git-lfs
+repo init -u https://github.com/RisingOS-Revived/android -b sixteen --git-lfs
 echo "=================="
 echo "Repo init success"
 echo "=================="
 
 #local_manifest
-git clone https://github.com/Kyura-Playground/local_manifests.git -b Derp .repo/local_manifests
+git clone https://github.com/Kyura-Playground/local_manifests.git -b Rising .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
@@ -29,7 +29,7 @@ echo "Sync success"
 echo "============="
 
 rm -rf system/sepolicy
-git clone https://github.com/ikwfahmi/android_system_sepolicy -b 16 system/sepolicy
+git clone https://github.com/ikwfahmi/android_system_sepolicy -b sixteen system/sepolicy
 
 # Export
 export BUILD_USERNAME=kyura
@@ -41,4 +41,4 @@ echo "======= Export Done ======"
 echo "====== Envsetup Done ======="
 
 #build
-lunch lineage_X00TD-bp2a-userdebug && make installclean && mka derp
+riseup X00TD userdebug && make installclean && rise b
