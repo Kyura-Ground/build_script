@@ -11,7 +11,7 @@ rm -rf vendor/lineage-priv/keys
 rm -rf vendor/lineage/signing/keys
 
 #repo init
-repo init -u https://github.com/RisingOS-Revived/android -b sixteen --git-lfs
+repo init -u https://github.com/2by2-Project/manifest.git -b Bismuth --git-lfs
 echo "=================="
 echo "Repo init success"
 echo "=================="
@@ -29,7 +29,7 @@ echo "Sync success"
 echo "============="
 
 rm -rf system/sepolicy
-git clone https://github.com/ikwfahmi/android_system_sepolicy -b sixteen system/sepolicy
+git clone https://github.com/ikwfahmi/system_sepolicy -b Bismuth system/sepolicy
 
 # Export
 export BUILD_USERNAME=kyura
@@ -41,4 +41,4 @@ echo "======= Export Done ======"
 echo "====== Envsetup Done ======="
 
 #build
-riseup X00TD userdebug && make installclean && rise b
+lunch X00TD-userdebug && make installclean && m bacon
