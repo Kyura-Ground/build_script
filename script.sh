@@ -11,13 +11,13 @@ rm -rf vendor/lineage-priv/keys
 rm -rf vendor/lineage/signing/keys
 
 #repo init
-repo init -u https://github.com/2by2-Project/manifest.git -b Bismuth --git-lfs
+repo init -u https://github.com/RisingOS-Revived/android -b sixteen-los --git-lfs
 echo "=================="
 echo "Repo init success"
 echo "=================="
 
 #local_manifest
-git clone https://github.com/Kyura-Playground/local_manifests.git -b 2by2 .repo/local_manifests
+git clone https://github.com/Kyura-Playground/local_manifests.git -b Rising .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
@@ -29,7 +29,7 @@ echo "Sync success"
 echo "============="
 
 rm -rf system/sepolicy
-git clone https://github.com/ikwfahmi/system_sepolicy -b Bismuth system/sepolicy
+git clone https://github.com/ikwfahmi/android_system_sepolicy -b sixteen system/sepolicy
 
 # Export
 export BUILD_USERNAME=kyura
@@ -41,4 +41,4 @@ echo "======= Export Done ======"
 echo "====== Envsetup Done ======="
 
 #build
-lunch X00TD-userdebug && make installclean && m bacon
+breakfast X00TD userdebug && make installclean && rise b
