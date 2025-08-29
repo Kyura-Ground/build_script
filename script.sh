@@ -28,9 +28,6 @@ echo "============="
 echo "Sync success"
 echo "============="
 
-rm -rf system/sepolicy
-git clone https://github.com/ikwfahmi/android_system_sepolicy -b 16 system/sepolicy
-
 # Export
 export BUILD_USERNAME=kyura
 export BUILD_HOSTNAME=crave
