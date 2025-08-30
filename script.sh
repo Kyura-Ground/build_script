@@ -11,13 +11,13 @@ rm -rf vendor/lineage-priv/keys
 rm -rf vendor/lineage/signing/keys
 
 #repo init
-repo init -u https://github.com/DerpFest-AOSP/android_manifest.git -b 16 --git-lfs
+repo init -u https://github.com/The-Clover-Project/manifest.git -b 16 --git-lfs
 echo "=================="
 echo "Repo init success"
 echo "=================="
 
 #local_manifest
-git clone https://github.com/Kyura-Playground/local_manifests.git -b Derp .repo/local_manifests
+git clone https://github.com/Kyura-Playground/local_manifests.git -b Clover .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
@@ -38,4 +38,4 @@ echo "======= Export Done ======"
 echo "====== Envsetup Done ======="
 
 #build
-lineage_X00TD-bp2a-userdebug && make installclean && mka derp
+lunch clover_X00TD-bp2a-userdebug && make installclean && mka clover
