@@ -8,6 +8,7 @@ rm -rf vendor/asus
 rm -rf device/asus/sdm660-common
 rm -rf vendor/lineage-priv/keys
 rm -rf vendor/lineage/signing/keys
+rm -rf prebuilts/clang/host/linux-x86
 
 #repo init
 repo init -u https://github.com/The-Clover-Project/manifest.git -b 16 --git-lfs
