@@ -11,13 +11,13 @@ rm -rf vendor/lineage/signing/keys
 rm -rf prebuilts/clang/host/linux-x86
 
 #repo init
-repo init -u https://github.com/The-Clover-Project/manifest.git -b 16 --git-lfs
+repo init -u https://github.com/AxionAOSP/android.git -b lineage-23.0 --git-lfs
 echo "=================="
 echo "Repo init success"
 echo "=================="
 
 #local_manifest
-git clone https://github.com/Kyura-Playground/local_manifests.git -b Clover .repo/local_manifests
+git clone https://github.com/Kyura-Playground/local_manifests.git -b Axion .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
@@ -38,4 +38,4 @@ echo "======= Export Done ======"
 echo "====== Envsetup Done ======="
 
 #build
-lunch clover_X00TD-bp2a-userdebug && make installclean && mka clover
+axion X00TD && make installclean && ax -br
