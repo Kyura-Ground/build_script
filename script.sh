@@ -39,3 +39,15 @@ echo "====== Envsetup Done ======="
 
 #build
 brunch X00TD && make installclean
+
+# Upload to PixelDrain
+echo "======= Starting Upload to PixelDrain ======"
+crave pull out/target/product/X00TD/*.zip
+ZIP_FILE=$(ls out/target/product/X00TD/*.zip | head -n 1)
+if [ -f "$ZIP_FILE" ]; then
+    echo "Uploading $ZIP_FILE to PixelDrain..."
+    curl -T "$ZIP_FILE" -u :a7221521-6fdf-4fc5-b7cc-48c3401835a6 https://pixeldrain.com/api/file/
+    echo "====== Upload Complete ======"
+else
+    echo "No ZIP file found to upload"
+fi
