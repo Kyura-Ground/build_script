@@ -1,6 +1,6 @@
 rm -rf .repo/local_manifests/
 rm -rf hardware/qcom-caf/msm8998/
-em -rf hardware/qcom-caf/msm8953/
+rm -rf hardware/qcom-caf/msm8953/
 rm -rf device/asis/X00T
 rm -rf device/asus/X00TD
 rm -rf vendor/asus
