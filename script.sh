@@ -1,12 +1,6 @@
 rm -rf .repo/local_manifests/
 rm -rf hardware/qcom-caf/msm8998/
 rm -rf hardware/qcom-caf/msm8953/
-rm -rf device/asis/X00T
-rm -rf device/asus/X00TD
-rm -rf vendor/asus
-rm -rf device/asus/sdm660-common
-rm -rf vendor/lineage-priv/keys
-rm -rf vendor/lineage/signing/keys
 rm -rf prebuilts/clang/host/linux-x86
 
 #repo init
