@@ -40,14 +40,18 @@ echo "====== Envsetup Done ======="
 #build
 lunch lineage_X00TD-bp2a-userdebug && make installclean && m lunaris
 
-# Upload to PixelDrain
-echo "======= Starting Upload to PixelDrain ======"
-crave pull out/target/product/X00TD/*.zip
-ZIP_FILE=$(ls out/target/product/X00TD/*.zip | head -n 1)
-if [ -f "$ZIP_FILE" ]; then
-    echo "Uploading $ZIP_FILE to PixelDrain..."
-    curl -T "$ZIP_FILE" -u :a7221521-6fdf-4fc5-b7cc-48c3401835a6 https://pixeldrain.com/api/file/
-    echo "====== Upload Complete ======"
-else
-    echo "No ZIP file found to upload"
-fi
+# Pull output files dan upload ke pixeldrain
+echo "============================================"
+echo "Pulling output files and uploading to pixeldrain"
+echo "============================================"
+
+crave pull out/target/product/*/*.zip
+
+# Upload semua file .zip yang berhasil di-pull ke pixeldrain
+for zipfile in *.zip; do
+    if [ -f "$zipfile" ]; then
+        echo "Uploading $zipfile to pixeldrain..."
+        curl -T "$zipfile" -u :a7221521-6fdf-4fc5-b7cc-48c3401835a6 https://pixeldrain.com/api/file/
+        echo "Upload completed for $zipfile"
+    fi
+done
