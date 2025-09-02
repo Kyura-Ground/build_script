@@ -1,6 +1,7 @@
 rm -rf .repo/local_manifests/
 rm -rf hardware/qcom-caf/msm8998/
 rm -rf hardware/qcom-caf/msm8953/
+rm -rf hardware/qcom-caf/sdm660/
 rm -rf prebuilts/clang/host/linux-x86
 
 #repo init
