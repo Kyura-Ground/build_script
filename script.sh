@@ -32,7 +32,7 @@ echo "======= Export Done ======"
 echo "====== Envsetup Done ======="
 
 #build
-lunch lineage_X00TD-bp2a-userdebug && make installclean && m lunaris
+lunch lineage_X00TD-bp2a-user && make installclean && m lunaris
 
 # Pull output files dan upload ke pixeldrain
 echo "============================================"
