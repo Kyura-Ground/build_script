@@ -1,17 +1,14 @@
 rm -rf .repo/local_manifests/
-rm -rf hardware/qcom-caf/msm8998/
-rm -rf hardware/qcom-caf/msm8953/
-rm -rf hardware/qcom-caf/sdm660/
 rm -rf prebuilts/clang/host/linux-x86
 
 #repo init
-repo init -u https://github.com/Lunaris-AOSP/android -b 16 --git-lfs
+repo init -u https://github.com/crdroidandroid/android.git -b 16.0 --git-lfs --no-clone-bundle
 echo "=================="
 echo "Repo init success"
 echo "=================="
 
 #local_manifest
-git clone https://github.com/Kyura-Playground/local_manifests.git -b Lunaris .repo/local_manifests
+git clone https://github.com/Kyura-Playground/local_manifests.git -b Crdroid .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
@@ -32,7 +29,7 @@ echo "======= Export Done ======"
 echo "====== Envsetup Done ======="
 
 #build
-lunch lineage_X00TD-bp2a-user && make installclean && m lunaris
+lunch lineage_X00TD-bp2a-userdebug && make installclean && mka bacon
 
 # Pull output files dan upload ke pixeldrain
 echo "============================================"
