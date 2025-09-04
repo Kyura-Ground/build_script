@@ -1,5 +1,6 @@
 rm -rf .repo/local_manifests/
 rm -rf prebuilts/clang/host/linux-x86
+rm -rf hardware/qcom-caf/
 
 #repo init
 repo init -u https://github.com/crdroidandroid/android.git -b 16.0 --git-lfs --no-clone-bundle
