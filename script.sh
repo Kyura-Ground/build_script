@@ -1,14 +1,13 @@
 rm -rf .repo/local_manifests/
-rm -rf hardware/qcom-caf/
 
 #repo init
-repo init -u https://github.com/crDroid-Revived/android.git -b 11.0 --git-lfs
+repo init -u https://github.com/Lunaris-AOSP/android -b 16 --git-lfs
 echo "=================="
 echo "Repo init success"
 echo "=================="
 
 #local_manifest
-git clone https://github.com/Kyura-Playground/local_manifests.git -b LOS18 .repo/local_manifests
+git clone https://github.com/Kyura-Ground/local_manifests.git -b main .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
@@ -29,4 +28,4 @@ echo "======= Export Done ======"
 echo "====== Envsetup Done ======="
 
 #build
-brunch X00TD && make installclean
+lunch lineage_X00TD-bp2a-user && make installclean && m lunaris
