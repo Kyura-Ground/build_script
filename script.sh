@@ -1,7 +1,7 @@
 rm -rf .repo/local_manifests/
 
 #repo init
-repo init -u https://github.com/LineageOS/android.git -b lineage-23.0 --git-lfs
+repo init -u https://github.com/ProjectMatrixx/android.git -b 15.0 --git-lfs
 echo "=================="
 echo "Repo init success"
 echo "=================="
@@ -28,4 +28,4 @@ echo "======= Export Done ======"
 echo "====== Envsetup Done ======="
 
 #build
-lunch lineage_X00TD-bp2a-userdebug && make installclean && mka bacon
+brunch X00TD && make installclean
