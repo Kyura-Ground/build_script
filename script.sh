@@ -1,13 +1,20 @@
 rm -rf .repo/local_manifests/
 
+# Symlink libncurses 6 >> 5
+sudo ln -s /usr/lib/x86_64-linux-gnu/libncurses.so.6 /usr/lib/x86_64-linux-gnu/libncurses.so.5
+sudo ln -s /usr/lib/x86_64-linux-gnu/libtinfo.so.6   /usr/lib/x86_64-linux-gnu/libtinfo.so.5
+echo "============="
+echo "lib6 >> lib5  "
+echo "============="
+
 #repo init
-repo init -u https://github.com/ProjectMatrixx/android.git -b 15.0 --git-lfs
+repo init -u https://github.com/Kyura-Ground/android.git -b 13.0 --git-lfs
 echo "=================="
 echo "Repo init success"
 echo "=================="
 
 #local_manifest
-git clone https://github.com/Kyura-Ground/local_manifests.git -b main .repo/local_manifests
+git clone https://github.com/Kyura-Ground/local_manifests.git -b Cr13 .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
@@ -28,4 +35,4 @@ echo "======= Export Done ======"
 echo "====== Envsetup Done ======="
 
 #build
-brunch X00TD && make installclean
+lunch lineage_X00T-userdebug && make installclean && m bacon
