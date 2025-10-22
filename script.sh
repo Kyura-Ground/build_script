@@ -35,4 +35,4 @@ echo "======= Export Done ======"
 echo "====== Envsetup Done ======="
 
 #build
-lunch superior_X00T-userdebug && make installclean && mka bacon
+lunch superior_X00TD-userdebug && make installclean && mka bacon
