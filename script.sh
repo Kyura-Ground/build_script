@@ -36,4 +36,4 @@ echo "======= Export Done ======"
 echo "====== Envsetup Done ======="
 
 #build
-lunch lineage_X00TD-userdebug && make installclean && mka bacon
+lunch lineage_X00TD-user && make installclean && mka bacon
