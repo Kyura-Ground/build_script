@@ -8,13 +8,13 @@ echo "lib6 >> lib5  "
 echo "============="
 
 #repo init
-repo init -u https://github.com/Kyura-Ground/manifest.git -b QPR3
+repo init -u https://github.com/RisingOS-XTI/manifest -b thirteen --git-lfs
 echo "=================="
 echo "Repo init success"
 echo "=================="
 
 #local_manifest
-git clone https://github.com/Kyura-Ground/local_manifests.git -b Supex .repo/local_manifests
+git clone https://github.com/Kyura-Ground/local_manifests.git -b Rising .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
@@ -35,4 +35,4 @@ echo "======= Export Done ======"
 echo "====== Envsetup Done ======="
 
 #build
-lunch superior_X00TD-userdebug && mka bacon
+lunch lineage_X00TD-userdebug && mka bacon
