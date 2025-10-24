@@ -1,5 +1,4 @@
 rm -rf .repo/local_manifests/
-rm -rf external/chromium-webview
 
 # Symlink libncurses 6 >> 5
 sudo ln -s /usr/lib/x86_64-linux-gnu/libncurses.so.6 /usr/lib/x86_64-linux-gnu/libncurses.so.5
@@ -9,13 +8,13 @@ echo "lib6 >> lib5  "
 echo "============="
 
 #repo init
-repo init -u https://github.com/RisingOS-XTI/manifest -b thirteen --git-lfs
+repo init -u https://github.com/Superior13-NEXT//manifest.git -b QPR3
 echo "=================="
 echo "Repo init success"
 echo "=================="
 
 #local_manifest
-git clone https://github.com/Kyura-Ground/local_manifests.git -b Rising .repo/local_manifests
+git clone https://github.com/Kyura-Ground/local_manifests.git -b Supex .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
@@ -36,4 +35,4 @@ echo "======= Export Done ======"
 echo "====== Envsetup Done ======="
 
 #build
-lunch lineage_X00TD-user && make installclean && mka bacon
+lunch superior_X00TD-user && make installclean && mka bacon
