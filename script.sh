@@ -1,5 +1,6 @@
 rm -rf .repo/local_manifests/
 rm -rf external/chromium-webview
+rm -rf out/soong out/host/linux-x86
 
 # Symlink libncurses 6 >> 5
 sudo ln -s /usr/lib/x86_64-linux-gnu/libncurses.so.6 /usr/lib/x86_64-linux-gnu/libncurses.so.5
