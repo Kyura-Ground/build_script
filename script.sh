@@ -16,7 +16,7 @@ echo "Repo init success"
 echo "=================="
 
 #local_manifest
-git clone https://github.com/Kyura-Ground/local_manifests.git -b Rising .repo/local_manifests
+git clone https://github.com/Kyura-Ground/local_manifests.git -b RisingV2 .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
