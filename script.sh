@@ -10,13 +10,13 @@ echo "lib6 >> lib5  "
 echo "============="
 
 #repo init
-repo init -u https://github.com/DerpFest-AOSP/manifest.git -b 13
+repo init -u https://github.com/los-ginkgo/android.git -b lineage-20.0 --git-lfs --depth=1
 echo "=================="
 echo "Repo init success"
 echo "=================="
 
 #local_manifest
-git clone https://github.com/Kyura-Ground/local_manifests.git -b derp .repo/local_manifests
+git clone https://github.com/Kyura-Ground/local_manifests.git -b Lineage .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
@@ -37,4 +37,4 @@ echo "======= Export Done ======"
 echo "====== Envsetup Done ======="
 
 #build
-lunch derp_X00TD-user && make installclean && mka derp
+lunch lineage_X00TD-user && make installclean && mka bacon
