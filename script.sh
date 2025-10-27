@@ -10,13 +10,13 @@ echo "lib6 >> lib5  "
 echo "============="
 
 #repo init
-repo init -u https://github.com/los-ginkgo/android.git -b lineage-20.0 --git-lfs --depth=1
+repo init -u https://github.com/RisingOS-XTI/manifest -b thirteen --git-lfs
 echo "=================="
 echo "Repo init success"
 echo "=================="
 
 #local_manifest
-git clone https://github.com/Kyura-Ground/local_manifests.git -b Lineage .repo/local_manifests
+git clone https://github.com/Kyura-Ground/local_manifests.git -b Rising13 .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
