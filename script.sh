@@ -10,7 +10,7 @@ echo "lib6 >> lib5  "
 echo "============="
 
 #repo init
-repo init -u https://github.com/RisingOS-XTI/manifest -b thirteen --git-lfs
+repo init -u https://github.com/Superior13-NEXT/manifest.git -b QPR3
 echo "=================="
 echo "Repo init success"
 echo "=================="
