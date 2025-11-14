@@ -18,7 +18,7 @@ echo "Repo init success"
 echo "=================="
 
 #local_manifest
-git clone https://github.com/Kyura-Ground/local_manifests.git -b Supex .repo/local_manifests
+git clone https://github.com/Kyura-Ground/local_manifests.git -b Superior .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
@@ -39,4 +39,4 @@ echo "======= Export Done ======"
 echo "====== Envsetup Done ======="
 
 #build
-lunch superior_X00TD-user && make installclean && m bacon
+lunch superior_X00T-user && make installclean && m bacon
