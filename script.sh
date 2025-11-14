@@ -12,7 +12,7 @@ echo "lib6 >> lib5  "
 echo "============="
 
 #repo init
-repo init -u https://github.com/ArrowOS-T/android_manifest.git -b arrow-13.1
+repo init -u https://github.com/ikwfahmi/android_manifest.git -b arrow-13.1
 echo "=================="
 echo "Repo init success"
 echo "=================="
