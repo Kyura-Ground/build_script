@@ -3,6 +3,8 @@ rm -rf external/chromium-webview
 rm -rf out/soong out/host/linux-x86
 rm -rf hardware/qcom-caf/msm8998
 rm -rf hardware/qcom-caf/sdm660
+rm -rf device/asus/sdm660-common
+rm -rf vendor/asus
 
 # Symlink libncurses 6 >> 5
 sudo ln -s /usr/lib/x86_64-linux-gnu/libncurses.so.6 /usr/lib/x86_64-linux-gnu/libncurses.so.5
