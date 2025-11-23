@@ -14,13 +14,13 @@ echo "lib6 >> lib5  "
 echo "============="
 
 #repo init
-repo init -u https://github.com/los-ginkgo/android.git -b lineage-20.0 --git-lfs --depth=1
+repo init -u https://github.com/Kyura-Ground/manifest.git -b QPR3
 echo "=================="
 echo "Repo init success"
 echo "=================="
 
 #local_manifest
-git clone https://github.com/Kyura-Ground/local_manifests.git -b Rising13 .repo/local_manifests
+git clone https://github.com/Kyura-Ground/local_manifests.git -b Supex .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
@@ -41,4 +41,4 @@ echo "======= Export Done ======"
 echo "====== Envsetup Done ======="
 
 #build
-lunch lineage_X00TD-user && make installclean && mka bacon
+lunch superior_X00TD-user && make installclean && mka bacon
