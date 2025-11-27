@@ -14,13 +14,13 @@ echo "lib6 >> lib5  "
 echo "============="
 
 #repo init
-repo init -u https://github.com/Kyura-Ground/manifest.git -b QPR3
+repo init -u https://github.com/AwakenOS/android_manifest -b triton --git-lfs
 echo "=================="
 echo "Repo init success"
 echo "=================="
 
 #local_manifest
-git clone https://github.com/Kyura-Ground/local_manifests.git -b Supex .repo/local_manifests
+git clone https://github.com/Kyura-Ground/local_manifests.git -b Awaken .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
@@ -41,4 +41,4 @@ echo "======= Export Done ======"
 echo "====== Envsetup Done ======="
 
 #build
-lunch superior_X00TD-user && make installclean && mka bacon
+lunch awaken_X00TD-user && make installclean && mka bacon
