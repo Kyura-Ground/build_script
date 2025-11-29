@@ -41,4 +41,4 @@ echo "======= Export Done ======"
 echo "====== Envsetup Done ======="
 
 #build
-lunch awaken_X00TD-user && make installclean && mka bacon
+lunch awaken_X00T-user && make installclean && mka bacon
