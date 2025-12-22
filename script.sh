@@ -20,7 +20,7 @@ echo "Repo init success"
 echo "=================="
 
 #local_manifest
-git clone https://github.com/Kyura-Ground/local_manifests.git -b Awaken .repo/local_manifests
+git clone https://github.com/Kyura-Ground/local_manifests.git -b Awaken13 .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
@@ -41,4 +41,4 @@ echo "======= Export Done ======"
 echo "====== Envsetup Done ======="
 
 #build
-lunch awaken_X00TD-user && make installclean && mka bacon
+lunch awaken_X00T-user && make installclean && mka bacon
