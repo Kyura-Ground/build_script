@@ -14,13 +14,13 @@ echo "lib6 >> lib5  "
 echo "============="
 
 #repo init
-repo init -u https://github.com/AwakenOS/android_manifest -b triton --git-lfs
+repo init -u https://github.com/ArrowOS-T/android_manifest.git -b arrow-13.1_ext
 echo "=================="
 echo "Repo init success"
 echo "=================="
 
 #local_manifest
-git clone https://github.com/Kyura-Ground/local_manifests.git -b Awaken13 .repo/local_manifests
+git clone https://github.com/Kyura-Ground/local_manifests.git -b Arrow13 .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
@@ -41,4 +41,4 @@ echo "======= Export Done ======"
 echo "====== Envsetup Done ======="
 
 #build
-lunch awaken_X00T-user && make installclean && mka bacon
+lunch arrow_X00TD-user && make installclean && m bacon
