@@ -14,13 +14,13 @@ echo "lib6 >> lib5  "
 echo "============="
 
 #repo init
-repo init -u https://github.com/ArrowOS-T/android_manifest.git -b arrow-13.1_ext
+repo init -u https://github.com/crdroid-13-fork/android.git -b 13.0 --git-lfs
 echo "=================="
 echo "Repo init success"
 echo "=================="
 
 #local_manifest
-git clone https://github.com/Kyura-Ground/local_manifests.git -b Arrow13 .repo/local_manifests
+git clone https://github.com/Kyura-Ground/local_manifests.git -b Rising13 .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
@@ -41,4 +41,4 @@ echo "======= Export Done ======"
 echo "====== Envsetup Done ======="
 
 #build
-lunch arrow_X00TD-user && make installclean && m bacon
+lunch lineage_X00TD-user && make installclean && m bacon
