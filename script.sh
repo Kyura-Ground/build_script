@@ -14,7 +14,7 @@ echo "lib6 >> lib5  "
 echo "============="
 
 #repo init
-repo init -u https://github.com/crdroid-13-fork/android.git -b 13.0 --git-lfs
+repo init -u https://github.com/ikwfahmi/manifest -b thirteen --git-lfs
 echo "=================="
 echo "Repo init success"
 echo "=================="
