@@ -13,13 +13,13 @@ rm -rf vendor/asus
 # echo "============="
 
 #repo init
-repo init -u https://github.com/euclidOS-AOSP/manifest.git -b 16.1 --git-lfs
+repo init -u https://github.com/AxionAOSP/android.git -b lineage-23.1 --git-lfs
 echo "=================="
 echo "Repo init success"
 echo "=================="
 
 #local_manifest
-git clone -b main https://github.com/ikwfahmi/local_manifests.git .repo/local_manifests
+git clone -b Axion-16 https://github.com/ikwfahmi/local_manifests.git .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
@@ -40,4 +40,4 @@ echo "======= Export Done ======"
 echo "====== Envsetup Done ======="
 
 #build
-lunch euclid_X00TD-bp3a-userdebug && make installclean && m euclid
+axion X00TD gms core && make installclean && ax -br
