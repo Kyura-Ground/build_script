@@ -14,13 +14,13 @@ rm -rf vendor/asus
 # echo "============="
 
 #repo init
-repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/ProjectInfinity-X/manifest -b 16 -g default,-mips,-darwin,-notdefault
+repo init -u https://github.com/euclidOS-AOSP/manifest.git -b 16.1 --git-lfs
 echo "=================="
 echo "Repo init success"
 echo "=================="
 
 #local_manifest
-git clone -b Infinity-16 https://github.com/ikwfahmi/local_manifests.git .repo/local_manifests
+git clone -b main https://github.com/ikwfahmi/local_manifests.git .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
@@ -41,4 +41,4 @@ echo "======= Export Done ======"
 echo "====== Envsetup Done ======="
 
 #build
-lunch infinity_X00TD-user && make installclean && m bacon
+lunch euclid_X00TD-bp3a-userdebug && make installclean && m euclid
