@@ -6,21 +6,21 @@ rm -rf hardware/qcom-caf/sdm660
 rm -rf device/asus/sdm660-common
 rm -rf vendor/asus
 
-# Symlink libncurses 6 >> 5
-# sudo ln -s /usr/lib/x86_64-linux-gnu/libncurses.so.6 /usr/lib/x86_64-linux-gnu/libncurses.so.5
-# sudo ln -s /usr/lib/x86_64-linux-gnu/libtinfo.so.6   /usr/lib/x86_64-linux-gnu/libtinfo.so.5
-# echo "============="
-# echo "lib6 >> lib5  "
-# echo "============="
+Symlink libncurses 6 >> 5
+sudo ln -s /usr/lib/x86_64-linux-gnu/libncurses.so.6 /usr/lib/x86_64-linux-gnu/libncurses.so.5
+sudo ln -s /usr/lib/x86_64-linux-gnu/libtinfo.so.6   /usr/lib/x86_64-linux-gnu/libtinfo.so.5
+echo "============="
+echo "lib6 >> lib5  "
+echo "============="
 
 #repo init
-repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/ProjectInfinity-X/manifest -b 16 -g default,-mips,-darwin,-notdefault
+repo init -u https://github.com/ArrowOS-T/android_manifest.git -b arrow-13.1_ext
 echo "=================="
 echo "Repo init success"
 echo "=================="
 
 #local_manifest
-git clone -b Infinity-16 https://github.com/ikwfahmi/local_manifests.git .repo/local_manifests
+git clone -b Arrow-13 https://github.com/ikwfahmi/local_manifests.git .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
@@ -41,4 +41,4 @@ echo "======= Export Done ======"
 echo "====== Envsetup Done ======="
 
 #build
-lunch infinity_X00TD-userdebug && make installclean && m bacon
+lunch arrow_X00T-user && make installclean && m bacon
