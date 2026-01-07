@@ -41,4 +41,4 @@ echo "======= Export Done ======"
 echo "====== Envsetup Done ======="
 
 #build
-lunch infinity_X00TD-user && make installclean && m bacon
+lunch infinity_X00TD-userdebug && make installclean && m bacon
