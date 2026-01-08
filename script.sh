@@ -5,21 +5,21 @@ rm -rf hardware/qcom-caf/sdm660
 rm -rf device/asus/sdm660-common
 rm -rf vendor/asus
 
-# Symlink libncurses 6 >> 5
-# sudo ln -s /usr/lib/x86_64-linux-gnu/libncurses.so.6 /usr/lib/x86_64-linux-gnu/libncurses.so.5
-# sudo ln -s /usr/lib/x86_64-linux-gnu/libtinfo.so.6   /usr/lib/x86_64-linux-gnu/libtinfo.so.5
-# echo "============="
-# echo "lib6 >> lib5  "
-# echo "============="
+Symlink libncurses 6 >> 5
+sudo ln -s /usr/lib/x86_64-linux-gnu/libncurses.so.6 /usr/lib/x86_64-linux-gnu/libncurses.so.5
+sudo ln -s /usr/lib/x86_64-linux-gnu/libtinfo.so.6   /usr/lib/x86_64-linux-gnu/libtinfo.so.5
+echo "============="
+echo "lib6 >> lib5  "
+echo "============="
 
 #repo init
-repo init -u https://github.com/Evolution-X/manifest -b bq1 --git-lfs
+repo init -u https://github.com/ikwfahmi/manifest.git -b QPR3
 echo "=================="
 echo "Repo init success"
 echo "=================="
 
 #local_manifest
-git clone -b main https://github.com/ikwfahmi/local_manifests.git .repo/local_manifests
+git clone -b Supex https://github.com/Kyura-Ground/local_manifests.git .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
@@ -40,4 +40,4 @@ echo "======= Export Done ======"
 echo "====== Envsetup Done ======="
 
 #build
-lunch lineage_X00TD-bp3a-userdebug && make installclean && m evolution
+lunch superior_X00T-user && make installclean && m bacon
