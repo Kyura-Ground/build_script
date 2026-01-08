@@ -19,7 +19,7 @@ echo "Repo init success"
 echo "=================="
 
 #local_manifest
-git clone -b Supex https://github.com/Kyura-Ground/local_manifests.git .repo/local_manifests
+git clone -b Supex-13 https://github.com/ikwfahmi/local_manifests.git .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
