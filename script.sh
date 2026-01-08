@@ -1,4 +1,5 @@
 rm -rf .repo/local_manifests/
+rm -rf external/chromium-webview
 rm -rf out/soong out/host/linux-x86
 rm -rf hardware/qcom-caf/msm8998
 rm -rf hardware/qcom-caf/sdm660
@@ -13,13 +14,13 @@ rm -rf vendor/asus
 # echo "============="
 
 #repo init
-repo init -u https://github.com/Evolution-X/manifest -b bq1 --git-lfs
+repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/ProjectInfinity-X/manifest -b 16 -g default,-mips,-darwin,-notdefault
 echo "=================="
 echo "Repo init success"
 echo "=================="
 
 #local_manifest
-git clone -b main https://github.com/ikwfahmi/local_manifests.git .repo/local_manifests
+git clone -b Infinity-16 https://github.com/ikwfahmi/local_manifests.git .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
@@ -40,4 +41,4 @@ echo "======= Export Done ======"
 echo "====== Envsetup Done ======="
 
 #build
-lunch lineage_X00TD-bp3a-userdebug && make installclean && m evolution
+lunch infinity_X00TD-user && make installclean && m bacon
