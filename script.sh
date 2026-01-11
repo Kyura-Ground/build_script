@@ -30,6 +30,9 @@ echo "============="
 echo "Sync success"
 echo "============="
 
+rm -rf vendor/lineage
+git clone https://github.com/ikwfahmi/vendor_evolution -b bq vendor/lineage
+
 # Export
 export BUILD_USERNAME=kyura
 export BUILD_HOSTNAME=crave
