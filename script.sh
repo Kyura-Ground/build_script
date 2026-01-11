@@ -13,8 +13,8 @@ rm -rf vendor/asus
 # echo "============="
 
 #repo init
-repo init -u https://github.com/Evolution-X/manifest -b bq1 --git-lfs --depth=1
-echo "=================="
+repo init -u https://github.com/crdroidandroid/android.git -b 16.0 --git-lfs --no-clone-bundle
+"=================="
 echo "Repo init success"
 echo "=================="
 
@@ -43,4 +43,4 @@ echo "======= Export Done ======"
 echo "====== Envsetup Done ======="
 
 #build
-lunch lineage_X00TD-bp3a-user && make installclean && m evolution
+make installclean && brunch X00TD
