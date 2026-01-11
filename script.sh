@@ -4,8 +4,11 @@ rm -rf hardware/qcom-caf/msm8998
 rm -rf hardware/qcom-caf/sdm660
 rm -rf device/asus/sdm660-common
 rm -rf vendor/asus
+echo "=================="
+echo "Remove LOCAL MANIFEST success"
+echo "=================="
 
-Symlink libncurses 6 >> 5
+# Symlink libncurses 6 >> 5
 sudo ln -s /usr/lib/x86_64-linux-gnu/libncurses.so.6 /usr/lib/x86_64-linux-gnu/libncurses.so.5
 sudo ln -s /usr/lib/x86_64-linux-gnu/libtinfo.so.6   /usr/lib/x86_64-linux-gnu/libtinfo.so.5
 echo "============="
