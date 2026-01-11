@@ -13,7 +13,7 @@ rm -rf vendor/asus
 # echo "============="
 
 #repo init
-repo init -u https://github.com/Evolution-X/manifest -b bq1 --git-lfs
+repo init -u https://github.com/Evolution-X/manifest -b bq1 --git-lfs --depth=1
 echo "=================="
 echo "Repo init success"
 echo "=================="
