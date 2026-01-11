@@ -40,4 +40,4 @@ echo "======= Export Done ======"
 echo "====== Envsetup Done ======="
 
 #build
-make installclean && brunch X00TD
+lunch lineage_X00TD-bp3a-user && make installclean && mka bacon
