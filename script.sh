@@ -19,7 +19,7 @@ echo "Repo init success"
 echo "=================="
 
 #local_manifest
-git clone -b main https://github.com/ikwfahmi/local_manifests.git .repo/local_manifests
+git clone -b Cr-16 https://github.com/ikwfahmi/local_manifests.git .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
