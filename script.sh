@@ -18,7 +18,7 @@ echo "Repo init success"
 echo "=================="
 
 #local_manifest
-git clone -b Lineage-13 https://github.com/ikwfahmi/local_manifests.git .repo/local_manifests
+git clone -b Lineage-13.1 https://github.com/ikwfahmi/local_manifests.git .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
@@ -39,4 +39,4 @@ echo "======= Export Done ======"
 echo "====== Envsetup Done ======="
 
 #build
-lunch lineage_X00TD-user && make installclean && mka bacon
+lunch lineage_X00T-user && make installclean && mka bacon
