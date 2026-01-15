@@ -6,19 +6,20 @@ rm -rf device/asus/sdm660-common
 rm -rf vendor/asus
 
 # Symlink libncurses 6 >> 5
-sudo ln -s /usr/lib/x86_64-linux-gnu/libncurses.so.6 /usr/lib/x86_64-linux-gnu/libncurses.so.5
-sudo ln -s /usr/lib/x86_64-linux-gnu/libtinfo.so.6   /usr/lib/x86_64-linux-gnu/libtinfo.so.5
-echo "============="cho "lib6 >> lib5  "
-echo "============="
+# sudo ln -s /usr/lib/x86_64-linux-gnu/libncurses.so.6 /usr/lib/x86_64-linux-gnu/libncurses.so.5
+# sudo ln -s /usr/lib/x86_64-linux-gnu/libtinfo.so.6   /usr/lib/x86_64-linux-gnu/libtinfo.so.5
+# echo "============="
+# echo "lib6 >> lib5  "
+# echo "============="
 
 #repo init
-repo init -u https://github.com/LineageOS-T/android.git -b lineage-20.0 --git-lfs --depth=1
+repo init -u https://github.com/crdroidandroid/android.git -b 16.0 --git-lfs --no-clone-bundle
 "=================="
 echo "Repo init success"
 echo "=================="
 
 #local_manifest
-git clone -b Lineage-13.1 https://github.com/ikwfahmi/local_manifests.git .repo/local_manifests
+git clone -b main https://github.com/ikwfahmi/local_manifests.git .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
@@ -39,4 +40,4 @@ echo "======= Export Done ======"
 echo "====== Envsetup Done ======="
 
 #build
-lunch lineage_X00T-user && make installclean && mka bacon
+lunch lineage_X00TD-bp3a-user && make installclean && mka bacon
