@@ -13,7 +13,7 @@ rm -rf vendor/asus
 # echo "============="
 
 #repo init
-repo init -u https://github.com/Evolution-X/manifest -b bq1 --git-lfs
+repo init -u https://github.com/Evolution-X/manifest -b bq2 --git-lfs
 "=================="
 echo "Repo init success"
 echo "=================="
@@ -43,4 +43,4 @@ echo "======= Export Done ======"
 echo "====== Envsetup Done ======="
 
 #build
-lunch lineage_X00TD-bp3a-userdebug && make installclean && m evolution
+lunch lineage_X00TD-bp4a-userdebug && make installclean && m evolution
