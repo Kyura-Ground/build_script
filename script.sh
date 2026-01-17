@@ -30,9 +30,6 @@ echo "============="
 echo "Sync success"
 echo "============="
 
-rm -rf vendor/lineage
-git clone https://github.com/ikwfahmi/vendor_evolution.git -b bq1 vendor/lineage
-
 rm -rf build/soong
 git clone https://github.com/ikwfahmi/build_soong.git -b bq1 build/soong
 
