@@ -43,4 +43,4 @@ echo "======= Export Done ======"
 echo "====== Envsetup Done ======="
 
 #build
-lunch lineage_X00TD-bp3a-userdebug && make installclean && m evolution
+lunch lineage_X00TD-bp3a-user && make installclean && m evolution
