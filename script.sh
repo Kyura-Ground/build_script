@@ -6,21 +6,20 @@ rm -rf device/asus/sdm660-common
 rm -rf vendor/asus
 
 # Symlink libncurses 6 >> 5
-sudo ln -s /usr/lib/x86_64-linux-gnu/libncurses.so.6 /usr/lib/x86_64-linux-gnu/libncurses.so.5
-sudo ln -s /usr/lib/x86_64-linux-gnu/libtinfo.so.6   /usr/lib/x86_64-linux-gnu/libtinfo.so.5
-echo "============="
-echo "lib6 >> lib5  "
-echo "============="
+# sudo ln -s /usr/lib/x86_64-linux-gnu/libncurses.so.6 /usr/lib/x86_64-linux-gnu/libncurses.so.5
+# sudo ln -s /usr/lib/x86_64-linux-gnu/libtinfo.so.6   /usr/lib/x86_64-linux-gnu/libtinfo.so.5
+# echo "============="
+# echo "lib6 >> lib5  "
+# echo "============="
 
 #repo init
-repo init -u https://github.com/ArrowOS-T/android_manifest.git -b arrow-13.1_ext
-
+repo init -u https://github.com/halcyonproject/manifest -b 16.0 --git-lfs
 "=================="
 echo "Repo init success"
 echo "=================="
 
 #local_manifest
-git clone -b Arrow-13.1 https://github.com/ikwfahmi/local_manifests.git .repo/local_manifests
+git clone -b main https://github.com/ikwfahmi/local_manifests.git .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
@@ -41,4 +40,4 @@ echo "======= Export Done ======"
 echo "====== Envsetup Done ======="
 
 #build
-lunch arrow_X00TD-user && make installclean && m bacon
+lunch halcyon_X00TD-bp2a-user && make installclean && mka carthage
