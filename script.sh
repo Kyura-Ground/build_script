@@ -13,14 +13,14 @@ echo "lib6 >> lib5  "
 echo "============="
 
 #repo init
-repo init -u https://github.com/ikwfahmi/manifest.git -b QPR3 --depth=1
+repo init -u https://github.com/ArrowOS-T/android_manifest.git -b arrow-13.1_ext
 
 "=================="
 echo "Repo init success"
 echo "=================="
 
 #local_manifest
-git clone -b Supex-13.1 https://github.com/ikwfahmi/local_manifests.git .repo/local_manifests
+git clone -b Arrow-13.1 https://github.com/ikwfahmi/local_manifests.git .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
@@ -41,4 +41,4 @@ echo "======= Export Done ======"
 echo "====== Envsetup Done ======="
 
 #build
-lunch superior_X00TD-user && make installclean && m bacon
+lunch arrow_X00TD-user && make installclean && m bacon
