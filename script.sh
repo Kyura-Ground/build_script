@@ -40,6 +40,7 @@ export BUILD_HOSTNAME=crave
 echo "======= Export Done ======"
 
 # Set up build environment
+cd /crave-devspaces/aosp
 . build/envsetup.sh
 echo "====== Envsetup Done ======="
 
