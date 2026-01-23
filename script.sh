@@ -42,7 +42,7 @@ echo "====== Envsetup Done ======="
 # Creating certs
 cd vendor/voltage-priv/keys 
 bash ./make_key.sh
-croot
+cd /crave-devspaces/aosp
 
 # Apply Symbiot patchset
 curl -L -o ./symbiot-patcher https://symbiotos.nenggala-project.id/file/symbiot-patcher
