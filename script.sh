@@ -20,13 +20,13 @@ repo init -u https://github.com/VoltageOS/manifest --git-lfs --depth 1 -b 16
 echo "Repo init success"
 echo "=================="
 
-cp -r ~/symbiotos_advan_x1_manifest/local_manifests .repo/
-
 #local_manifest
 git clone -b Symbiot-16 https://github.com/ikwfahmi/local_manifests.git .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
+
+cp -r ~/symbiotos_advan_x1_manifest/local_manifests .repo/
 
 #Sync
 /opt/crave/resync.sh
