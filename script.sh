@@ -12,21 +12,17 @@ rm -rf vendor/asus
 # echo "lib6 >> lib5  "
 # echo "============="
 
-git clone -b symbiot-16 https://github.com/nenggala-project/symbiotos_advan_x1_manifest symbiotos_advan_x1_manifest
-
 #repo init
-repo init -u https://github.com/VoltageOS/manifest.git -b 16 --git-lfs --depth=1
-"=================="
+repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/ProjectInfinity-X/manifest -b 16 -g default,-mips,-darwin,-notdefault
+echo "=================="
 echo "Repo init success"
 echo "=================="
 
 #local_manifest
-git clone -b Symbiot-16 https://github.com/ikwfahmi/local_manifests.git .repo/local_manifests
+git clone -b Infinity-16 https://github.com/ikwfahmi/local_manifests.git .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
-
-cp -r ~/symbiotos_advan_x1_manifest/local_manifests .repo/
 
 #Sync
 /opt/crave/resync.sh
@@ -40,19 +36,8 @@ export BUILD_HOSTNAME=crave
 echo "======= Export Done ======"
 
 # Set up build environment
-cd /crave-devspaces/aosp
 . build/envsetup.sh
 echo "====== Envsetup Done ======="
 
-# Creating certs
-cd vendor/voltage-priv/keys 
-bash ./make_key.sh
-cd /crave-devspaces/aosp
-
-# Apply Symbiot patchset
-curl -L -o ./symbiot-patcher https://symbiotos.nenggala-project.id/file/symbiot-patcher
-chmod +x ./symbiot-patcher
-./symbiot-patcher --apply
-
-# Build
-brunch X00TD
+#build
+lunch infinity_X00TD-user && make installclean && m bacon
