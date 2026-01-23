@@ -13,7 +13,7 @@ rm -rf vendor/asus
 # echo "============="
 
 #repo init
-repo init -u https://github.com/halcyonproject/manifest -b 16.0 --git-lfs
+repo init -u https://github.com/VoltageOS/manifest --git-lfs --depth 1 --branch voltage-16
 "=================="
 echo "Repo init success"
 echo "=================="
@@ -39,5 +39,15 @@ echo "======= Export Done ======"
 . build/envsetup.sh
 echo "====== Envsetup Done ======="
 
-#build
-lunch halcyon_X00TD-bp2a-user && make installclean && mka carthage
+# Creating certs
+cd vendor/voltage-priv/keys 
+bash ./make_key.sh
+croot
+
+# Apply Symbiot patchset
+curl -L -o ./symbiot-patcher https://symbiotos.nenggala-project.id/file/symbiot-patcher
+chmod +x ./symbiot-patcher
+./symbiot-patcher --apply
+
+# Build
+brunch X00TD
