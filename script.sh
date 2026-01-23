@@ -15,7 +15,7 @@ rm -rf vendor/asus
 git clone --branch symbiot-16 https://github.com/nenggala-project/symbiotos_advan_x1_manifest symbiotos_advan_x1_manifest
 
 #repo init
-repo init -u https://github.com/VoltageOS/manifest --git-lfs --depth 1 -b voltage-16
+repo init -u https://github.com/VoltageOS/manifest --git-lfs --depth 1 -b 16
 "=================="
 echo "Repo init success"
 echo "=================="
