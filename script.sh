@@ -12,7 +12,7 @@ rm -rf vendor/asus
 # echo "lib6 >> lib5  "
 # echo "============="
 
-git clone --branch symbiot-16 https://github.com/nenggala-project/symbiotos_advan_x1_manifest symbiotos_advan_x1_manifest
+git clone -b symbiot-16 https://github.com/nenggala-project/symbiotos_advan_x1_manifest symbiotos_advan_x1_manifest
 
 #repo init
 repo init -u https://github.com/VoltageOS/manifest.git -b 16 --git-lfs --depth=1
