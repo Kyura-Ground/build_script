@@ -30,9 +30,6 @@ echo "============="
 echo "Sync success"
 echo "============="
 
-rm -rf build/soong
-git clone https://github.com/ikwfahmi/build_soong.git -b bq1 build/soong
-
 # Export
 export BUILD_USERNAME=kyura
 export BUILD_HOSTNAME=crave
