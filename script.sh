@@ -13,7 +13,7 @@ rm -rf vendor/asus
 # echo "============="
 
 #repo init
-repo init -u https://github.com/euclidOS-AOSP/manifest.git -b 16.1 --git-lfs --depth=1
+repo init -u https://github.com/Evolution-X/manifest -b bq1 --git-lfs --depth=1
 "=================="
 echo "Repo init success"
 echo "=================="
@@ -40,4 +40,4 @@ echo "======= Export Done ======"
 echo "====== Envsetup Done ======="
 
 #build
-lunch euclid_X00TD-bp3a-user && make installclean && m euclid
+lunch lineage_X00TD-bp3a-user && make installclean && m evolution
