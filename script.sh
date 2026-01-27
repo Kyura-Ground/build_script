@@ -24,8 +24,8 @@ echo "============================"
 echo "Local manifest clone success"
 echo "============================"
 
-#Sync
-/opt/crave/resync.sh
+# repo sync
+[ -f /usr/bin/resync ] && /usr/bin/resync || /opt/crave/resync.sh
 echo "============="
 echo "Sync success"
 echo "============="
