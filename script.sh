@@ -13,7 +13,7 @@ rm -rf vendor/asus
 # echo "============="
 
 #repo init
-repo init -u https://github.com/Evolution-X/manifest -b bq1 --git-lfs --depth=1
+repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/Evolution-X/manifest -b bq1 -g default,-mips,-darwin,-notdefault
 "=================="
 echo "Repo init success"
 echo "=================="
@@ -29,6 +29,13 @@ echo "============================"
 echo "============="
 echo "Sync success"
 echo "============="
+
+# setup KernelSU
+if [ -d kernel/asus/sdm660 ]; then 
+	cd kernel/asus/sdm660
+	curl -LSs "https://raw.githubusercontent.com/rsuntk/KernelSU/main/kernel/setup.sh" | bash -s main
+	cd ../../..
+fi
 
 # Export
 export BUILD_USERNAME=kyura
@@ -46,3 +53,5 @@ cd /crave-devspaces/LOS
 
 #build
 lunch lineage_X00TD-bp3a-user && make installclean && m evolution
+
+[ -d out ] && ls out/target/product/X00TD
