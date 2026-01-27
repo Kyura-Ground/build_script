@@ -39,5 +39,10 @@ echo "======= Export Done ======"
 . build/envsetup.sh
 echo "====== Envsetup Done ======="
 
+git clone https://github.com/Evolution-X/vendor_evolution-priv_keys-template vendor/evolution-priv/keys
+cd vendor/evolution-priv/keys
+./keys.sh
+cd /crave-devspaces/LOS
+
 #build
 lunch lineage_X00TD-bp3a-user && make installclean && m evolution
