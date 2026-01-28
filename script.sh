@@ -13,13 +13,13 @@ rm -rf vendor/asus
 # echo "============="
 
 #repo init
-repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/Evolution-X/manifest -b bq1 -g default,-mips,-darwin,-notdefault
+repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/AxionAOSP/android.git -b lineage-23.1 -g default,-mips,-darwin,-notdefault
 "=================="
 echo "Repo init success"
 echo "=================="
 
 #local_manifest
-git clone -b main https://github.com/ikwfahmi/local_manifests.git .repo/local_manifests
+git clone -b Axion-16 https://github.com/ikwfahmi/local_manifests.git .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
@@ -52,6 +52,4 @@ cd vendor/evolution-priv/keys
 cd ../../..
 
 #build
-lunch lineage_X00TD-bp3a-user && make installclean && m evolution
-
-[ -d out ] && ls out/target/product/X00TD
+axion X00TD va && make installclean && ax -br
