@@ -56,7 +56,7 @@ if [ -d kernel/asus/sdm660 ]; then
 fi
 
 rm -rf frameworks/base
-git clone https://github.com/ikwfahmi/frameworks_base.git -b main frameworks/base
+git clone https://github.com/ikwfahmi/frameworks_base.git -b 16 frameworks/base
 
 rm -rf lineage-sdk
 git clone https://github.com/ikwfahmi/custom-sdk.git -b 16 lineage-sdk
