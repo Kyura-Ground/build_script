@@ -31,7 +31,7 @@ rm -rf "${remove_lists[@]}"
 # echo "============="
 
 #repo init
-repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/ProjectInfinity-X/manifest -b 16-QPR0 -g default,-mips,-darwin,-notdefault
+repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/ProjectInfinity-X/manifest -b 16 -g default,-mips,-darwin,-notdefault
 "=================="
 echo "Repo init success"
 echo "=================="
@@ -54,6 +54,9 @@ if [ -d kernel/asus/sdm660 ]; then
 	curl -LSs "https://raw.githubusercontent.com/rsuntk/KernelSU/main/kernel/setup.sh" | bash -s main
 	cd ../../..
 fi
+
+rm -rf lineage-sdk
+git clone https://github.com/ikwfahmi/custom-sdk.git -b 16 lineage-sdk
 
 # Export
 export BUILD_USERNAME=kyura
