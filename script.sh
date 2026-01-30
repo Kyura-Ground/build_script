@@ -52,6 +52,6 @@ cd vendor/infinity-priv/keys
 cd ../../..
 
 #build
-lunch infinity_X00TD-user 
+lunch infinity_X00TD-user
 make installclean
 m bacon
