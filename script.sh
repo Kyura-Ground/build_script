@@ -1,27 +1,9 @@
-# cleanup
-remove_lists=(
-.repo/local_manifests
-device/qcom/sepolicy
-device/qcom/sepolicy-legacy-um
-device/qcom/sepolicy_vndr/legacy-um
-device/asus/sdm660-common
-device/asus/X00TD
-external/chromium-webview
-external/rust
-kernel/asus/sdm660
-out/target/product/X00TD
-prebuilts/clang/host/linux-x86
-packages/modules/Nfc
-packages/apps/Nfc
-system/nfc
-vendor/extras
-vendor/addons
-vendor/asus/sdm660-common
-vendor/asus/X00TD
-)
-
-echo "-- Removing ${remove_lists[@]}"
-rm -rf "${remove_lists[@]}"
+rm -rf .repo/local_manifests/
+rm -rf out/soong out/host/linux-x86
+rm -rf hardware/qcom-caf/msm8998
+rm -rf hardware/qcom-caf/sdm660
+rm -rf device/asus/sdm660-common
+rm -rf vendor/asus
 
 # Symlink libncurses 6 >> 5
 # sudo ln -s /usr/lib/x86_64-linux-gnu/libncurses.so.6 /usr/lib/x86_64-linux-gnu/libncurses.so.5
