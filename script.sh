@@ -5,6 +5,7 @@ rm -rf hardware/qcom-caf/sdm660
 rm -rf device/asus/sdm660-common
 rm -rf vendor/asus
 rm -rf vendor/infinity-priv/keys
+rm -rf vendor/evolution-priv/keys
 
 # Symlink libncurses 6 >> 5
 # sudo ln -s /usr/lib/x86_64-linux-gnu/libncurses.so.6 /usr/lib/x86_64-linux-gnu/libncurses.so.5
