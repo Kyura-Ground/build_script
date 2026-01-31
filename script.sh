@@ -4,6 +4,7 @@ rm -rf hardware/qcom-caf/msm8998
 rm -rf hardware/qcom-caf/sdm660
 rm -rf device/asus/sdm660-common
 rm -rf vendor/asus
+rm -rf vendor/infinity-priv/keys
 
 # Symlink libncurses 6 >> 5
 # sudo ln -s /usr/lib/x86_64-linux-gnu/libncurses.so.6 /usr/lib/x86_64-linux-gnu/libncurses.so.5
@@ -46,6 +47,7 @@ echo "======= Export Done ======"
 . build/envsetup.sh
 echo "====== Envsetup Done ======="
 
+rm -rf vendor/infinity-priv/keys
 git clone https://github.com/ProjectInfinity-X/vendor_infinity-priv_keys-template vendor/infinity-priv/keys
 cd vendor/infinity-priv/keys
 ./keys.sh
