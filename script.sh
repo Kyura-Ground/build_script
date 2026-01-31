@@ -14,7 +14,7 @@ rm -rf vendor/asus
 
 #repo init
 repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/ikwfahmi/manifest -b 16 -g default,-mips,-darwin,-notdefault
-"=================="
+echo "=================="
 echo "Repo init success"
 echo "=================="
 
