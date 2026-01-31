@@ -15,7 +15,7 @@ rm -rf vendor/evolution-priv/keys
 # echo "============="
 
 #repo init
-repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/ikwfahmi/manifest -b 16 -g default,-mips,-darwin,-notdefault
+repo init -u https://github.com/PixelOS-AOSP/android_manifest.git -b sixteen-qpr1 --git-lfs
 echo "=================="
 echo "Repo init success"
 echo "=================="
@@ -39,6 +39,9 @@ if [ -d kernel/asus/sdm660 ]; then
 	cd ../../..
 fi
 
+rm -rf build/make
+git clone https://github.com/ikwfahmi/android_build.git build/make
+
 # Export
 export BUILD_USERNAME=kyura
 export BUILD_HOSTNAME=crave
@@ -48,13 +51,13 @@ echo "======= Export Done ======"
 . build/envsetup.sh
 echo "====== Envsetup Done ======="
 
-rm -rf vendor/infinity-priv/keys
-git clone https://github.com/ProjectInfinity-X/vendor_infinity-priv_keys-template vendor/infinity-priv/keys
-cd vendor/infinity-priv/keys
+rm -rf vendor/evolution-priv/keys
+git clone https://github.com/Evolution-X/vendor_evolution-priv_keys-template vendor/evolution-priv/keys
+cd vendor/evolution-priv/keys
 ./keys.sh
 cd ../../..
 
 #build
-lunch infinity_X00TD-user
+breakfast X00TD
 make installclean
-m bacon
+m pixelos
