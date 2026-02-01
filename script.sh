@@ -58,5 +58,6 @@ cd vendor/evolution-priv/keys
 cd ../../..
 
 #build
+lunch lineage_X00TD-bp3a-user
 make installclean
-brunch X00TD
+mka bacon
