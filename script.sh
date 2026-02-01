@@ -15,7 +15,7 @@ rm -rf vendor/evolution-priv/keys
 # echo "============="
 
 #repo init
-repo init -u https://github.com/PixelOS-AOSP/android_manifest.git -b sixteen-qpr1 --git-lfs
+repo init -u https://github.com/crdroidandroid/android.git -b 16.0 --git-lfs --no-clone-bundle
 echo "=================="
 echo "Repo init success"
 echo "=================="
@@ -58,6 +58,5 @@ cd vendor/evolution-priv/keys
 cd ../../..
 
 #build
-breakfast X00TD
 make installclean
-m pixelos
+brunch X00TD
