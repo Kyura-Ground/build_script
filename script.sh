@@ -15,7 +15,7 @@ rm -rf vendor/evolution-priv/keys
 # echo "============="
 
 #repo init
-repo init -u https://github.com/The-Clover-Project/manifest.git -b 16-qpr2 --git-lfs
+repo init -u https://github.com/The-Clover-Project/manifest.git -b 16-qpr1 --git-lfs
 echo "=================="
 echo "Repo init success"
 echo "=================="
@@ -43,10 +43,6 @@ rm -rf build/make
 git clone https://github.com/ikwfahmi/build_make.git build/make
 echo "======= make done ======"
 
-rm -rf device/clover/sepolicy
-git clone https://github.com/ikwfahmi/device_clover_sepolicy.git device/clover/sepolicy
-echo "======= sepolicy done ======"
-
 # Export
 export BUILD_USERNAME=kyura
 export BUILD_HOSTNAME=crave
@@ -63,6 +59,6 @@ cd vendor/evolution-priv/keys
 cd ../../..
 
 #build
-lunch clover_X00TD-bp4a-user
+lunch clover_X00TD-bp3a-user
 make installclean
 mka clover
