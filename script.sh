@@ -44,7 +44,7 @@ git clone https://github.com/ikwfahmi/android_build.git build/make
 
 rm -rf device/lineage/sepolicy
 git clone https://github.com/ikwfahmi/android_device_crdroid_sepolicy.git device/lineage/sepolicy
-
+echo "======= sepolicy done ======"
 # Export
 export BUILD_USERNAME=kyura
 export BUILD_HOSTNAME=crave
