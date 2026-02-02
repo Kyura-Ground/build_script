@@ -47,7 +47,6 @@ rm -rf device/clover/sepolicy
 git clone https://github.com/ikwfahmi/device_clover_sepolicy.git device/clover/sepolicy
 echo "======= sepolicy done ======"
 
-
 # Export
 export BUILD_USERNAME=kyura
 export BUILD_HOSTNAME=crave
