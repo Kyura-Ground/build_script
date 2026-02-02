@@ -41,6 +41,7 @@ fi
 
 rm -rf build/make
 git clone https://github.com/ikwfahmi/build_make.git build/make
+echo "======= make done ======"
 
 rm -rf device/clover/sepolicy
 git clone https://github.com/ikwfahmi/device_clover_sepolicy.git device/clover/sepolicy
