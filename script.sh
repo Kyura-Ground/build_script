@@ -15,7 +15,7 @@ rm -rf vendor/evolution-priv/keys
 # echo "============="
 
 #repo init
-repo init -u https://github.com/crdroidandroid/android.git -b 16.0 --git-lfs --no-clone-bundle
+repo init -u https://github.com/The-Clover-Project/manifest.git -b 16-qpr2 --git-lfs
 echo "=================="
 echo "Repo init success"
 echo "=================="
@@ -40,10 +40,10 @@ if [ -d kernel/asus/sdm660 ]; then
 fi
 
 rm -rf build/make
-git clone https://github.com/ikwfahmi/android_build.git build/make
+git clone https://github.com/ikwfahmi/build_make.git build/make
 
-rm -rf device/lineage/sepolicy
-git clone https://github.com/ikwfahmi/android_device_crdroid_sepolicy.git device/lineage/sepolicy
+rm -rf device/clover/sepolicy
+git clone https://github.com/ikwfahmi/device_clover_sepolicy.git device/clover/sepolicy
 echo "======= sepolicy done ======"
 
 
@@ -63,6 +63,6 @@ cd vendor/evolution-priv/keys
 cd ../../..
 
 #build
-lunch lineage_X00TD-bp3a-user
+lunch clover_X00TD-bp4a-user
 make installclean
-mka bacon
+mka clover
