@@ -15,13 +15,13 @@ rm -rf vendor/evolution-priv/keys
 # echo "============="
 
 #repo init
-repo init -u https://github.com/crdroidandroid/android.git -b 16.0 --git-lfs --no-clone-bundle
+repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/VoltageOS/manifest.git -b 16.2 -g default,-mips,-darwin,-notdefault
 echo "=================="
 echo "Repo init success"
 echo "=================="
 
 #local_manifest
-git clone -b main https://github.com/ikwfahmi/local_manifests.git .repo/local_manifests
+git clone -b Voltage-16 https://github.com/ikwfahmi/local_manifests.git .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
@@ -39,11 +39,8 @@ if [ -d kernel/asus/sdm660 ]; then
 	cd ../../..
 fi
 
-rm -rf build/make
-git clone https://github.com/ikwfahmi/android_build.git build/make
-
-rm -rf device/lineage/sepolicy
-git clone https://github.com/ikwfahmi/android_device_crdroid_sepolicy.git device/lineage/sepolicy
+rm -rf device/voltage/sepolicy
+git clone https://github.com/ikwfahmi/device_voltage_sepolicy.git device/voltage/sepolicy
 echo "======= sepolicy done ======"
 
 
@@ -56,13 +53,12 @@ echo "======= Export Done ======"
 . build/envsetup.sh
 echo "====== Envsetup Done ======="
 
-rm -rf vendor/evolution-priv/keys
-git clone https://github.com/Evolution-X/vendor_evolution-priv_keys-template vendor/evolution-priv/keys
-cd vendor/evolution-priv/keys
+rm -rf vendor/voltage-priv/keys
+git clone https://github.com/VoltageOS/vendor_voltage-priv_keys vendor/voltage-priv/keys
+cd vendor/voltage-priv/keys
 ./keys.sh
 cd ../../..
 
 #build
-lunch lineage_X00TD-bp4a-user
 make installclean
-mka bacon
+brunch X00TD
