@@ -7,6 +7,7 @@ rm -rf vendor/asus
 rm -rf vendor/infinity-priv/keys
 rm -rf vendor/evolution-priv/keys
 rm -rf vendor/lineage-priv/keys
+rm -rf vendor/voltage-priv/keys
 
 # Symlink libncurses 6 >> 5
 # sudo ln -s /usr/lib/x86_64-linux-gnu/libncurses.so.6 /usr/lib/x86_64-linux-gnu/libncurses.so.5
@@ -54,11 +55,9 @@ echo "======= Export Done ======"
 . build/envsetup.sh
 echo "====== Envsetup Done ======="
 
-rm -rf vendor/voltage-priv/keys
-git clone https://github.com/VoltageOS/vendor_voltage-priv_keys.git vendor/voltage-priv/keys
-cd vendor/voltage-priv/keys
-./keys.sh
-cd ../../..
+cd vendor/voltage-priv/keys/
+bash keys.sh
+cd -
 
 #build
 make installclean
