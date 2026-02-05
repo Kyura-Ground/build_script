@@ -38,11 +38,11 @@ if [ -d kernel/asus/sdm660 ]; then
 	curl -LSs "https://raw.githubusercontent.com/rsuntk/KernelSU/main/kernel/setup.sh" | bash -s main
 	cd ../../..
 fi
+echo "======= RKSU done ======"
 
 rm -rf device/voltage/sepolicy
 git clone https://github.com/ikwfahmi/device_voltage_sepolicy.git device/voltage/sepolicy
 echo "======= sepolicy done ======"
-
 
 # Export
 export BUILD_USERNAME=kyura
