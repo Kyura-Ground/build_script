@@ -21,7 +21,7 @@ echo "Repo init success"
 echo "=================="
 
 #local_manifest
-git clone -b Voltage-16 https://github.com/ikwfahmi/local_manifests.git .repo/local_manifests
+git clone --depth=1 https://github.com/ikwfahmi/local_manifests.git -b Voltage-16 .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
