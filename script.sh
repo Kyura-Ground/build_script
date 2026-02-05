@@ -60,4 +60,5 @@ cd vendor/voltage-priv/keys
 cd ../../..
 
 #build
+make installclean
 brunch X00TD
