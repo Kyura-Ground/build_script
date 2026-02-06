@@ -42,8 +42,12 @@ if [ -d kernel/asus/sdm660 ]; then
 fi
 echo "======= RKSU done ======"
 
+rm -rf build/soong
+git clone --depth=1 https://github.com/ikwfahmi/build_soong.git build/soong
+echo "======= soong done ======"
+
 rm -rf device/voltage/sepolicy
-git clone https://github.com/ikwfahmi/device_voltage_sepolicy.git device/voltage/sepolicy
+git clone --depth=1 https://github.com/ikwfahmi/device_voltage_sepolicy.git device/voltage/sepolicy
 echo "======= sepolicy done ======"
 
 # Export
