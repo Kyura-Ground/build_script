@@ -17,13 +17,13 @@ rm -rf vendor/voltage-priv/keys
 # echo "============="
 
 #repo init
-repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/VoltageOS/manifest.git -b 16.2 -g default,-mips,-darwin,-notdefault
+repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/Evolution-X/manifest -b bq2 -g default,-mips,-darwin,-notdefault
 echo "=================="
 echo "Repo init success"
 echo "=================="
 
 #local_manifest
-git clone --depth=1 https://github.com/ikwfahmi/local_manifests.git -b Voltage-16 .repo/local_manifests
+git clone --depth=1 https://github.com/ikwfahmi/local_manifests.git -b Evox-16 .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
@@ -42,10 +42,6 @@ if [ -d kernel/asus/sdm660 ]; then
 fi
 echo "======= RKSU done ======"
 
-rm -rf build/soong
-git clone --depth=1 https://github.com/ikwfahmi/build_soong.git build/soong
-echo "======= soong done ======"
-
 rm -rf device/voltage/sepolicy
 git clone --depth=1 https://github.com/ikwfahmi/device_voltage_sepolicy.git device/voltage/sepolicy
 echo "======= sepolicy done ======"
@@ -59,10 +55,13 @@ echo "======= Export Done ======"
 . build/envsetup.sh
 echo "====== Envsetup Done ======="
 
-cd vendor/voltage-priv/keys/
-bash keys.sh
+rm -rf vendor/evolution-priv/keys
+git clone https://github.com/Evolution-X/vendor_evolution-priv_keys-template vendor/evolution-priv/keys
+cd vendor/evolution-priv/keys
+./keys.sh
 cd -
 
 #build
+lunch lineage_X00TD-bp4a-user
 make installclean
-brunch X00TD
+m evolution
