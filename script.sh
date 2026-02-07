@@ -17,13 +17,13 @@ rm -rf vendor/voltage-priv/keys
 # echo "============="
 
 #repo init
-repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/ProjectInfinity-X/manifest -b 16 -g default,-mips,-darwin,-notdefault
+repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/Evolution-X/manifest -b bq2 -g default,-mips,-darwin,-notdefault
 echo "=================="
 echo "Repo init success"
 echo "=================="
 
 #local_manifest
-git clone --depth=1 https://github.com/ikwfahmi/local_manifests.git -b Infinity-16 .repo/local_manifests
+git clone --depth=1 https://github.com/ikwfahmi/local_manifests.git -b Evox-16 .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
@@ -43,7 +43,7 @@ fi
 echo "======= RKSU done ======"
 
 rm -rf device/lineage/sepolicy
-git clone --depth=1 https://github.com/ikwfahmi/device_infinity_sepolicy.git -b 16 device/lineage/sepolicy
+git clone --depth=1 https://github.com/ikwfahmi/device_evolution_sepolicy.git device/lineage/sepolicy
 echo "======= sepolicy done ======"
 
 # Export
@@ -62,6 +62,6 @@ cd vendor/evolution-priv/keys
 cd -
 
 #build
-lunch infinity_X00TD-user
+lunch lineage_X00TD-bp4a-user
 make installclean
-m bacon
+m evolution
