@@ -42,8 +42,8 @@ if [ -d kernel/asus/sdm660 ]; then
 fi
 echo "======= RKSU done ======"
 
-rm -rf device/voltage/sepolicy
-git clone --depth=1 https://github.com/ikwfahmi/device_voltage_sepolicy.git device/voltage/sepolicy
+rm -rf device/lineage/sepolicy
+git clone --depth=1 https://github.com/ikwfahmi/device_evolution_sepolicy.git device/lineage/sepolicy
 echo "======= sepolicy done ======"
 
 # Export
