@@ -17,13 +17,13 @@ rm -rf vendor/voltage-priv/keys
 # echo "============="
 
 #repo init
-repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/yaap/manifest.git -b sixteen -g default,-mips,-darwin,-notdefault
+repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/ProjectInfinity-X/manifest -b 16 -g default,-mips,-darwin,-notdefault
 echo "=================="
 echo "Repo init success"
 echo "=================="
 
 #local_manifest
-git clone --depth=1 https://github.com/ikwfahmi/local_manifests.git -b main .repo/local_manifests
+git clone --depth=1 https://github.com/ikwfahmi/local_manifests.git -b Infinity-16 .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
@@ -58,6 +58,6 @@ cd vendor/evolution-priv/keys
 cd -
 
 #build
-lunch yaap_X00TD-user
+lunch infinity_X00TD-user
 make installclean
-m yaap
+m bacon
