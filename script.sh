@@ -17,13 +17,13 @@ rm -rf vendor/voltage-priv/keys
 # echo "============="
 
 #repo init
-repo init --no-repo-verify --git-lfs -u https://github.com/ProjectInfinity-X/manifest -b 16 -g default,-mips,-darwin,-notdefault
+repo init --no-repo-verify --git-lfs -u https://github.com/DerpFest-AOSP/android_manifest.git -b 16.2 -g default,-mips,-darwin,-notdefault
 echo "=================="
 echo "Repo init success"
 echo "=================="
 
 #local_manifest
-git clone --depth=1 https://github.com/ikwfahmi/local_manifests.git -b Infinity-16 .repo/local_manifests
+git clone --depth=1 https://github.com/ikwfahmi/local_manifests.git -b main .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
@@ -43,7 +43,7 @@ fi
 echo "======= RKSU done ======"
 
 rm -rf device/lineage/sepolicy
-git clone --depth=1 https://github.com/Kyura-Ground/device_infinity_sepolicy.git -b 16 device/lineage/sepolicy
+git clone --depth=1 https://github.com/Kyura-Ground/android_device_derpfest_sepolicy.git -b 16.2 device/lineage/sepolicy
 echo "======= sepolicy done ======"
 
 # Export
@@ -62,6 +62,6 @@ cd vendor/evolution-priv/keys
 cd -
 
 #build
-lunch infinity_X00TD-user
+lunch lineage_X00TD-bp4a-user
 make installclean
-m bacon
+mka derp
