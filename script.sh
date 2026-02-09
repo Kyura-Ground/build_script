@@ -17,7 +17,7 @@ rm -rf vendor/voltage-priv/keys
 # echo "============="
 
 #repo init
-repo init --no-repo-verify --git-lfs -u https://github.com/DerpFest-AOSP/android_manifest.git -b 16.2 -g default,-mips,-darwin,-notdefault
+repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/DerpFest-AOSP/android_manifest.git -b 16.2 -g default,-mips,-darwin,-notdefault
 echo "=================="
 echo "Repo init success"
 echo "=================="
@@ -56,7 +56,7 @@ echo "======= Export Done ======"
 echo "====== Envsetup Done ======="
 
 rm -rf vendor/evolution-priv/keys
-git clone https://github.com/Evolution-X/vendor_evolution-priv_keys-template vendor/evolution-priv/keys
+git clone --depth=1 https://github.com/Evolution-X/vendor_evolution-priv_keys-template vendor/evolution-priv/keys
 cd vendor/evolution-priv/keys
 ./keys.sh
 cd -
