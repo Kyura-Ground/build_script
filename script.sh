@@ -46,6 +46,10 @@ rm -rf device/lineage/sepolicy
 git clone --depth=1 https://github.com/Kyura-Ground/android_device_derpfest_sepolicy.git -b 16.2 device/lineage/sepolicy
 echo "======= sepolicy done ======"
 
+rm -rf build/make
+git clone --depth=1 https://github.com/Kyura-Ground/android_build.git -b 16.2 build/make
+echo "======= make done ======"
+
 # Export
 export BUILD_USERNAME=kyura
 export BUILD_HOSTNAME=crave
