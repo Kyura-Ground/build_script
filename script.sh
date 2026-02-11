@@ -23,7 +23,7 @@ echo "Repo init success"
 echo "=================="
 
 #local_manifest
-git clone --depth=1 https://github.com/ikwfahmi/local_manifests.git -b Infinity-16 .repo/local_manifests
+git clone --depth=1 https://github.com/ikwfahmi/local_manifests.git -b main .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
