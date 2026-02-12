@@ -17,7 +17,7 @@ rm -rf vendor/voltage-priv/keys
 # echo "============="
 
 #repo init
-repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/DerpFest-AOSP/android_manifest.git -b 16.2 -g default,-mips,-darwin,-notdefault
+repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/LineageOS/android.git -b lineage-23.2 -g default,-mips,-darwin,-notdefault
 echo "=================="
 echo "Repo init success"
 echo "=================="
@@ -42,12 +42,12 @@ if [ -d kernel/asus/sdm660 ]; then
 fi
 echo "======= RKSU done ======"
 
-rm -rf device/lineage/sepolicy
-git clone --depth=1 https://github.com/Kyura-Ground/android_device_derpfest_sepolicy.git -b 16.2 device/lineage/sepolicy
-echo "======= sepolicy done ======"
+# rm -rf device/lineage/sepolicy
+# git clone --depth=1 https://github.com/Kyura-Ground/android_device_derpfest_sepolicy.git -b 16.2 device/lineage/sepolicy
+# echo "======= sepolicy done ======"
 
 rm -rf build/make
-git clone --depth=1 https://github.com/Kyura-Ground/android_build.git -b 16.2 build/make
+git clone --depth=1 https://github.com/Kyura-Ground/android_build.git build/make
 echo "======= make done ======"
 
 # Export
@@ -68,4 +68,4 @@ cd -
 #build
 lunch lineage_X00TD-bp4a-user
 make installclean
-mka derp
+mka bacon
