@@ -17,13 +17,13 @@ rm -rf vendor/voltage-priv/keys
 # echo "============="
 
 #repo init
-repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/The-Clover-Project/manifest.git -b 16-qpr2 -g default,-mips,-darwin,-notdefault
+repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/ProjectInfinity-X/manifest -b 16 -g default,-mips,-darwin,-notdefault
 echo "=================="
 echo "Repo init success"
 echo "=================="
 
 #local_manifest
-git clone --depth=1 https://github.com/ikwfahmi/local_manifests.git -b main .repo/local_manifests
+git clone --depth=1 https://github.com/ikwfahmi/local_manifests.git -b Infinity-16 .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
@@ -42,12 +42,8 @@ if [ -d kernel/asus/sdm660 ]; then
 fi
 echo "======= RKSU done ======"
 
-rm -rf build/make
-git clone --depth=1 https://github.com/Kyura-Ground/build_make.git build/make
-echo "======= buildmake done ======"
-
-rm -rf device/clover/sepolicy
-git clone --depth=1 https://github.com/Kyura-Ground/device_clover_sepolicy.git device/clover/sepolicy
+rm -rf device/lineage/sepolicy
+git clone --depth=1 https://github.com/Kyura-Ground/device_infinity_sepolicy.git -b 16 device/lineage/sepolicy
 echo "======= sepolicy done ======"
 
 # Export
@@ -66,6 +62,6 @@ cd vendor/evolution-priv/keys
 cd -
 
 #build
-lunch clover_X00TD-bp4a-user
+lunch infinity_X00TD-user
 make installclean
-mka clover
+m bacon
