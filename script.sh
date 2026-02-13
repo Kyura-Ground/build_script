@@ -17,13 +17,13 @@ rm -rf vendor/voltage-priv/keys
 # echo "============="
 
 #repo init
-repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/LineageOS/android.git -b lineage-23.2 -g default,-mips,-darwin,-notdefault
+repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/The-Clover-Project/manifest.git -b 16-qpr2 -g default,-mips,-darwin,-notdefault
 echo "=================="
 echo "Repo init success"
 echo "=================="
 
 #local_manifest
-git clone --depth=1 https://github.com/ikwfahmi/local_manifests.git -b main .repo/local_manifests
+git clone --depth=1 https://github.com/ikwfahmi/local_manifests.git -b Clover-16 .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
@@ -42,12 +42,12 @@ if [ -d kernel/asus/sdm660 ]; then
 fi
 echo "======= RKSU done ======"
 
-# rm -rf device/lineage/sepolicy
-# git clone --depth=1 https://github.com/Kyura-Ground/android_device_derpfest_sepolicy.git -b 16.2 device/lineage/sepolicy
-# echo "======= sepolicy done ======"
+rm -rf device/clover/sepolicy
+git clone --depth=1 https://github.com/Kyura-Ground/device_clover_sepolicy.git device/clover/sepolicy
+echo "======= sepolicy done ======"
 
 rm -rf build/make
-git clone --depth=1 https://github.com/Kyura-Ground/android_build.git build/make
+git clone --depth=1 https://github.com/Kyura-Ground/build_make.git build/make
 echo "======= make done ======"
 
 # Export
@@ -66,6 +66,6 @@ cd vendor/evolution-priv/keys
 cd -
 
 #build
-lunch lineage_X00TD-bp4a-user
+lunch clover_X00TD-bp4a-userdebug
 make installclean
-mka bacon
+mka clover
