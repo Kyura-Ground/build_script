@@ -42,10 +42,6 @@ if [ -d kernel/asus/sdm660 ]; then
 fi
 echo "======= RKSU done ======"
 
-rm -rf device/lineage/sepolicy
-git clone --depth=1 https://github.com/Kyura-Ground/device_infinity_sepolicy.git -b 16 device/lineage/sepolicy
-echo "======= sepolicy done ======"
-
 # Export
 export BUILD_USERNAME=kyura
 export BUILD_HOSTNAME=crave
