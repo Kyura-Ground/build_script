@@ -50,8 +50,6 @@ rm -rf build/make
 git clone --depth=1 https://github.com/Kyura-Ground/android_build.git build/make
 echo "======= make done ======"
 
-sed -i 's/dontaudit location_domain vendor_sysfs_soc_sensitive:file r_file_perms;/dontaudit location_domain sysfs_socinfo_sensitive:file r_file_perms;/g' device/lineage/sepolicy/qcom/vendor/location.te
-
 # Export
 export BUILD_USERNAME=kyura
 export BUILD_HOSTNAME=crave
