@@ -17,13 +17,13 @@ rm -rf vendor/voltage-priv/keys
 # echo "============="
 
 #repo init
-repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/Evolution-X/manifest -b bq2 -g default,-mips,-darwin,-notdefault
+repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/PixelOS-AOSP/android_manifest.git -b sixteen-qpr2 -g default,-mips,-darwin,-notdefault
 echo "=================="
 echo "Repo init success"
 echo "=================="
 
 #local_manifest
-git clone --depth=1 https://github.com/ikwfahmi/local_manifests.git -b Evox-16 .repo/local_manifests
+git clone --depth=1 https://github.com/ikwfahmi/local_manifests.git -b PixelOS-16 .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
@@ -47,6 +47,10 @@ export BUILD_USERNAME=kyura
 export BUILD_HOSTNAME=crave
 echo "======= Export Done ======"
 
+rm -rf build/make
+git clone https://github.com/Kyura-Ground/android_build.git build/make
+echo "======= buildmake Done ======"
+
 # Set up build environment
 . build/envsetup.sh
 echo "====== Envsetup Done ======="
@@ -58,6 +62,6 @@ cd vendor/evolution-priv/keys
 cd -
 
 #build
-lunch lineage_X00TD-bp4a-user
+breakfast X00TD
 make installclean
-m evolution
+m pixelos
