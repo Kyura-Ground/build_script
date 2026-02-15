@@ -51,6 +51,9 @@ rm -rf build/make
 git clone https://github.com/Kyura-Ground/android_build.git build/make
 echo "======= buildmake Done ======"
 
+rm -rf build/soong
+git clone https://github.com/Kyura-Ground/android_build_soong.git build/soong
+
 # Set up build environment
 . build/envsetup.sh
 echo "====== Envsetup Done ======="
