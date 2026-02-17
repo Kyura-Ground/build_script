@@ -17,13 +17,13 @@ rm -rf vendor/voltage-priv/keys
 # echo "============="
 
 #repo init
-repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/Evolution-X/manifest -b bq2 -g default,-mips,-darwin,-notdefault
+repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/ProjectInfinity-X/manifest -b 16 -g default,-mips,-darwin,-notdefault
 echo "=================="
 echo "Repo init success"
 echo "=================="
 
 #local_manifest
-git clone --depth=1 https://github.com/ikwfahmi/local_manifests.git -b Evox-16 .repo/local_manifests
+git clone --depth=1 https://github.com/ikwfahmi/local_manifests.git -b Infinity-16 .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
@@ -52,12 +52,12 @@ echo "======= Export Done ======"
 echo "====== Envsetup Done ======="
 
 rm -rf vendor/evolution-priv/keys
-git clone --depth=1 https://github.com/Evolution-X/vendor_evolution-priv_keys-template vendor/evolution-priv/keys
+git clone https://github.com/Evolution-X/vendor_evolution-priv_keys-template vendor/evolution-priv/keys
 cd vendor/evolution-priv/keys
 ./keys.sh
 cd -
 
 #build
-lunch lineage_X00TD-bp4a-user
+lunch infinity_X00TD-user
 make installclean
-m evolution
+m bacon
