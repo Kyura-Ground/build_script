@@ -1,4 +1,3 @@
-
 rm -rf .repo/local_manifests/
 rm -rf out/soong out/host/linux-x86
 rm -rf hardware/qcom-caf/msm8998
@@ -18,7 +17,7 @@ rm -rf vendor/voltage-priv/keys
 # echo "============="
 
 #repo init
-repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/Lunaris-AOSP/android -b 16.2 -g default,-mips,-darwin,-notdefault
+repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/Miku-UI/manifesto -b Blooming_v2 -g default,-mips,-darwin,-notdefault
 echo "=================="
 echo "Repo init success"
 echo "=================="
@@ -48,9 +47,6 @@ export BUILD_USERNAME=kyura
 export BUILD_HOSTNAME=crave
 echo "======= Export Done ======"
 
-rm -rf build/make
-git clone https://github.com/Kyura-Ground/build_lunaris.git build/make
-
 # Set up build environment
 . build/envsetup.sh
 echo "====== Envsetup Done ======="
@@ -62,6 +58,6 @@ cd vendor/evolution-priv/keys
 cd -
 
 #build
-lunch lineage_X00TD-bp4a-user
+lunch miku_X00TD-bp4a-user
 make installclean
-m bacon
+make diva
