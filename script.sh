@@ -57,7 +57,30 @@ cd vendor/evolution-priv/keys
 ./keys.sh
 cd -
 
-#build
+# ==========================
+# BUILD 1: GAPPS (Default)
+# ==========================
+echo "========================"
+echo " Starting Build: GAPPS"
+echo "========================"
+export WITH_GAPPS=true
+lunch infinity_X00TD-user
+make installclean
+m bacon
+
+# Opsional: Pindahkan atau copy hasil zip GApps ke folder lain 
+# jika nama file output ROM tidak otomatis membedakan GApps/Vanilla (mencegah tertimpa).
+# mkdir -p out/ready
+# mv out/target/product/X00TD/*infinity*.zip out/ready/
+
+# ==========================
+# BUILD 2: VANILLA
+# ==========================
+echo "========================"
+echo " Starting Build: VANILLA"
+echo "========================"
+export WITH_GAPPS=false
+# Jalankan lunch lagi untuk memastikan environment me-reset variabel dengan benar
 lunch infinity_X00TD-user
 make installclean
 m bacon
