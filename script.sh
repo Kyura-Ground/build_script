@@ -1,13 +1,33 @@
-rm -rf .repo/local_manifests/
-rm -rf out/soong out/host/linux-x86
-rm -rf hardware/qcom-caf/msm8998
-rm -rf hardware/qcom-caf/sdm660
-rm -rf device/asus/sdm660-common
-rm -rf vendor/asus
-rm -rf vendor/infinity-priv/keys
-rm -rf vendor/evolution-priv/keys
-rm -rf vendor/lineage-priv/keys
-rm -rf vendor/voltage-priv/keys
+# cleanup
+remove_lists=(
+    .repo/local_manifests
+    device/asus/X00TD
+    device/lineage/sepolicy
+    device/qcom/sepolicy
+    device/qcom/sepolicy-legacy-um
+    device/qcom/sepolicy_vndr/legacy-um
+    external/chromium-webview
+    kernel/asus/sdm660
+    out/target/product/X00TD
+    prebuilts/clang/host/linux-x86
+    packages/modules/Nfc
+    packages/apps/Nfc
+    system/nfc
+    vendor/extras
+    vendor/addons
+    vendor/asus
+    vendor/lineage-priv/keys
+    vendor/evolution-priv/keys
+)
+
+do_reclone() {
+    rm -rf $3
+    echo "-- Recloning $3 ..."
+    git clone --depth=1 $1 -b $2 $3
+}
+
+echo "-- Removing ${remove_lists[@]}"
+rm -rf "${remove_lists[@]}"
 
 # Symlink libncurses 6 >> 5
 # sudo ln -s /usr/lib/x86_64-linux-gnu/libncurses.so.6 /usr/lib/x86_64-linux-gnu/libncurses.so.5
@@ -58,7 +78,7 @@ rm -rf vendor/evolution-priv/keys
 git clone https://github.com/Evolution-X/vendor_evolution-priv_keys-template vendor/evolution-priv/keys
 cd vendor/evolution-priv/keys
 ./keys.sh
-cd ../../..
+cd -
 
 # ==========================
 # BUILD 1: GAPPS (Default)
