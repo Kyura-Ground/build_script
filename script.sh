@@ -64,7 +64,7 @@ cd -
 # BUILD 1: GAPPS (Default)
 # ==========================
 echo "========================"
-echo " Starting Build: GAPPS"
+echo " Starting Build: VANILLA"
 echo "========================"
 lunch lineage_X00TD-bp4a-user
 make installclean
@@ -79,7 +79,7 @@ m bacon
 # BUILD 2: VANILLA
 # ==========================
 echo "========================"
-echo " Starting Build: VANILLA"
+echo " Starting Build: GAPPS"
 echo "========================"
 export WITH_GMS=true
 # Jalankan lunch lagi untuk memastikan environment me-reset variabel dengan benar
