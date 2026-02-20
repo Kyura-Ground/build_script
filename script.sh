@@ -23,7 +23,7 @@ echo "Repo init success"
 echo "=================="
 
 #local_manifest
-git clone --depth=1 https://github.com/ikwfahmi/local_manifests.git -b main .repo/local_manifests
+git clone --depth=1 https://github.com/ikwfahmi/local_manifests.git -b Lunaris-16 .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
@@ -48,7 +48,7 @@ export BUILD_HOSTNAME=crave
 echo "======= Export Done ======"
 
 rm -rf build/make
-git clone https://github.com/Kyura-Ground/build_lunaris.git build/make
+git clone --depth=1 https://github.com/Kyura-Ground/build_lunaris.git build/make
 
 # Set up build environment
 . build/envsetup.sh
