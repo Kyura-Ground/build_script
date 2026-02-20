@@ -1,3 +1,4 @@
+
 rm -rf .repo/local_manifests/
 rm -rf out/soong out/host/linux-x86
 rm -rf hardware/qcom-caf/msm8998
@@ -8,7 +9,6 @@ rm -rf vendor/infinity-priv/keys
 rm -rf vendor/evolution-priv/keys
 rm -rf vendor/lineage-priv/keys
 rm -rf vendor/voltage-priv/keys
-rm -rf vendor/qcom/perf
 
 # Symlink libncurses 6 >> 5
 # sudo ln -s /usr/lib/x86_64-linux-gnu/libncurses.so.6 /usr/lib/x86_64-linux-gnu/libncurses.so.5
@@ -18,7 +18,7 @@ rm -rf vendor/qcom/perf
 # echo "============="
 
 #repo init
-repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/Miku-UI/manifesto -b Blooming_v2 -g default,-mips,-darwin,-notdefault
+repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/Lunaris-AOSP/android -b 16.2 -g default,-mips,-darwin,-notdefault
 echo "=================="
 echo "Repo init success"
 echo "=================="
@@ -48,8 +48,8 @@ export BUILD_USERNAME=kyura
 export BUILD_HOSTNAME=crave
 echo "======= Export Done ======"
 
-rm -rf build/soong
-git clone https://github.com/Kyura-Ground/platform_build_soong.git -b Blooming_v2 build/soong
+rm -rf build/make
+git clone https://github.com/Kyura-Ground/build_lunaris.git build/make
 
 # Set up build environment
 . build/envsetup.sh
@@ -62,6 +62,6 @@ cd vendor/evolution-priv/keys
 cd -
 
 #build
-lunch miku_X00TD-bp4a-user
+lunch lineage_X00TD-bp4a-user
 make installclean
-make diva
+m bacon
