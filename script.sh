@@ -17,13 +17,13 @@ rm -rf vendor/voltage-priv/keys
 # echo "============="
 
 #repo init
-repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/Lunaris-AOSP/android -b 16.2 -g default,-mips,-darwin,-notdefault
+repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/crdroid-13-fork/android.git -b 13.0 -g default,-mips,-darwin,-notdefault
 echo "=================="
 echo "Repo init success"
 echo "=================="
 
 #local_manifest
-git clone --depth=1 https://github.com/ikwfahmi/local_manifests.git -b main .repo/local_manifests
+git clone --depth=1 https://github.com/ikwfahmi/local_manifests.git -b Cr-13 .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
@@ -47,42 +47,19 @@ export BUILD_USERNAME=kyura
 export BUILD_HOSTNAME=crave
 echo "======= Export Done ======"
 
-rm -rf build/make
-git clone --depth=1 https://github.com/Kyura-Ground/build_lunaris.git build/make
-
 # Set up build environment
-. b*/env*
+. build/envsetup.sh
 echo "====== Envsetup Done ======="
 
-rm -rf vendor/evolution-priv/keys
-git clone https://github.com/Evolution-X/vendor_evolution-priv_keys-template vendor/evolution-priv/keys
-cd vendor/evolution-priv/keys
-./keys.sh
-cd -
+# rm -rf vendor/evolution-priv/keys
+# git clone https://github.com/Evolution-X/vendor_evolution-priv_keys-template vendor/evolution-priv/keys
+# cd vendor/evolution-priv/keys
+# ./keys.sh
+# cd -
 
-# ==========================
-# BUILD 1: GAPPS (Default)
-# ==========================
 echo "========================"
 echo " Starting Build: VANILLA"
 echo "========================"
-lunch lineage_X00TD-bp4a-user
-make installclean
-m bacon
-
-# Opsional: Pindahkan atau copy hasil zip GApps ke folder lain 
-# jika nama file output ROM tidak otomatis membedakan GApps/Vanilla (mencegah tertimpa).
-# mkdir -p out/ready
-# mv out/target/product/X00TD/*infinity*.zip out/ready/
-
-# ==========================
-# BUILD 2: VANILLA
-# ==========================
-echo "========================"
-echo " Starting Build: GAPPS"
-echo "========================"
-export WITH_GMS=true
-# Jalankan lunch lagi untuk memastikan environment me-reset variabel dengan benar
-lunch lineage_X00TD-bp4a-user
+lunch lineage_X00TD-user
 make installclean
 m bacon
