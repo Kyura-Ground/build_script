@@ -1,4 +1,3 @@
-
 rm -rf .repo/local_manifests/
 rm -rf out/soong out/host/linux-x86
 rm -rf hardware/qcom-caf/msm8998
