@@ -51,7 +51,7 @@ rm -rf build/make
 git clone --depth=1 https://github.com/Kyura-Ground/build_lunaris.git build/make
 
 # Set up build environment
-. build/envsetup.sh
+. b*/env*
 echo "====== Envsetup Done ======="
 
 rm -rf vendor/evolution-priv/keys
