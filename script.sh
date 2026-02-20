@@ -62,17 +62,14 @@ if [ -d kernel/asus/sdm660 ]; then
 fi
 echo "======= RKSU done ======"
 
-# Export
-export BUILD_USERNAME=kyura
-export BUILD_HOSTNAME=crave
-echo "======= Export Done ======"
-
 rm -rf build/make
 git clone --depth=1 https://github.com/Kyura-Ground/build_lunaris.git build/make
 
 # Set up build environment
-. build/envsetup.sh
-echo "====== Envsetup Done ======="
+export BUILD_USERNAME=kenq
+export BUILD_HOSTNAME=nobody
+export TZ="Asia/Jakarta"
+source build/envsetup.sh
 
 rm -rf vendor/evolution-priv/keys
 git clone https://github.com/Evolution-X/vendor_evolution-priv_keys-template vendor/evolution-priv/keys
