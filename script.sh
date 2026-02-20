@@ -48,6 +48,9 @@ export BUILD_USERNAME=kyura
 export BUILD_HOSTNAME=crave
 echo "======= Export Done ======"
 
+rm -rf build/soong
+git clone https://github.com/Kyura-Ground/platform_build_soong.git -b Blooming_v2 build/soong
+
 # Set up build environment
 . build/envsetup.sh
 echo "====== Envsetup Done ======="
