@@ -67,7 +67,7 @@ git clone --depth=1 https://github.com/Kyura-Ground/build_lunaris.git build/make
 
 # Set up build environment
 export BUILD_USERNAME=kenq
-export BUILD_HOSTNAME=nobody
+export BUILD_HOSTNAME=crave
 export TZ="Asia/Jakarta"
 source build/envsetup.sh
 
