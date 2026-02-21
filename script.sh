@@ -37,7 +37,7 @@ echo "lib6 >> lib5  "
 echo "============="
 
 #repo init
-repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/crdroid-13-fork/android.git -b 13.0 -g default,-mips,-darwin,-notdefault
+repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/LineageOS-T/android.git -b lineage-20.0 -g default,-mips,-darwin,-notdefault
 echo "=================="
 echo "Repo init success"
 echo "=================="
