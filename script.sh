@@ -57,7 +57,7 @@ echo "============="
 # setup KernelSU
 if [ -d kernel/asus/sdm660 ]; then 
 	cd kernel/asus/sdm660
-	curl -LSs "https://raw.githubusercontent.com/Sorayukii/KernelSU-Next/stable/kernel/setup.sh" | bash -s hookless
+	curl -LSs "https://raw.githubusercontent.com/backslashxx/KernelSU/master/kernel/setup.sh" | bash -s master
 	cd ../../..
 fi
 echo "======= RKSU done ======"
