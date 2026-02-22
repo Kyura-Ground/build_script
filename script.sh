@@ -95,5 +95,6 @@ echo " Starting Build: VANILLA"
 echo "========================"
 export WITH_GMS=false
 m bacon
+
 mv out/target/product/X00TD/*.zip .
 echo "--------------MOVED VANILLA BUILD TO ROOT DIRECTORY--------------"
