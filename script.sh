@@ -78,7 +78,7 @@ cd vendor/evolution-priv/keys
 cd ../../..
 
 # ==========================
-# BUILD 1: GAPPS (Default)
+# BUILD 1: VANILLA (Default)
 # ==========================
 echo "========================"
 echo " Starting Build: VANILLA"
