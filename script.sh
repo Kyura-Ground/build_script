@@ -77,12 +77,23 @@ cd vendor/evolution-priv/keys
 ./keys.sh
 cd ../../..
 
-# ==========================
-# BUILD 1: VANILLA (Default)
-# ==========================
 echo "========================"
-echo " Starting Build: VANILLA"
+echo " Starting Build: GAPPS"
 echo "========================"
 lunch lineage_X00TD-bp4a-user
 make installclean
+
+export WITH_GMS=true
+export TARGET_USES_MINI_GAPPS=true
 m bacon
+
+mv out/target/product/X00TD/*.zip .
+echo "--------------MOVED GAPPS BUILD TO ROOT DIRECTORY--------------"
+
+echo "========================"
+echo " Starting Build: VANILLA"
+echo "========================"
+export WITH_GMS=false
+m bacon
+mv out/target/product/X00TD/*.zip .
+echo "--------------MOVED VANILLA BUILD TO ROOT DIRECTORY--------------"
