@@ -37,13 +37,13 @@ echo "lib6 >> lib5  "
 echo "============="
 
 #repo init
-repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/HertzifyOS/android_manifest.git -b 16 -g default,-mips,-darwin,-notdefault
+repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/crdroid-13-fork/android.git -b 13.0 -g default,-mips,-darwin,-notdefault
 echo "=================="
 echo "Repo init success"
 echo "=================="
 
 #local_manifest
-git clone --depth=1 https://github.com/ikwfahmi/local_manifests.git -b Hertzify-16 .repo/local_manifests
+git clone --depth=1 https://github.com/ikwfahmi/local_manifests.git -b Cr-13 .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
@@ -57,7 +57,7 @@ echo "============="
 # setup KernelSU
 if [ -d kernel/asus/sdm660 ]; then 
 	cd kernel/asus/sdm660
-	curl -LSs "https://raw.githubusercontent.com/backslashxx/KernelSU/master/kernel/setup.sh" | bash -s master
+	curl -LSs "https://raw.githubusercontent.com/Sorayukii/KernelSU-Next/stable/kernel/setup.sh" | bash -s hookless
 	cd ../../..
 fi
 echo "======= RKSU done ======"
@@ -71,15 +71,15 @@ echo "======= Export Done ======"
 . build/envsetup.sh
 echo "====== Envsetup Done ======="
 
-rm -rf vendor/evolution-priv/keys
-git clone https://github.com/Evolution-X/vendor_evolution-priv_keys-template vendor/evolution-priv/keys
-cd vendor/evolution-priv/keys
-./keys.sh
-cd ../../..
+# rm -rf vendor/evolution-priv/keys
+# git clone https://github.com/Evolution-X/vendor_evolution-priv_keys-template vendor/evolution-priv/keys
+# cd vendor/evolution-priv/keys
+# ./keys.sh
+# cd -
 
 echo "========================"
 echo " Starting Build: VANILLA"
 echo "========================"
-lunch hertzify_X00TD-bp4a-user
+lunch lineage_X00TD-user
 make installclean
-mka bacon
+m bacon
