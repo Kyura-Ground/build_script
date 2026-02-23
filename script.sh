@@ -78,23 +78,53 @@ cd vendor/evolution-priv/keys
 cd ../../..
 
 echo "========================"
-echo " Starting Build: GAPPS"
+echo " Starting Build: VANILLA"
 echo "========================"
+# Setup untuk perangkat
 lunch lineage_X00TD-bp4a-user
 make installclean
 
+# Set flag untuk Vanilla (Tanpa GMS)
+export WITH_GMS=false
+m bacon
+
+# Upload VANILLA Build
+for file in out/target/product/X00TD/Lunaris*.zip; do
+    if [ -f "$file" ]; then
+        echo "Mulai mengupload VANILLA: $file"
+        curl -T "$file" -u :9942b260-7d7b-45bc-b25e-3a016652bcf2 https://pixeldrain.com/api/file/
+        echo -e "\nUpload selesai untuk $file"
+        
+        # Pindahkan file ke direktori utama agar tidak terupload ulang nanti
+        mv "$file" ./
+        echo "--------------MOVED VANILLA BUILD TO ROOT DIRECTORY--------------"
+    else
+        echo "File tidak ditemukan!"
+    fi
+done
+
+echo "========================"
+echo " Starting Build: GAPPS"
+echo "========================"
+# WAJIB clean lagi sebelum ganti varian agar tidak ada konflik
+make installclean
+
+# Set flag untuk GAPPS
 export WITH_GMS=true
 export TARGET_USES_MINI_GAPPS=true
 m bacon
 
-crave pull out/target/product/*/*.zip
-echo "--------------MOVED GAPPS BUILD TO ROOT DIRECTORY--------------"
-
-echo "========================"
-echo " Starting Build: VANILLA"
-echo "========================"
-export WITH_GMS=false
-m bacon
-
-crave pull out/target/product/*/*.zip
-echo "--------------MOVED VANILLA BUILD TO ROOT DIRECTORY--------------"
+# Upload GAPPS Build
+for file in out/target/product/X00TD/Lunaris*.zip; do
+    if [ -f "$file" ]; then
+        echo "Mulai mengupload GAPPS: $file"
+        curl -T "$file" -u :9942b260-7d7b-45bc-b25e-3a016652bcf2 https://pixeldrain.com/api/file/
+        echo -e "\nUpload selesai untuk $file"
+        
+        # Pindahkan juga file GAPPS ke direktori utama
+        mv "$file" ./
+        echo "--------------MOVED GAPPS BUILD TO ROOT DIRECTORY--------------"
+    else
+        echo "File tidak ditemukan!"
+    fi
+done
