@@ -98,7 +98,7 @@ for file in out/target/product/X00TD/Lunaris*.zip; do
         mv "$file" ./
         echo "--------------MOVED VANILLA BUILD TO ROOT DIRECTORY--------------"
     else
-        echo "File tidak ditemukan!"
+        echo "File not found!"
     fi
 done
 
@@ -121,6 +121,6 @@ for file in out/target/product/X00TD/Lunaris*.zip; do
         mv "$file" ./
         echo "--------------MOVED GAPPS BUILD TO ROOT DIRECTORY--------------"
     else
-        echo "File tidak ditemukan!"
+        echo "File not found!"
     fi
 done
