@@ -80,11 +80,11 @@ cd ../../..
 echo "========================"
 echo " Starting Build: VANILLA"
 echo "========================"
-# Setup untuk perangkat
+# Setup
 lunch lineage_X00TD-bp4a-user
 make installclean
 
-# Set flag untuk Vanilla (Tanpa GMS)
+# Set flag  Vanilla
 export WITH_GMS=false
 m bacon
 
@@ -106,7 +106,7 @@ echo "========================"
 echo " Starting Build: GAPPS"
 echo "========================"
 
-# Set flag untuk GAPPS
+# Set flag GAPPS
 export WITH_GMS=true
 export TARGET_USES_MINI_GAPPS=true
 m bacon
