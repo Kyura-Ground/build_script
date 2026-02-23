@@ -36,29 +36,29 @@ rm -rf "${remove_lists[@]}"
 # echo "lib6 >> lib5  "
 # echo "============="
 
-#repo init
+# repo init
 repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/ProjectInfinity-X/manifest -b 16 -g default,-mips,-darwin,-notdefault
 echo "=================="
 echo "Repo init success"
 echo "=================="
 
-#local_manifest
+# local_manifest
 git clone --depth=1 https://github.com/ikwfahmi/local_manifests.git -b Infinity-16 .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
 
-#Sync
+# Sync
 [ -f /usr/bin/resync ] && /usr/bin/resync || /opt/crave/resync.sh
 echo "============="
 echo "Sync success"
 echo "============="
 
-# setup KernelSU
+# Setup KernelSU
 if [ -d kernel/asus/sdm660 ]; then 
-	cd kernel/asus/sdm660
-	curl -LSs "https://raw.githubusercontent.com/Sorayukii/KernelSU-Next/stable/kernel/setup.sh" | bash -s hookless
-	cd ../../..
+    cd kernel/asus/sdm660
+    curl -LSs "https://raw.githubusercontent.com/Sorayukii/KernelSU-Next/stable/kernel/setup.sh" | bash -s hookless
+    cd ../../..
 fi
 echo "======= RKSU done ======"
 
@@ -77,36 +77,36 @@ cd ../../..
 echo "========================"
 echo " Starting Build: VANILLA"
 echo "========================"
-# Setup untuk perangkat
+# Device setup
 lunch infinity_X00TD-bp4a-user
 make installclean
 
-# Set flag untuk Vanilla (Tanpa GMS)
+# Set flag for Vanilla (Without GMS)
 export WITH_GMS=false
 m bacon
 
 # Upload VANILLA Build
 for file in out/target/product/X00TD/Project_Infinity*.zip; do
     if [ -f "$file" ]; then
-        echo "Mulai mengupload VANILLA: $file"
+        echo "Starting VANILLA upload: $file"
         curl -T "$file" -u :9942b260-7d7b-45bc-b25e-3a016652bcf2 https://pixeldrain.com/api/file/
-        echo -e "\nUpload selesai untuk $file"
+        echo -e "\nUpload completed for $file"
         
-        # Pindahkan file ke direktori utama agar tidak terupload ulang nanti
+        # Move the file to the root directory to avoid re-uploading later
         mv "$file" ./
         echo "--------------MOVED VANILLA BUILD TO ROOT DIRECTORY--------------"
     else
-        echo "File tidak ditemukan!"
+        echo "File not found!"
     fi
 done
 
 echo "========================"
 echo " Starting Build: GAPPS"
 echo "========================"
-# WAJIB clean lagi sebelum ganti varian agar tidak ada konflik
+# MUST clean again before changing variants to avoid conflicts
 make installclean
 
-# Set flag untuk GAPPS
+# Set flag for GAPPS
 export WITH_GMS=true
 export TARGET_USES_MINI_GAPPS=true
 m bacon
@@ -114,14 +114,14 @@ m bacon
 # Upload GAPPS Build
 for file in out/target/product/X00TD/Project_Infinity*.zip; do
     if [ -f "$file" ]; then
-        echo "Mulai mengupload GAPPS: $file"
+        echo "Starting GAPPS upload: $file"
         curl -T "$file" -u :9942b260-7d7b-45bc-b25e-3a016652bcf2 https://pixeldrain.com/api/file/
-        echo -e "\nUpload selesai untuk $file"
+        echo -e "\nUpload completed for $file"
         
-        # Pindahkan juga file GAPPS ke direktori utama
+        # Also move the GAPPS file to the root directory
         mv "$file" ./
         echo "--------------MOVED GAPPS BUILD TO ROOT DIRECTORY--------------"
     else
-        echo "File tidak ditemukan!"
+        echo "File not found!"
     fi
 done
