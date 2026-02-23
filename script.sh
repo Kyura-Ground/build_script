@@ -91,9 +91,9 @@ m bacon
 # Upload VANILLA Build
 for file in out/target/product/X00TD/Lunaris*.zip; do
     if [ -f "$file" ]; then
-        echo "Mulai mengupload VANILLA: $file"
+        echo "upload VANILLA: $file"
         curl -T "$file" -u :9942b260-7d7b-45bc-b25e-3a016652bcf2 https://pixeldrain.com/api/file/
-        echo -e "\nUpload selesai untuk $file"
+        echo -e "\nUpload done $file"
         
         mv "$file" ./
         echo "--------------MOVED VANILLA BUILD TO ROOT DIRECTORY--------------"
@@ -114,9 +114,9 @@ m bacon
 # Upload GAPPS Build
 for file in out/target/product/X00TD/Lunaris*.zip; do
     if [ -f "$file" ]; then
-        echo "Mulai mengupload GAPPS: $file"
+        echo "upload GAPPS: $file"
         curl -T "$file" -u :9942b260-7d7b-45bc-b25e-3a016652bcf2 https://pixeldrain.com/api/file/
-        echo -e "\nUpload selesai untuk $file"
+        echo -e "\nUpload done $file"
         
         mv "$file" ./
         echo "--------------MOVED GAPPS BUILD TO ROOT DIRECTORY--------------"
