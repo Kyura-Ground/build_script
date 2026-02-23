@@ -95,7 +95,6 @@ for file in out/target/product/X00TD/Lunaris*.zip; do
         curl -T "$file" -u :9942b260-7d7b-45bc-b25e-3a016652bcf2 https://pixeldrain.com/api/file/
         echo -e "\nUpload selesai untuk $file"
         
-        # Pindahkan file ke direktori utama agar tidak terupload ulang nanti
         mv "$file" ./
         echo "--------------MOVED VANILLA BUILD TO ROOT DIRECTORY--------------"
     else
@@ -106,8 +105,6 @@ done
 echo "========================"
 echo " Starting Build: GAPPS"
 echo "========================"
-# WAJIB clean lagi sebelum ganti varian agar tidak ada konflik
-make installclean
 
 # Set flag untuk GAPPS
 export WITH_GMS=true
@@ -121,7 +118,6 @@ for file in out/target/product/X00TD/Lunaris*.zip; do
         curl -T "$file" -u :9942b260-7d7b-45bc-b25e-3a016652bcf2 https://pixeldrain.com/api/file/
         echo -e "\nUpload selesai untuk $file"
         
-        # Pindahkan juga file GAPPS ke direktori utama
         mv "$file" ./
         echo "--------------MOVED GAPPS BUILD TO ROOT DIRECTORY--------------"
     else
