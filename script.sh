@@ -87,7 +87,7 @@ export WITH_GMS=true
 export TARGET_USES_MINI_GAPPS=true
 m bacon
 
-mv out/target/product/X00TD/*.zip .
+crave pull out/target/product/*/*.zip
 echo "--------------MOVED GAPPS BUILD TO ROOT DIRECTORY--------------"
 
 echo "========================"
@@ -96,5 +96,5 @@ echo "========================"
 export WITH_GMS=false
 m bacon
 
-mv out/target/product/X00TD/*.zip .
+crave pull out/target/product/*/*.zip
 echo "--------------MOVED VANILLA BUILD TO ROOT DIRECTORY--------------"
