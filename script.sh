@@ -82,7 +82,7 @@ lunch infinity_X00TD-bp4a-user
 make installclean
 
 # Set flag for Vanilla (Without GMS)
-export WITH_GMS=false
+export WITH_GAPPS=false
 m bacon
 
 # Upload VANILLA Build
@@ -107,8 +107,8 @@ echo "========================"
 make installclean
 
 # Set flag for GAPPS
-export WITH_GMS=true
-export TARGET_USES_MINI_GAPPS=true
+export WITH_GAPPS=true
+# export TARGET_USES_MINI_GAPPS=true
 m bacon
 
 # Upload GAPPS Build
