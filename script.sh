@@ -37,13 +37,13 @@ rm -rf "${remove_lists[@]}"
 # echo "============="
 
 #repo init
-repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/Lunaris-AOSP/android -b 16.2 -g default,-mips,-darwin,-notdefault
+repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/ProjectInfinity-X/manifest -b 16 -g default,-mips,-darwin,-notdefault
 echo "=================="
 echo "Repo init success"
 echo "=================="
 
 #local_manifest
-git clone --depth=1 https://github.com/ikwfahmi/local_manifests.git -b main .repo/local_manifests
+git clone --depth=1 https://github.com/ikwfahmi/local_manifests.git -b Infinity-16 .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
@@ -62,9 +62,6 @@ if [ -d kernel/asus/sdm660 ]; then
 fi
 echo "======= RKSU done ======"
 
-rm -rf build/make
-git clone --depth=1 https://github.com/Kyura-Ground/build_lunaris.git build/make
-
 # Set up build environment
 export BUILD_USERNAME=kenq
 export BUILD_HOSTNAME=crave
@@ -80,47 +77,51 @@ cd ../../..
 echo "========================"
 echo " Starting Build: VANILLA"
 echo "========================"
-# Setup
-lunch lineage_X00TD-bp4a-user
+# Setup untuk perangkat
+lunch infinity_X00TD-bp4a-user
 make installclean
 
-# Set flag  Vanilla
+# Set flag untuk Vanilla (Tanpa GMS)
 export WITH_GMS=false
 m bacon
 
 # Upload VANILLA Build
-for file in out/target/product/X00TD/Lunaris*.zip; do
+for file in out/target/product/X00TD/Project_Infinity*.zip; do
     if [ -f "$file" ]; then
-        echo "upload VANILLA: $file"
+        echo "Mulai mengupload VANILLA: $file"
         curl -T "$file" -u :9942b260-7d7b-45bc-b25e-3a016652bcf2 https://pixeldrain.com/api/file/
-        echo -e "\nUpload done $file"
+        echo -e "\nUpload selesai untuk $file"
         
+        # Pindahkan file ke direktori utama agar tidak terupload ulang nanti
         mv "$file" ./
         echo "--------------MOVED VANILLA BUILD TO ROOT DIRECTORY--------------"
     else
-        echo "File not found!"
+        echo "File tidak ditemukan!"
     fi
 done
 
 echo "========================"
 echo " Starting Build: GAPPS"
 echo "========================"
+# WAJIB clean lagi sebelum ganti varian agar tidak ada konflik
+make installclean
 
-# Set flag GAPPS
+# Set flag untuk GAPPS
 export WITH_GMS=true
 export TARGET_USES_MINI_GAPPS=true
 m bacon
 
 # Upload GAPPS Build
-for file in out/target/product/X00TD/Lunaris*.zip; do
+for file in out/target/product/X00TD/Project_Infinity*.zip; do
     if [ -f "$file" ]; then
-        echo "upload GAPPS: $file"
+        echo "Mulai mengupload GAPPS: $file"
         curl -T "$file" -u :9942b260-7d7b-45bc-b25e-3a016652bcf2 https://pixeldrain.com/api/file/
-        echo -e "\nUpload done $file"
+        echo -e "\nUpload selesai untuk $file"
         
+        # Pindahkan juga file GAPPS ke direktori utama
         mv "$file" ./
         echo "--------------MOVED GAPPS BUILD TO ROOT DIRECTORY--------------"
     else
-        echo "File not found!"
+        echo "File tidak ditemukan!"
     fi
 done
