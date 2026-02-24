@@ -30,98 +30,56 @@ echo "-- Removing ${remove_lists[@]}"
 rm -rf "${remove_lists[@]}"
 
 # Symlink libncurses 6 >> 5
-# sudo ln -s /usr/lib/x86_64-linux-gnu/libncurses.so.6 /usr/lib/x86_64-linux-gnu/libncurses.so.5
-# sudo ln -s /usr/lib/x86_64-linux-gnu/libtinfo.so.6   /usr/lib/x86_64-linux-gnu/libtinfo.so.5
-# echo "============="
-# echo "lib6 >> lib5  "
-# echo "============="
+sudo ln -s /usr/lib/x86_64-linux-gnu/libncurses.so.6 /usr/lib/x86_64-linux-gnu/libncurses.so.5
+sudo ln -s /usr/lib/x86_64-linux-gnu/libtinfo.so.6   /usr/lib/x86_64-linux-gnu/libtinfo.so.5
+echo "============="
+echo "lib6 >> lib5  "
+echo "============="
 
-# repo init
-repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/ProjectInfinity-X/manifest -b 16 -g default,-mips,-darwin,-notdefault
+#repo init
+repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/LineageOS-T/android.git -b lineage-20.0 -g default,-mips,-darwin,-notdefault
 echo "=================="
 echo "Repo init success"
 echo "=================="
 
-# local_manifest
-git clone --depth=1 https://github.com/ikwfahmi/local_manifests.git -b Infinity-16 .repo/local_manifests
+#local_manifest
+git clone --depth=1 https://github.com/ikwfahmi/local_manifests.git -b Cr-13 .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
 
-# Sync
+#Sync
 [ -f /usr/bin/resync ] && /usr/bin/resync || /opt/crave/resync.sh
 echo "============="
 echo "Sync success"
 echo "============="
 
-# Setup KernelSU
+# setup KernelSU
 if [ -d kernel/asus/sdm660 ]; then 
-    cd kernel/asus/sdm660
-    curl -LSs "https://raw.githubusercontent.com/Sorayukii/KernelSU-Next/stable/kernel/setup.sh" | bash -s hookless
-    cd ../../..
+	cd kernel/asus/sdm660
+	curl -LSs "https://raw.githubusercontent.com/Sorayukii/KernelSU-Next/stable/kernel/setup.sh" | bash -s hookless
+	cd ../../..
 fi
 echo "======= RKSU done ======"
 
-# Set up build environment
-export BUILD_USERNAME=kenq
+# Export
+export BUILD_USERNAME=kyura
 export BUILD_HOSTNAME=crave
-export TZ="Asia/Jakarta"
-source build/envsetup.sh
+echo "======= Export Done ======"
 
-rm -rf vendor/evolution-priv/keys
-git clone https://github.com/Evolution-X/vendor_evolution-priv_keys-template vendor/evolution-priv/keys
-cd vendor/evolution-priv/keys
-./keys.sh
-cd ../../..
+# Set up build environment
+. build/envsetup.sh
+echo "====== Envsetup Done ======="
+
+# rm -rf vendor/evolution-priv/keys
+# git clone https://github.com/Evolution-X/vendor_evolution-priv_keys-template vendor/evolution-priv/keys
+# cd vendor/evolution-priv/keys
+# ./keys.sh
+# cd -
 
 echo "========================"
 echo " Starting Build: VANILLA"
 echo "========================"
-# Device setup
-lunch infinity_X00TD-bp4a-user
+lunch lineage_X00TD-user
 make installclean
-
-# Set flag for Vanilla (Without GMS)
-export WITH_GAPPS=false
 m bacon
-
-# Upload VANILLA Build
-for file in out/target/product/X00TD/Project_Infinity*.zip; do
-    if [ -f "$file" ]; then
-        echo "Starting VANILLA upload: $file"
-        curl -T "$file" -u :9942b260-7d7b-45bc-b25e-3a016652bcf2 https://pixeldrain.com/api/file/
-        echo -e "\nUpload completed for $file"
-        
-        # Move the file to the root directory to avoid re-uploading later
-        mv "$file" ./
-        echo "--------------MOVED VANILLA BUILD TO ROOT DIRECTORY--------------"
-    else
-        echo "File not found!"
-    fi
-done
-
-echo "========================"
-echo " Starting Build: GAPPS"
-echo "========================"
-# MUST clean again before changing variants to avoid conflicts
-make installclean
-
-# Set flag for GAPPS
-export WITH_GAPPS=true
-# export TARGET_USES_MINI_GAPPS=true
-m bacon
-
-# Upload GAPPS Build
-for file in out/target/product/X00TD/Project_Infinity*.zip; do
-    if [ -f "$file" ]; then
-        echo "Starting GAPPS upload: $file"
-        curl -T "$file" -u :9942b260-7d7b-45bc-b25e-3a016652bcf2 https://pixeldrain.com/api/file/
-        echo -e "\nUpload completed for $file"
-        
-        # Also move the GAPPS file to the root directory
-        mv "$file" ./
-        echo "--------------MOVED GAPPS BUILD TO ROOT DIRECTORY--------------"
-    else
-        echo "File not found!"
-    fi
-done
