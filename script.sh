@@ -71,6 +71,12 @@ echo "======= Export Done ======"
 . build/envsetup.sh
 echo "====== Envsetup Done ======="
 
+rm -rf build/make
+git clone https://github.com/Kyura-Ground/android_build.git build/make
+
+rm -rf build/soong
+git clone https://github.com/Kyura-Ground/android_build_soong build/soong
+
 rm -rf vendor/evolution-priv/keys
 git clone https://github.com/Evolution-X/vendor_evolution-priv_keys-template vendor/evolution-priv/keys
 cd vendor/evolution-priv/keys
