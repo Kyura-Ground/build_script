@@ -84,7 +84,7 @@ cd vendor/evolution-priv/keys
 cd ../../..
 
 echo "========================"
-echo " Starting Build: VANILLA"
+echo " Starting Build "
 echo "========================"
 lunch custom_X00TD-bp4a-user
 make installclean
