@@ -72,7 +72,7 @@ echo "======= Export Done ======"
 echo "====== Envsetup Done ======="
 
 rm -rf build/make
-git clone https://github.com/Kyura-Ground/android_build.git build/make
+git clone https://github.com/Kyura-Ground/android_build build/make
 
 rm -rf build/soong
 git clone https://github.com/Kyura-Ground/android_build_soong build/soong
