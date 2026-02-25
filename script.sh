@@ -30,11 +30,11 @@ echo "-- Removing ${remove_lists[@]}"
 rm -rf "${remove_lists[@]}"
 
 # Symlink libncurses 6 >> 5
-sudo ln -s /usr/lib/x86_64-linux-gnu/libncurses.so.6 /usr/lib/x86_64-linux-gnu/libncurses.so.5
-sudo ln -s /usr/lib/x86_64-linux-gnu/libtinfo.so.6   /usr/lib/x86_64-linux-gnu/libtinfo.so.5
-echo "============="
-echo "lib6 >> lib5  "
-echo "============="
+# sudo ln -s /usr/lib/x86_64-linux-gnu/libncurses.so.6 /usr/lib/x86_64-linux-gnu/libncurses.so.5
+# sudo ln -s /usr/lib/x86_64-linux-gnu/libtinfo.so.6   /usr/lib/x86_64-linux-gnu/libtinfo.so.5
+# echo "============="
+# echo "lib6 >> lib5  "
+# echo "============="
 
 #repo init
 repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/Evolution-X/manifest -b bq2 -g default,-mips,-darwin,-notdefault
