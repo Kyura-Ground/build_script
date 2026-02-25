@@ -83,3 +83,18 @@ echo "========================"
 lunch lineage_X00TD-bp4a-user
 make installclean
 m evolution
+
+# Upload GAPPS Build
+for file in out/target/product/X00TD/EvolutionX*.zip; do
+    if [ -f "$file" ]; then
+        echo "Start upload GAPPS: $file"
+        curl -T "$file" -u :9942b260-7d7b-45bc-b25e-3a016652bcf2 https://pixeldrain.com/api/file/
+        echo -e "\nUpload done for $file"
+        
+        # move file GAPPS
+        mv "$file" ./
+        echo "--------------MOVED GAPPS BUILD TO ROOT DIRECTORY--------------"
+    else
+        echo "File not found!"
+    fi
+done
