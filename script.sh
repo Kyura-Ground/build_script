@@ -30,20 +30,20 @@ echo "-- Removing ${remove_lists[@]}"
 rm -rf "${remove_lists[@]}"
 
 # Symlink libncurses 6 >> 5
-# sudo ln -s /usr/lib/x86_64-linux-gnu/libncurses.so.6 /usr/lib/x86_64-linux-gnu/libncurses.so.5
-# sudo ln -s /usr/lib/x86_64-linux-gnu/libtinfo.so.6   /usr/lib/x86_64-linux-gnu/libtinfo.so.5
-# echo "============="
-# echo "lib6 >> lib5  "
-# echo "============="
+sudo ln -s /usr/lib/x86_64-linux-gnu/libncurses.so.6 /usr/lib/x86_64-linux-gnu/libncurses.so.5
+sudo ln -s /usr/lib/x86_64-linux-gnu/libtinfo.so.6   /usr/lib/x86_64-linux-gnu/libtinfo.so.5
+echo "============="
+echo "lib6 >> lib5  "
+echo "============="
 
 #repo init
-repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/Evolution-X/manifest -b bq2 -g default,-mips,-darwin,-notdefault
+repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/PixelOS-AOSP/android_manifest.git -b sixteen-qpr2 -g default,-mips,-darwin,-notdefault
 echo "=================="
 echo "Repo init success"
 echo "=================="
 
 #local_manifest
-git clone --depth=1 https://github.com/ikwfahmi/local_manifests.git -b Evox-16 .repo/local_manifests
+git clone --depth=1 https://github.com/ikwfahmi/local_manifests.git -b PixelOS-16 .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
@@ -71,6 +71,12 @@ echo "======= Export Done ======"
 . build/envsetup.sh
 echo "====== Envsetup Done ======="
 
+rm -rf build/make
+git clone https://github.com/Kyura-Ground/android_build build/make
+
+rm -rf build/soong
+git clone https://github.com/Kyura-Ground/android_build_soong build/soong
+
 rm -rf vendor/evolution-priv/keys
 git clone https://github.com/Evolution-X/vendor_evolution-priv_keys-template vendor/evolution-priv/keys
 cd vendor/evolution-priv/keys
@@ -80,12 +86,12 @@ cd ../../..
 echo "========================"
 echo " Starting Build "
 echo "========================"
-lunch lineage_X00TD-bp4a-user
+lunch custom_X00TD-bp4a-user
 make installclean
-m evolution
+m pixelos
 
 # Upload GAPPS Build
-for file in out/target/product/X00TD/EvolutionX*.zip; do
+for file in out/target/product/X00TD/PixelOS*.zip; do
     if [ -f "$file" ]; then
         echo "Start upload GAPPS: $file"
         curl -T "$file" -u :9942b260-7d7b-45bc-b25e-3a016652bcf2 https://pixeldrain.com/api/file/
