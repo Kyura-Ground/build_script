@@ -69,7 +69,7 @@ export TZ="Asia/Jakarta"
 source build/envsetup.sh
 
 rm -rf vendor/evolution-priv/keys
-git clone https://github.com/Evolution-X/vendor_evolution-priv_keys-template vendor/evolution-priv/keys
+git clone https://github.com/Kyura-Ground/vendor_evolution-priv_keys-template vendor/evolution-priv/keys
 cd vendor/evolution-priv/keys
 ./keys.sh
 cd ../../..
