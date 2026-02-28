@@ -69,11 +69,15 @@ export BUILD_HOSTNAME=crave
 export TZ="Asia/Jakarta"
 source build/envsetup.sh
 
+rm -rf build/soong
+git clone https://github.com/Kyura-Ground/build_soong.git build/soong
+
 rm -rf vendor/voltage-priv/keys
 git clone https://github.com/VoltageOS/vendor_voltage-priv_keys vendor/voltage-priv/keys
 cd vendor/voltage-priv/keys
 ./keys.sh
 cd ../../..
+
 
 echo "========================"
 echo " Starting Build: VANILLA"
