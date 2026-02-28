@@ -18,6 +18,7 @@ remove_lists=(
     vendor/asus
     vendor/lineage-priv/keys
     vendor/evolution-priv/keys
+	vendor/voltage-priv/keys
 )
 
 do_reclone() {
@@ -37,13 +38,13 @@ rm -rf "${remove_lists[@]}"
 # echo "============="
 
 #repo init
-repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/ProjectInfinity-X/manifest -b 16 -g default,-mips,-darwin,-notdefault
+repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/VoltageOS/manifest.git -b 16.2 -g default,-mips,-darwin,-notdefault
 echo "=================="
 echo "Repo init success"
 echo "=================="
 
 #local_manifest
-git clone --depth=1 https://github.com/ikwfahmi/local_manifests.git -b Infinity-16 .repo/local_manifests
+git clone --depth=1 https://github.com/ikwfahmi/local_manifests.git -b Voltage-16 .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
@@ -68,9 +69,9 @@ export BUILD_HOSTNAME=crave
 export TZ="Asia/Jakarta"
 source build/envsetup.sh
 
-rm -rf vendor/evolution-priv/keys
-git clone https://github.com/Kyura-Ground/vendor_evolution-priv_keys-template vendor/evolution-priv/keys
-cd vendor/evolution-priv/keys
+rm -rf vendor/voltage-priv/keys
+git clone https://github.com/VoltageOS/vendor_voltage-priv_keys vendor/voltage-priv/keys
+cd vendor/voltage-priv/keys
 ./keys.sh
 cd ../../..
 
@@ -78,12 +79,11 @@ echo "========================"
 echo " Starting Build: VANILLA"
 echo "========================"
 # Setup untuk perangkat
-lunch infinity_X00TD-bp4a-user
 make installclean
-m bacon
+brunch X00TD
 
 # Upload VANILLA Build
-for file in out/target/product/X00TD/Project_Infinity*.zip; do
+for file in out/target/product/X00TD/Voltage*.zip; do
     if [ -f "$file" ]; then
         echo "Mulai mengupload VANILLA: $file"
         curl -T "$file" -u :9942b260-7d7b-45bc-b25e-3a016652bcf2 https://pixeldrain.com/api/file/
