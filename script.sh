@@ -90,7 +90,7 @@ brunch X00TD
 for file in out/target/product/X00TD/Voltage*.zip; do
     if [ -f "$file" ]; then
         echo "Mulai mengupload VANILLA: $file"
-        curl -T "$file" -u :9942b260-7d7b-45bc-b25e-3a016652bcf2 https://pixeldrain.com/api/file/
+        curl -T "$file" -u :8490fc51-f593-4c87-8e35-3379cf5a94a3 https://pixeldrain.com/api/file/
         echo -e "\nUpload selesai untuk $file"
         
         # Pindahkan file ke direktori utama agar tidak terupload ulang nanti
