@@ -56,12 +56,12 @@ echo "Sync success"
 echo "============="
 
 # setup KernelSU
-if [ -d kernel/asus/sdm660 ]; then 
-	cd kernel/asus/sdm660
-	curl -LSs "https://raw.githubusercontent.com/Sorayukii/KernelSU-Next/stable/kernel/setup.sh" | bash -s hookless
-	cd ../../..
-fi
-echo "======= RKSU done ======"
+# if [ -d kernel/asus/sdm660 ]; then 
+#	cd kernel/asus/sdm660
+#	curl -LSs "https://raw.githubusercontent.com/Sorayukii/KernelSU-Next/stable/kernel/setup.sh" | bash -s hookless
+#	cd ../../..
+# fi
+# echo "======= RKSU done ======"
 
 # Set up build environment
 export BUILD_USERNAME=kenq
