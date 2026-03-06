@@ -80,7 +80,7 @@ echo "========================"
 echo " Starting Build: VANILLA"
 echo "========================"
 # Setup untuk perangkat
-lunch lineage_X00TD-user
+lunch lineage_X00T-user
 make installclean
 m bacon
 
