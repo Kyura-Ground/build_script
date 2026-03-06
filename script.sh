@@ -31,20 +31,20 @@ echo "-- Removing ${remove_lists[@]}"
 rm -rf "${remove_lists[@]}"
 
 # Symlink libncurses 6 >> 5
-# sudo ln -s /usr/lib/x86_64-linux-gnu/libncurses.so.6 /usr/lib/x86_64-linux-gnu/libncurses.so.5
-# sudo ln -s /usr/lib/x86_64-linux-gnu/libtinfo.so.6   /usr/lib/x86_64-linux-gnu/libtinfo.so.5
-# echo "============="
-# echo "lib6 >> lib5  "
-# echo "============="
+sudo ln -s /usr/lib/x86_64-linux-gnu/libncurses.so.6 /usr/lib/x86_64-linux-gnu/libncurses.so.5
+sudo ln -s /usr/lib/x86_64-linux-gnu/libtinfo.so.6   /usr/lib/x86_64-linux-gnu/libtinfo.so.5
+echo "============="
+echo "lib6 >> lib5  "
+echo "============="
 
 #repo init
-repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/ProjectInfinity-X/manifest -b 16 -g default,-mips,-darwin,-notdefault
+repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/LineageOS-T/android.git -b lineage-20.0 -g default,-mips,-darwin,-notdefault
 echo "=================="
 echo "Repo init success"
 echo "=================="
 
 #local_manifest
-git clone --depth=1 https://github.com/ikwfahmi/local_manifests.git -b Infinity-16 .repo/local_manifests
+git clone --depth=1 https://github.com/ikwfahmi/local_manifests.git -b 13.1 .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
@@ -55,13 +55,13 @@ echo "============="
 echo "Sync success"
 echo "============="
 
-# setup KernelSU
-# if [ -d kernel/asus/sdm660 ]; then 
-#	cd kernel/asus/sdm660
-#	curl -LSs "https://raw.githubusercontent.com/Sorayukii/KernelSU-Next/stable/kernel/setup.sh" | bash -s hookless
-#	cd ../../..
-# fi
-# echo "======= RKSU done ======"
+setup KernelSU
+if [ -d kernel/asus/sdm660 ]; then 
+cd kernel/asus/sdm660
+curl -LSs "https://raw.githubusercontent.com/rsuntk/KernelSU/main/kernel/setup.sh" | bash -s main
+cd ../../..
+fi
+echo "======= RKSU done ======"
 
 # Set up build environment
 export BUILD_USERNAME=kenq
@@ -69,23 +69,23 @@ export BUILD_HOSTNAME=crave
 export TZ="Asia/Jakarta"
 source build/envsetup.sh
 
-rm -rf vendor/evolution-priv/keys
-git clone https://github.com/Kyura-Ground/vendor_evolution-priv_keys-template vendor/evolution-priv/keys
-cd vendor/evolution-priv/keys
-./keys.sh
-cd ../../..
+# rm -rf vendor/evolution-priv/keys
+# git clone https://github.com/Kyura-Ground/vendor_evolution-priv_keys-template vendor/evolution-priv/keys
+# cd vendor/evolution-priv/keys
+# ./keys.sh
+# cd ../../..
 
 
 echo "========================"
 echo " Starting Build: VANILLA"
 echo "========================"
 # Setup untuk perangkat
-lunch infinity_X00TD-user
+lunch lineage_X00TD-user
 make installclean
 m bacon
 
 # Upload VANILLA Build
-for file in out/target/product/X00TD/Project_Infinity*.zip; do
+for file in out/target/product/X00TD/lineage*.zip; do
     if [ -f "$file" ]; then
         echo "Mulai mengupload VANILLA: $file"
         curl -T "$file" -u :8490fc51-f593-4c87-8e35-3379cf5a94a3 https://pixeldrain.com/api/file/
