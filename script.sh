@@ -82,7 +82,7 @@ echo "========================"
 # Setup untuk perangkat
 lunch lineage_X00T-user
 make installclean
-m bacon
+mka bacon
 
 # Upload VANILLA Build
 for file in out/target/product/X00T/risingOS*.zip; do
