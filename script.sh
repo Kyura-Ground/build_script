@@ -80,9 +80,8 @@ echo "========================"
 echo " Starting Build: VANILLA"
 echo "========================"
 # Setup untuk perangkat
-lunch lineage_X00TD-user
 make installclean
-mka bacon
+brunch X00TD
 
 # Upload VANILLA Build
 for file in out/target/product/X00TD/crDroid*.zip; do
