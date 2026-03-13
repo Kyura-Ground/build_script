@@ -80,7 +80,7 @@ echo "========================"
 echo " Starting Build: VANILLA"
 echo "========================"
 # Setup untuk perangkat
-lunch qassa_X00TD-userdebug
+lunch qassa_X00TD-user
 make installclean
 mka qassa
 
