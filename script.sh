@@ -38,13 +38,13 @@ echo "lib6 >> lib5  "
 echo "============="
 
 #repo init
-repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/crdroidandroid/android.git -b 16.0 -g default,-mips,-darwin,-notdefault
+repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/Evolution-X/manifest -b bq2 -g default,-mips,-darwin,-notdefault
 echo "=================="
 echo "Repo init success"
 echo "=================="
 
 #local_manifest
-git clone --depth=1 https://github.com/ikwfahmi/local_manifests.git -b Cr-16 .repo/local_manifests
+git clone --depth=1 https://github.com/ikwfahmi/local_manifests.git -b Evox-16 .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
@@ -75,19 +75,16 @@ cd vendor/evolution-priv/keys
 ./keys.sh
 cd ../../..
 
-rm -rf build/make
-git clone --depth=1 https://github.com/Kyura-Ground/android_build.git build/make
-
 echo "========================"
 echo " Starting Build: VANILLA"
 echo "========================"
 # Setup untuk perangkat
 lunch lineage_X00TD-bp4a-user
 make installclean
-mka bacon
+m evolution
 
 # Upload VANILLA Build
-for file in out/target/product/X00TD/crDroid*.zip; do
+for file in out/target/product/X00TD/EvolutionX*.zip; do
     if [ -f "$file" ]; then
         echo "Mulai mengupload VANILLA: $file"
         curl -T "$file" -u :8490fc51-f593-4c87-8e35-3379cf5a94a3 https://pixeldrain.com/api/file/
