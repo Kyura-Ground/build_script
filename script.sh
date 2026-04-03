@@ -20,6 +20,7 @@ remove_lists=(
     vendor/evolution-priv/keys
 	vendor/voltage-priv/keys
 	hardware/lineage/interfaces
+	hardware/qcom-caf/sdm660/audio
 )
 
 do_reclone() {
@@ -39,13 +40,13 @@ echo "lib6 >> lib5  "
 echo "============="
 
 #repo init
-repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/Evolution-X/manifest -b bq2 -g default,-mips,-darwin,-notdefault
+repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/ProjectInfinity-X/manifest -b 16 -g default,-mips,-darwin,-notdefault
 echo "=================="
 echo "Repo init success"
 echo "=================="
 
 #local_manifest
-git clone --depth=1 https://github.com/Kyura-Ground/local_manifests.git -b Evox-16 .repo/local_manifests
+git clone --depth=1 https://github.com/Kyura-Ground/local_manifests.git -b Infinity-16 .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
@@ -88,12 +89,12 @@ echo "========================"
 echo " Starting Build: GApps"
 echo "========================"
 # Setup untuk perangkat
-lunch lineage_X00TD-bp4a-user
+lunch infinity_X00TD-user
 make installclean
-m evolution
+m bacon
 
 # Upload VANILLA Build
-for file in out/target/product/X00TD/EvolutionX*.zip; do
+for file in out/target/product/X00TD/Project_Infinity*.zip; do
     if [ -f "$file" ]; then
         echo "Mulai mengupload VANILLA: $file"
         curl -T "$file" -u :8490fc51-f593-4c87-8e35-3379cf5a94a3 https://pixeldrain.com/api/file/
