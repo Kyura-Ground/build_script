@@ -40,13 +40,13 @@ echo "lib6 >> lib5  "
 echo "============="
 
 #repo init
-repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/The-Clover-Project/manifest.git -b 16-qpr2 -g default,-mips,-darwin,-notdefault
+repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/HertzifyOS/android_manifest.git -b 16 -g default,-mips,-darwin,-notdefault
 echo "=================="
 echo "Repo init success"
 echo "=================="
 
 #local_manifest
-git clone --depth=1 https://github.com/Kyura-Ground/local_manifests.git -b Clover-16 .repo/local_manifests
+git clone --depth=1 https://github.com/Kyura-Ground/local_manifests.git -b Hertzify-16 .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
@@ -81,22 +81,16 @@ rm -rf hardware/qcom-caf/sdm660/audio
 git clone --depth=1 -b lineage-23.2-caf-sdm660 https://github.com/rsuntk-asus-sdm660/android_hardware_qcom-caf_audio.git hardware/qcom-caf/sdm660/audio
 # git clone --depth=1 -b 16.0 https://github.com/Kyura-Ground/android_build.git build/make
 
-rm -rf build/make
-git clone --depth=1 https://github.com/ikwfahmi/build_make.git build/make
-
-rm -rf build/soong
-git clone --depth=1 https://github.com/ikwfahmi/build_soong.git build/soong
-
 echo "========================"
 echo " Starting Build: GApps"
 echo "========================"
 # Setup untuk perangkat
-lunch clover_X00TD-bp4a-user
+lunch hertzify_X00TD-bp4a-user
 make installclean
-mka clover
+mka bacon
 
 # Upload VANILLA Build
-for file in out/target/product/X00TD/CloverProject*.zip; do
+for file in out/target/product/X00TD/hertzify*.zip; do
     if [ -f "$file" ]; then
         echo "Mulai mengupload VANILLA: $file"
         curl -T "$file" -u :8490fc51-f593-4c87-8e35-3379cf5a94a3 https://pixeldrain.com/api/file/
