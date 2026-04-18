@@ -21,6 +21,7 @@ remove_lists=(
 	vendor/voltage-priv/keys
 	hardware/lineage/interfaces
 	hardware/qcom-caf/sdm660/audio
+	packages/apps/HertzifySettings
 )
 
 do_reclone() {
