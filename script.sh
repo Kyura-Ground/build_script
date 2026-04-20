@@ -72,7 +72,7 @@ export TZ="Asia/Jakarta"
 source build/envsetup.sh
 
 rm -rf vendor/evolution-priv/keys
-git clone https://github.com/Evolution-X/vendor_evolution-priv_keys-template vendor/evolution-priv/keys
+git clone --depth=1 https://github.com/Evolution-X/vendor_evolution-priv_keys-template vendor/evolution-priv/keys
 cd vendor/evolution-priv/keys
 ./keys.sh
 cd ../../..
@@ -85,7 +85,7 @@ rm -rf build/make
 git clone --depth=1 https://github.com/Kyura-Ground/build_lunaris.git build/make
 
 echo "========================"
-echo " Starting Build: GApps"
+echo " Starting Build: Vanilla"
 echo "========================"
 # Setup untuk perangkat
 lunch lineage_X00TD-bp4a-user
