@@ -1,11 +1,11 @@
 #repo init
-repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/ProjectInfinity-X/manifest -b 16 -g default,-mips,-darwin,-notdefault
+repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/Project-Mist-OS/manifest -b 16.2 -g default,-mips,-darwin,-notdefault
 echo "=================="
 echo "Repo init success"
 echo "=================="
 
 #local_manifest
-git clone --depth=1 https://github.com/Kyura-Ground/local_manifests.git -b Infinity-16 .repo/local_manifests
+git clone --depth=1 https://github.com/Kyura-Ground/local_manifests.git -b main .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
@@ -47,6 +47,6 @@ git clone --depth=1 -b lineage-23.2-caf-sdm660 https://github.com/rsuntk-asus-sd
 # echo " Starting Build: Vanilla"
 # echo "========================"
 # Setup untuk perangkat
-lunch infinity_X00TD-user
-make installclean
-m bacon
+# lunch infinity_X00TD-user
+# make installclean
+# m bacon
