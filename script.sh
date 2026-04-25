@@ -47,6 +47,6 @@ git clone --depth=1 -b lineage-23.2-caf-sdm660 https://github.com/rsuntk-asus-sd
 # echo " Starting Build: Vanilla"
 # echo "========================"
 # Setup untuk perangkat
-lunch lineage_X00TD-bp4a-user
-make installclean
-mka bacon
+# lunch lineage_X00TD-bp4a-user
+# make installclean
+# mka bacon
