@@ -30,11 +30,11 @@ export BUILD_HOSTNAME=serverhive
 export TZ="Asia/Jakarta"
 source build/envsetup.sh
 
-rm -rf vendor/evolution-priv/keys
-git clone --depth=1 https://github.com/Evolution-X/vendor_evolution-priv_keys-template vendor/evolution-priv/keys
-cd vendor/evolution-priv/keys
-./keys.sh
-cd ../../..
+# rm -rf vendor/evolution-priv/keys
+# git clone --depth=1 https://github.com/Evolution-X/vendor_evolution-priv_keys-template vendor/evolution-priv/keys
+# cd vendor/evolution-priv/keys
+#./keys.sh
+# cd ../../..
 
 rm -rf hardware/qcom-caf/sdm660/audio
 git clone --depth=1 -b lineage-23.2-caf-sdm660 https://github.com/rsuntk-asus-sdm660/android_hardware_qcom-caf_audio.git hardware/qcom-caf/sdm660/audio
