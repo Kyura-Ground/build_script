@@ -1,5 +1,5 @@
 #repo init
-repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/yaap/manifest.git -b sixteen -g default,-mips,-darwin,-notdefault
+repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/crdroidandroid/android.git -b 16.0 -g default,-mips,-darwin,-notdefault
 echo "=================="
 echo "Repo init success"
 echo "=================="
