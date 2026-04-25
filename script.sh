@@ -1,5 +1,5 @@
 #repo init
-repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/Lynx-AOSP/android_manifest.git -b 16-qpr2 -g default,-mips,-darwin,-notdefault
+repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/alphadroid-project/manifest -b alpha-16.2 -g default,-mips,-darwin,-notdefault
 echo "=================="
 echo "Repo init success"
 echo "=================="
