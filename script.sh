@@ -1,5 +1,5 @@
 #repo init
-repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/Project-Mist-OS/manifest -b 16.2 -g default,-mips,-darwin,-notdefault
+repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/yaap/manifest.git -b sixteen -g default,-mips,-darwin,-notdefault
 echo "=================="
 echo "Repo init success"
 echo "=================="
