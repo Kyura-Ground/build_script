@@ -79,7 +79,6 @@ cd ../../..
 
 rm -rf hardware/qcom-caf/sdm660/audio
 git clone --depth=1 -b lineage-23.2-caf-sdm660 https://github.com/rsuntk-asus-sdm660/android_hardware_qcom-caf_audio.git hardware/qcom-caf/sdm660/audio
-# git clone --depth=1 -b 16.0 https://github.com/Kyura-Ground/android_build.git build/make
 
 # rm -rf build/make
 # git clone --depth=1 https://github.com/Kyura-Ground/build_lunaris.git build/make
