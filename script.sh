@@ -81,9 +81,9 @@ cd ../../..
 rm -rf hardware/qcom-caf/sdm660/audio
 git clone --depth=1 -b lineage-23.2-caf-sdm660 https://github.com/rsuntk-asus-sdm660/android_hardware_qcom-caf_audio.git hardware/qcom-caf/sdm660/audio
 
-rm -rf hardware/lineage/interfaces
-rm -rf hardware/hertzify/interfaces
-git clone --depth=1 -b lineage-23.2 https://github.com/rsuntk-asus-sdm660/android_hardware_lineage_interfaces.git hardware/hertzify/interfaces
+# rm -rf hardware/lineage/interfaces
+# rm -rf hardware/hertzify/interfaces
+# git clone --depth=1 -b lineage-23.2 https://github.com/rsuntk-asus-sdm660/android_hardware_lineage_interfaces.git hardware/hertzify/interfaces
 
 # rm -rf build/make
 # git clone --depth=1 https://github.com/Kyura-Ground/build_lunaris.git build/make
