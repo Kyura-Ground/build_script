@@ -85,12 +85,10 @@ rm -rf hardware/lineage/interfaces
 rm -rf hardware/hertzify/interfaces
 git clone --depth=1 -b 16 https://github.com/Kyura-Ground/android_hardware_hertzify_interfaces.git hardware/hertzify/interfaces
 
-# rm -rf build/make
-# git clone --depth=1 https://github.com/Kyura-Ground/build_lunaris.git build/make
-
 echo "========================"
 echo " Starting Build: Vanilla"
 echo "========================"
+
 # Setup untuk perangkat
 lunch hertzify_X00TD-bp4a-user
 make installclean
