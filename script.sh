@@ -59,15 +59,15 @@ echo "Sync success"
 echo "============="
 
 # setup KernelSU
-if [ -d kernel/asus/sdm660 ]; then 
-cd kernel/asus/sdm660
-curl -LSs "https://raw.githubusercontent.com/ReSukiSU/ReSukiSU/main/kernel/setup.sh" | bash
-cd ../../..
-fi
-echo "======= RKSU done ======"
+# if [ -d kernel/asus/sdm660 ]; then 
+# cd kernel/asus/sdm660
+# curl -LSs "https://raw.githubusercontent.com/ReSukiSU/ReSukiSU/main/kernel/setup.sh" | bash
+# cd ../../..
+# fi
+# echo "======= RKSU done ======"
 
 # Set up build environment
-export BUILD_USERNAME=kenq
+export BUILD_USERNAME=kyura
 export BUILD_HOSTNAME=crave
 export TZ="Asia/Jakarta"
 source build/envsetup.sh
