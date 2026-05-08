@@ -59,12 +59,12 @@ echo "Sync success"
 echo "============="
 
 # setup KernelSU
-if [ -d kernel/asus/sdm660 ]; then 
-cd kernel/asus/sdm660
-curl -LSs "https://raw.githubusercontent.com/backslashxx/KernelSU/master/kernel/setup.sh" | bash -s master
-cd ../../..
-fi
-echo "======= XXKSU done ======"
+# if [ -d kernel/asus/sdm660 ]; then 
+# cd kernel/asus/sdm660
+# curl -LSs "https://raw.githubusercontent.com/backslashxx/KernelSU/master/kernel/setup.sh" | bash -s master
+# cd ../../..
+# fi
+# echo "======= XXKSU done ======"
 
 # Set up build environment
 export BUILD_USERNAME=kyura
