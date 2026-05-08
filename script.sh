@@ -79,11 +79,13 @@ cd vendor/evolution-priv/keys
 cd ../../..
 
 rm -rf hardware/qcom-caf/sdm660/audio
-git clone --depth=1 -b lineage-23.2-caf-sdm660 https://github.com/rsuntk-asus-sdm660/android_hardware_qcom-caf_audio.git hardware/qcom-caf/sdm660/audio
+git clone --depth=1 -b lineage-23.2-caf-sdm660 https://github.com/Kyura-Ground/android_hardware_qcom_audio.git hardware/qcom-caf/sdm660/audio
+
+rm -rf hardware/qcom-caf/sdm660/display
+git clone --depth=1 -b lineage-23.2-caf-sdm660 https://github.com/Kyura-Ground/android_hardware_qcom_display.git hardware/qcom-caf/sdm660/display
 
 rm -rf hardware/lineage/interfaces
-rm -rf hardware/hertzify/interfaces
-git clone --depth=1 -b lineage-23.2 https://github.com/rsuntk-asus-sdm660/android_hardware_lineage_interfaces.git hardware/lineage/interfaces
+git clone --depth=1 -b lineage-23.2 https://github.com/Kyura-Ground/android_hardware_lineage_interfaces.git hardware/lineage/interfaces
 
 echo "========================"
 echo " Starting Build: Vanilla"
