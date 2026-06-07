@@ -48,5 +48,5 @@ source build/envsetup.sh
 # echo " Starting Build: Vanilla"
 # echo "========================"
 # Setup untuk perangkat
-lunch lineage_X00TD-user
-mka bacon
+# lunch lineage_X00TD-user
+# mka bacon
