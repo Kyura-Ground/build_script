@@ -1,12 +1,12 @@
 #repo init
-repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/VoltageOS/manifest.git -b 16.2 -g default,-mips,-darwin,-notdefault
+repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/Lunaris-AOSP/android -b 16.2 -g default,-mips,-darwin,-notdefault
 echo "=================="
 echo "Repo init success"
 echo "=================="
 
 #local_manifest
 rm -rf .repo/local_manifests
-git clone --depth=1 https://github.com/Kyura-Ground/local_manifests.git -b Voltage-16 .repo/local_manifests
+git clone --depth=1 https://github.com/Kyura-Ground/local_manifests.git -b Lunaris-16 .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
@@ -48,5 +48,5 @@ git clone --depth=1 -b lineage-23.2-caf-sdm660 https://github.com/SonicBSV/andro
 # echo " Starting Build: Vanilla"
 # echo "========================"
 # Setup untuk perangkat
-# lunch infinity_X00TD-user
-# mka bacon
+lunch lineage_X00TD-bp4a-user
+mka bacon
