@@ -1,11 +1,11 @@
 #repo init
-repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/alphadroid-project/manifest -b alpha-16.2 -g default,-mips,-darwin,-notdefault
+repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/ProjectInfinity-X/manifest -b 16 -g default,-mips,-darwin,-notdefault
 echo "=================="
 echo "Repo init success"
 echo "=================="
 
 #local_manifest
-git clone --depth=1 https://github.com/Kyura-Ground/local_manifests.git -b main .repo/local_manifests
+git clone --depth=1 https://github.com/Kyura-Ground/local_manifests.git -b Infinity-16 .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
@@ -37,7 +37,7 @@ cd vendor/evolution-priv/keys
 cd ../../..
 
 rm -rf hardware/qcom-caf/sdm660/audio
-git clone --depth=1 -b lineage-23.2-caf-sdm660 https://github.com/rsuntk-asus-sdm660/android_hardware_qcom-caf_audio.git hardware/qcom-caf/sdm660/audio
+git clone --depth=1 -b lineage-23.2-caf-sdm660 https://github.com/SonicBSV/android_hardware_qcom-caf_sdm660_audio.git hardware/qcom-caf/sdm660/audio
 # git clone --depth=1 -b 16.0 https://github.com/Kyura-Ground/android_build.git build/make
 
 # rm -rf build/make
@@ -47,6 +47,5 @@ git clone --depth=1 -b lineage-23.2-caf-sdm660 https://github.com/rsuntk-asus-sd
 # echo " Starting Build: Vanilla"
 # echo "========================"
 # Setup untuk perangkat
-# lunch lineage_X00TD-bp4a-user
-# make installclean
-# mka bacon
+lunch infinity_X00TD-user
+mka bacon
