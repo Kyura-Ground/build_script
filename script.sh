@@ -48,4 +48,4 @@ git clone --depth=1 -b lineage-23.2-caf-sdm660 https://github.com/SonicBSV/andro
 # echo "========================"
 # Setup untuk perangkat
 lunch lineage_X00TD-bp4a-user
-m evolution
+mka bacon
