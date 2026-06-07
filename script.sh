@@ -1,12 +1,12 @@
 #repo init
-repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/LineageOS-T/android.git -b lineage-20.0 -g default,-mips,-darwin,-notdefault
+repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/crdroidandroid/android.git -b 16.0 -g default,-mips,-darwin,-notdefault
 echo "=================="
 echo "Repo init success"
 echo "=================="
 
 #local_manifest
 rm -rf .repo/local_manifests
-git clone --depth=1 https://github.com/Kyura-Ground/local_manifests.git -b Cr-13 .repo/local_manifests
+git clone --depth=1 https://github.com/Kyura-Ground/local_manifests.git -b Evox-16 .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
@@ -31,15 +31,14 @@ export BUILD_HOSTNAME=serverhive
 export TZ="Asia/Jakarta"
 source build/envsetup.sh
 
-# rm -rf vendor/evolution-priv/keys
-# git clone --depth=1 https://github.com/Evolution-X/vendor_evolution-priv_keys-template vendor/evolution-priv/keys
-# cd vendor/evolution-priv/keys
-# ./keys.sh
-# cd ../../..
+rm -rf vendor/evolution-priv/keys
+git clone --depth=1 https://github.com/Evolution-X/vendor_evolution-priv_keys-template vendor/evolution-priv/keys
+cd vendor/evolution-priv/keys
+./keys.sh
+cd ../../..
 
-# rm -rf hardware/qcom-caf/sdm660/audio
-# git clone --depth=1 -b lineage-23.2-caf-sdm660 https://github.com/SonicBSV/android_hardware_qcom-caf_sdm660_audio.git hardware/qcom-caf/sdm660/audio
-# git clone --depth=1 -b 16.0 https://github.com/Kyura-Ground/android_build.git build/make
+rm -rf hardware/qcom-caf/sdm660/audio
+git clone --depth=1 -b lineage-23.2-caf-sdm660 https://github.com/SonicBSV/android_hardware_qcom-caf_sdm660_audio.git hardware/qcom-caf/sdm660/audio
 
 # rm -rf build/make
 # git clone --depth=1 https://github.com/Kyura-Ground/build_lunaris.git build/make
@@ -48,5 +47,5 @@ source build/envsetup.sh
 # echo " Starting Build: Vanilla"
 # echo "========================"
 # Setup untuk perangkat
-lunch lineage_X00TD-user
-mka bacon
+lunch lineage_X00TD-bp4a-user
+m evolution
