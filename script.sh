@@ -81,6 +81,9 @@ cd ../../..
 rm -rf hardware/qcom-caf/sdm660/audio
 git clone --depth=1 -b lineage-23.2-caf-sdm660 https://github.com/SonicBSV/android_hardware_qcom-caf_sdm660_audio.git hardware/qcom-caf/sdm660/audio
 
+rm -rf build/soong
+git clone --depth=1 https://github.com/Kyura-Ground/build_soong-voltage.git build/soong
+
 echo "========================"
 echo " Starting Build: Vanilla"
 echo "========================"
