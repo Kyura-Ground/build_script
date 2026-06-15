@@ -41,13 +41,13 @@ echo "lib6 >> lib5  "
 echo "============="
 
 #repo init
-repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/VoltageOS/manifest.git -b 16.2 -g default,-mips,-darwin,-notdefault
+repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/LineageOS/android.git -b lineage-23.2 -g default,-mips,-darwin,-notdefault
 echo "=================="
 echo "Repo init success"
 echo "=================="
 
 #local_manifest
-git clone --depth=1 https://github.com/Kyura-Ground/local_manifests.git -b Voltage-16 .repo/local_manifests
+git clone --depth=1 https://github.com/Kyura-Ground/local_manifests.git -b lineage-23.2 .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
@@ -72,9 +72,9 @@ export BUILD_HOSTNAME=crave
 export TZ="Asia/Jakarta"
 source build/envsetup.sh
 
-rm -rf vendor/voltage-priv/keys
-git clone --depth=1 https://github.com/VoltageOS/vendor_voltage-priv_keys vendor/voltage-priv/keys
-cd vendor/voltage-priv/keys
+rm -rf vendor/evolution-priv/keys
+git clone --depth=1 https://github.com/Evolution-X/vendor_evolution-priv_keys-template vendor/evolution-priv/keys
+cd vendor/evolution-priv/keys
 ./keys.sh
 cd ../../..
 
@@ -82,18 +82,19 @@ rm -rf hardware/qcom-caf/sdm660/audio
 git clone --depth=1 -b lineage-23.2-caf-sdm660 https://github.com/SonicBSV/android_hardware_qcom-caf_sdm660_audio.git hardware/qcom-caf/sdm660/audio
 
 rm -rf build/soong
-git clone --depth=1 https://github.com/Kyura-Ground/build_soong-voltage.git build/soong
+git clone --depth=1 https://github.com/Kyura-Ground/android_build_soong.git build/soong
 
 echo "========================"
 echo " Starting Build: Vanilla"
 echo "========================"
 
 # Setup untuk perangkat
+lunch lineage_X00TD-bp4a-user
 make installclean
-brunch X00TD
+mka bacon
 
 # Upload VANILLA Build
-for file in out/target/product/X00TD/voltage*.zip; do
+for file in out/target/product/X00TD/lineage*.zip; do
     if [ -f "$file" ]; then
         echo "Mulai mengupload VANILLA: $file"
         curl -T "$file" -u :8490fc51-f593-4c87-8e35-3379cf5a94a3 https://pixeldrain.com/api/file/
