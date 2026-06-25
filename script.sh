@@ -2,26 +2,9 @@
 remove_lists=(
     .repo/local_manifests
     device/asus/X00TD
-    device/lineage/sepolicy
-    device/qcom/sepolicy
-    device/qcom/sepolicy-legacy-um
-    device/qcom/sepolicy_vndr/legacy-um
-    external/chromium-webview
     kernel/asus/sdm660
-    out/target/product/X00TD
-    prebuilts/clang/host/linux-x86
-    packages/modules/Nfc
-    packages/apps/Nfc
-    system/nfc
-    vendor/extras
-    vendor/addons
     vendor/asus
-    vendor/lineage-priv/keys
     vendor/evolution-priv/keys
-	vendor/voltage-priv/keys
-	hardware/lineage/interfaces
-	hardware/qcom-caf/sdm660/audio
-	hardware/hertzify/interfaces
 )
 
 do_reclone() {
