@@ -39,7 +39,7 @@ echo "============="
 git clone --depth=1 https://github.com/Kyura-Ground/android_device_asus_X00TD-4.19.git -b 13.0 device/asus/X00TD
 git clone --depth=1 https://github.com/Kyura-Ground/android_device_asus_sdm660-common-4.19.git -b 13.0 device/asus/sdm660-common
 git clone --depth=1 https://github.com/Kyura-Ground/proprietary_vendor_asus-4.19.git -b 13.0 vendor/asus
-git clone --depth=1 https://github.com/Kyura-Ground/android_kernel_asus_sdm660-4.19.git -b lineage-23.2 kernel/asus/sdm660-common
+git clone --depth=1 https://github.com/Kyura-Ground/android_kernel_asus_sdm660-4.19.git -b lineage-23.2 kernel/asus/sdm660
 git clone --depth=1 https://github.com/Kyura-Ground/public-keys.git -b main vendor/lineage-priv/keys/
 echo "============================"
 echo "Clone X00TD Resources done"
