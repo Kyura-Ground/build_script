@@ -13,10 +13,10 @@ echo "Sync success"
 echo "============="
 
 #local_manifest
-git clone https://github.com/Kyura-Ground/android_device_asus_X00TD-4.19.git -b 13.0 device/asus/X00TD
-git clone https://github.com/muralivijay/android_device_asus_sdm660-common-4.19.git -b 13.0 device/asus/sdm660-common
-git clone https://github.com/muralivijay/proprietary_vendor_asus-4.19.git -b 13.0 vendor/asus
-git clone https://github.com/muralivijay/android_kernel_asus_sdm660-4.19.git -b Ratibor-Rebased-Murali kernel/asus/sdm660-common
+git clone --depth=1 https://github.com/Kyura-Ground/android_device_asus_X00TD-4.19.git -b 13.0 device/asus/X00TD
+git clone --depth=1 https://github.com/muralivijay/android_device_asus_sdm660-common-4.19.git -b 13.0 device/asus/sdm660-common
+git clone --depth=1 https://github.com/muralivijay/proprietary_vendor_asus-4.19.git -b 13.0 vendor/asus
+git clone --depth=1 --recursive https://github.com/muralivijay/android_kernel_asus_sdm660-4.19.git -b Ratibor-Rebased-Murali kernel/asus/sdm660-common
 echo "============================"
 echo "Clone X00TD Resources done"
 echo "============================"
@@ -35,9 +35,9 @@ rm -rf hardware/qcom-caf/msm8998/audio
 rm -rf hardware/qcom-caf/msm8998/media
 echo "====== Removed legacy msm8998 HALS ======="
 
-git clone https://github.com/muralivijay/android_hardware_qcom-caf_sdm660_audio -b lineage-20.0-caf-sdm660 hardware/qcom-caf/msm8998/audio
-git clone https://github.com/muralivijay/android_hardware_qcom-caf_sdm660_display -b lineage-20.0-caf-sdm660 hardware/qcom-caf/msm8998/display
-git clone https://github.com/muralivijay/android_hardware_qcom-caf_sdm660_media -b lineage-20.0-caf-sdm660 hardware/qcom-caf/msm8998/media
+git clone --depth=1 https://github.com/muralivijay/android_hardware_qcom-caf_sdm660_audio -b lineage-20.0-caf-sdm660 hardware/qcom-caf/msm8998/audio
+git clone --depth=1 https://github.com/muralivijay/android_hardware_qcom-caf_sdm660_display -b lineage-20.0-caf-sdm660 hardware/qcom-caf/msm8998/display
+git clone --depth=1 https://github.com/muralivijay/android_hardware_qcom-caf_sdm660_media -b lineage-20.0-caf-sdm660 hardware/qcom-caf/msm8998/media
 echo "====== cloned 4.19 msm8998 HALS ======="
 
 # Check keys before procced build
