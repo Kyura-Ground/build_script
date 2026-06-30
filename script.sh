@@ -2,6 +2,7 @@
 remove_lists=(
     .repo/local_manifests
     device/asus/X00TD
+    device/asus/sdm660-common
     kernel/asus/sdm660
     vendor/asus
     vendor/evolution-priv/keys
