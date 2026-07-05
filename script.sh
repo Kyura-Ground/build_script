@@ -2,7 +2,6 @@
 remove_lists=(
     .repo/local_manifests
     device/asus/X00TD
-    device/asus/sdm660-common
     kernel/asus/sdm660
     vendor/asus
     vendor/evolution-priv/keys
@@ -30,21 +29,25 @@ echo "=================="
 echo "Repo init success"
 echo "=================="
 
+#local_manifest
+git clone --depth=1 https://github.com/Kyura-Ground/local_manifests.git -b Hakcyon-16 .repo/local_manifests
+echo "============================"
+echo "Local manifest clone success"
+echo "============================"
+
 #Sync
 [ -f /usr/bin/resync ] && /usr/bin/resync || /opt/crave/resync.sh
 echo "============="
 echo "Sync success"
 echo "============="
 
-#local_manifest
-git clone --depth=1 https://github.com/Kyura-Ground/device_asus_X00TD.git -b Halcyon-16.2 device/asus/X00TD
-# git clone --depth=1 https://github.com/Kyura-Ground/android_device_asus_sdm660-common-4.19.git -b 13.0 device/asus/sdm660-common
-git clone --depth=1 https://github.com/Kyura-Ground/vendor_asus_X00TD.git -b lineage-23.2 vendor/asus/X00TD
-git clone --depth=1 https://github.com/Kyura-Ground/android_kernel_asus_sdm660-4.19.git -b lineage-23.2 kernel/asus/X00TD
-# git clone --depth=1 https://github.com/Kyura-Ground/public-keys.git -b main vendor/lineage-priv/keys/
-echo "============================"
-echo "Clone X00TD Resources done"
-echo "============================"
+# setup KernelSU
+# if [ -d kernel/asus/sdm660 ]; then 
+# cd kernel/asus/sdm660
+# curl -LSs "https://raw.githubusercontent.com/backslashxx/KernelSU/master/kernel/setup.sh" | bash -s master
+# cd ../../..
+# fi
+# echo "======= XXKSU done ======"
 
 # Set up build environment
 export BUILD_USERNAME=kyura
@@ -58,11 +61,15 @@ cd vendor/evolution-priv/keys
 ./keys.sh
 cd ../../..
 
-# rm -rf hardware/qcom-caf/sdm660/audio
-# git clone --depth=1 -b lineage-23.2-caf-sdm660 https://github.com/SonicBSV/android_hardware_qcom-caf_sdm660_audio.git hardware/qcom-caf/sdm660/audio
+rm -rf hardware/qcom-caf/sdm660/audio
+git clone --depth=1 -b lineage-23.2-caf-sdm660 https://github.com/SonicBSV/android_hardware_qcom-caf_sdm660_audio.git hardware/qcom-caf/sdm660/audio
 
 rm -rf build/soong
 git clone --depth=1 -b 16.2 https://github.com/Kyura-Ground/build_soong build/soong
+
+echo "========================"
+echo " Starting Build: Vanilla"
+echo "========================"
 
 # Setup untuk perangkat
 lunch halcyon_X00TD-bp4a-user
