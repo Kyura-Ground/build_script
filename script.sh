@@ -30,17 +30,17 @@ echo "=================="
 echo "Repo init success"
 echo "=================="
 
-#Sync
-[ -f /usr/bin/resync ] && /usr/bin/resync || /opt/crave/resync.sh
-echo "============="
-echo "Sync success"
-echo "============="
-
 #local_manifest
 git clone -b lineage-24.0 https://github.com/Kyura-Ground/local_manifests.git .repo/local_manifests --depth=1
 echo "============================"
 echo "Clone X00TD Resources done"
 echo "============================"
+
+#Sync
+[ -f /usr/bin/resync ] && /usr/bin/resync || /opt/crave/resync.sh
+echo "============="
+echo "Sync success"
+echo "============="
 
 # setup KernelSU
 # if [ -d kernel/asus/sdm660 ]; then 
