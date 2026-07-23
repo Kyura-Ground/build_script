@@ -82,7 +82,7 @@ make installclean
 mka bacon
 
 # Upload VANILLA Build
-for file in out/target/product/X00T/lineage*.zip; do
+for file in out/target/product/X00TD/lineage*.zip; do
     if [ -f "$file" ]; then
         echo "Mulai mengupload VANILLA: $file"
         curl -T "$file" -u :8490fc51-f593-4c87-8e35-3379cf5a94a3 https://pixeldrain.com/api/file/
