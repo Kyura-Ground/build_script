@@ -5,7 +5,10 @@ remove_lists=(
     device/asus/sdm660-common
     kernel/asus/sdm660
     vendor/asus
+    vendor/asus/X00TD
+    vendor/asus/sdm660-common
     vendor/evolution-priv/keys
+    vendor/lineage-priv/keys/
 )
 
 do_reclone() {
