@@ -28,7 +28,7 @@ echo "lib6 >> lib5  "
 echo "============="
 
 #repo init
-repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/LineageOS/android.git -b lineage-20.0 -g default,-mips,-darwin,-notdefault
+repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/DerpFest-AOSP/manifest.git -b 13 -g default,-mips,-darwin,-notdefault
 echo "=================="
 echo "Repo init success"
 echo "=================="
@@ -40,7 +40,7 @@ echo "Sync success"
 echo "============="
 
 #local_manifest
-git clone --depth=1 https://github.com/Kyura-Ground/android_device_asus_X00TD-4.4.git device/asus/X00TD
+git clone --depth=1 https://github.com/Kyura-Ground/android_device_asus_X00TD-4.4.git -b derpfest device/asus/X00TD
 git clone --depth=1 https://github.com/Kyura-Ground/android_device_asus_sdm660-common-4.4.git device/asus/sdm660-common
 git clone --depth=1 https://github.com/Kyura-Ground/proprietary_vendor_asus_X00TD-4.4.git vendor/asus/X00TD
 git clone --depth=1 https://github.com/Kyura-Ground/proprietary_vendor_asus_sdm660-common-4.4.git vendor/asus/sdm660-common
@@ -77,12 +77,12 @@ source build/envsetup.sh
 # git clone --depth=1 -b 16.2 https://github.com/Kyura-Ground/build_soong build/soong
 
 # Setup untuk perangkat
-lunch lineage_X00TD-user
+lunch derp_X00TD-user
 make installclean
-mka bacon
+mka derp
 
 # Upload VANILLA Build
-for file in out/target/product/X00TD/lineage*.zip; do
+for file in out/target/product/X00TD/DerpFest*.zip; do
     if [ -f "$file" ]; then
         echo "Mulai mengupload VANILLA: $file"
         curl -T "$file" -u :8490fc51-f593-4c87-8e35-3379cf5a94a3 https://pixeldrain.com/api/file/
