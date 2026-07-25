@@ -28,7 +28,7 @@ echo "lib6 >> lib5  "
 echo "============="
 
 #repo init
-repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/crdroid-13-fork/android.git -b 13.0 -g default,-mips,-darwin,-notdefault
+repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/LineageOS-FE/manifest.git -b lineage-20.0 -g default,-mips,-darwin,-notdefault
 echo "=================="
 echo "Repo init success"
 echo "=================="
@@ -82,7 +82,7 @@ make installclean
 mka bacon
 
 # Upload VANILLA Build
-for file in out/target/product/X00TD/crDroidAndroid*.zip; do
+for file in out/target/product/X00TD/lineage*.zip; do
     if [ -f "$file" ]; then
         echo "Mulai mengupload VANILLA: $file"
         curl -T "$file" -u :8490fc51-f593-4c87-8e35-3379cf5a94a3 https://pixeldrain.com/api/file/
