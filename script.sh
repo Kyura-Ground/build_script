@@ -9,6 +9,7 @@ remove_lists=(
     vendor/asus/sdm660-common
     vendor/evolution-priv/keys
     vendor/lineage-priv/keys/
+    out/target/product/X00TD
 )
 
 do_reclone() {
