@@ -5,6 +5,8 @@ remove_lists=(
     kernel/asus/sdm660
     vendor/asus
     vendor/evolution-priv/keys
+    packages/overlays/Lineage/fonts
+    prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9
 )
 
 do_reclone() {
@@ -16,21 +18,14 @@ do_reclone() {
 echo "-- Removing ${remove_lists[@]}"
 rm -rf "${remove_lists[@]}"
 
-# Symlink libncurses 6 >> 5
-# sudo ln -s /usr/lib/x86_64-linux-gnu/libncurses.so.6 /usr/lib/x86_64-linux-gnu/libncurses.so.5
-# sudo ln -s /usr/lib/x86_64-linux-gnu/libtinfo.so.6   /usr/lib/x86_64-linux-gnu/libtinfo.so.5
-# echo "============="
-# echo "lib6 >> lib5  "
-# echo "============="
-
 #repo init
-repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/VoltageOS/manifest.git -b 17 -g default,-mips,-darwin,-notdefault
+repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/Evolution-X/manifest -b cnb -g default,-mips,-darwin,-notdefault
 echo "=================="
 echo "Repo init success"
 echo "=================="
 
 #local_manifest
-git clone --depth=1 https://github.com/Kyura-Ground/local_manifests.git -b Voltage .repo/local_manifests
+git clone --depth=1 https://github.com/Kyura-Ground/local_manifests.git -b Evox .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
@@ -41,13 +36,15 @@ echo "============="
 echo "Sync success"
 echo "============="
 
-# setup KernelSU
-# if [ -d kernel/asus/sdm660 ]; then 
-# cd kernel/asus/sdm660
-# curl -LSs "https://raw.githubusercontent.com/backslashxx/KernelSU/master/kernel/setup.sh" | bash -s master
-# cd ../../..
-# fi
-# echo "======= XXKSU done ======"
+# ==========================================================
+# FIX KONFLIK MODULE ALREADY DEFINED
+# Dijalankan SETELAH sync agar folder tidak diunduh ulang
+# ==========================================================
+echo "================================================="
+echo " Menghapus folder QCOM-CAF dan Font yang bentrok "
+echo "================================================="
+rm -rf hardware/qcom-caf/sdm845
+rm -rf hardware/qcom-caf/msm8998
 
 # Set up build environment
 export BUILD_USERNAME=kyura
@@ -56,27 +53,22 @@ export TZ="Asia/Jakarta"
 source build/envsetup.sh
 
 rm -rf vendor/evolution-priv/keys
-rm -rf voltage-priv/keys
-git clone --depth=1 https://github.com/VoltageOS/vendor_voltage-priv_keys vendor/voltage-priv/keys
-cd vendor/voltage-priv/keys
+git clone --depth=1 https://github.com/Evolution-X/vendor_evolution-priv_keys-template vendor/evolution-priv/keys
+cd vendor/evolution-priv/keys
 ./keys.sh
 cd ../../..
-
-rm -rf build/soong
-git clone --depth=1 https://github.com/Kyura-Ground/build_soong build/soong
 
 echo "========================"
 echo " Starting Build: Vanilla"
 echo "========================"
 
 # Setup untuk perangkat
-#lunch lineage_X00TD-bp4a-user
+lunch lineage_X00TD-cp2a-user
 make installclean
-brunch X00TD
-# mka bacon
+m evolution
 
 # Upload VANILLA Build
-for file in out/target/product/X00TD/voltage*.zip; do
+for file in out/target/product/X00TD/EvolutionX*.zip; do
     if [ -f "$file" ]; then
         echo "Mulai mengupload VANILLA: $file"
         curl -T "$file" -u :8490fc51-f593-4c87-8e35-3379cf5a94a3 https://pixeldrain.com/api/file/
