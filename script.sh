@@ -5,7 +5,6 @@ remove_lists=(
     kernel/asus/sdm660
     vendor/asus
     vendor/evolution-priv/keys
-    packages/overlays/Lineage/fonts
     prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9
 )
 
@@ -45,6 +44,7 @@ echo " Menghapus folder QCOM-CAF dan Font yang bentrok "
 echo "================================================="
 rm -rf hardware/qcom-caf/sdm845
 rm -rf hardware/qcom-caf/msm8998
+rm -rf packages/overlays/Lineage/fonts
 
 # Set up build environment
 export BUILD_USERNAME=kyura
