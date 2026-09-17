@@ -24,13 +24,13 @@ rm -rf "${remove_lists[@]}"
 # echo "============="
 
 #repo init
-repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/Evolution-X/manifest -b cnb -g default,-mips,-darwin,-notdefault
+repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/VoltageOS/manifest.git -b 17 -g default,-mips,-darwin,-notdefault
 echo "=================="
 echo "Repo init success"
 echo "=================="
 
 #local_manifest
-git clone --depth=1 https://github.com/Kyura-Ground/local_manifests.git -b Evox .repo/local_manifests
+git clone --depth=1 https://github.com/Kyura-Ground/local_manifests.git -b Voltage .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
@@ -56,22 +56,27 @@ export TZ="Asia/Jakarta"
 source build/envsetup.sh
 
 rm -rf vendor/evolution-priv/keys
-git clone --depth=1 https://github.com/Evolution-X/vendor_evolution-priv_keys-template vendor/evolution-priv/keys
-cd vendor/evolution-priv/keys
+rm -rf voltage-priv/keys
+git clone --depth=1 https://github.com/VoltageOS/vendor_voltage-priv_keys vendor/voltage-priv/keys
+cd vendor/voltage-priv/keys
 ./keys.sh
 cd ../../..
+
+rm -rf build/soong
+git clone --depth=1 https://github.com/Kyura-Ground/build_soong build/soong
 
 echo "========================"
 echo " Starting Build: Vanilla"
 echo "========================"
 
 # Setup untuk perangkat
-lunch lineage_X00TD-cp2a-user
+#lunch lineage_X00TD-bp4a-user
 make installclean
-m evolution
+brunch X00TD
+# mka bacon
 
 # Upload VANILLA Build
-for file in out/target/product/X00TD/EvolutionX*.zip; do
+for file in out/target/product/X00TD/voltage*.zip; do
     if [ -f "$file" ]; then
         echo "Mulai mengupload VANILLA: $file"
         curl -T "$file" -u :8490fc51-f593-4c87-8e35-3379cf5a94a3 https://pixeldrain.com/api/file/
