@@ -1,12 +1,12 @@
 #repo init
-repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/Evolution-X/manifest -b udc -g default,-mips,-darwin,-notdefault
+repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/VoltageOS/manifest.git -b 17 -g default,-mips,-darwin,-notdefault
 echo "=================="
 echo "Repo init success"
 echo "=================="
 
 #local_manifest
 rm -rf .repo/local_manifests
-git clone --depth=1 https://github.com/Kyura-Ground/local_manifests.git -b main .repo/local_manifests
+git clone --depth=1 https://github.com/Kyura-Ground/local_manifests.git -b Voltage .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
@@ -18,12 +18,14 @@ echo "Sync success"
 echo "============="
 
 # setup KernelSU
-# if [ -d kernel/asus/sdm660 ]; then 
-# cd kernel/asus/sdm660
-# curl -LSs "https://raw.githubusercontent.com/backslashxx/KernelSU/master/kernel/setup.sh" | bash -s master
-# cd ../../..
-# fi
-# echo "======= RKSU done ======"
+if [ -d kernel/asus/sdm660 ]; then 
+cd kernel/asus/sdm660
+curl -LSs "https://raw.githubusercontent.com/backslashxx/KernelSU/master/kernel/setup.sh" | bash -s master
+cd ../../..
+fi
+echo "==========="
+echo "XXKSU done"
+echo "==========="
 
 # Set up build environment
 export BUILD_USERNAME=kyura
@@ -32,20 +34,11 @@ export TZ="Asia/Jakarta"
 source build/envsetup.sh
 
 # rm -rf vendor/evolution-priv/keys
-# git clone --depth=1 https://github.com/Evolution-X/vendor_evolution-priv_keys-template vendor/evolution-priv/keys
-# cd vendor/evolution-priv/keys
-# ./keys.sh
-# cd ../../..
+git clone --depth=1 https://github.com/VoltageOS/vendor_voltage-priv_keys vendor/voltage-priv/keys
+cd vendor/voltage-priv/keys
+./keys.sh
+cd ../../..
 
-# rm -rf hardware/qcom-caf/sdm660/audio
-# git clone --depth=1 -b lineage-23.2-caf-sdm660 https://github.com/SonicBSV/android_hardware_qcom-caf_sdm660_audio.git hardware/qcom-caf/sdm660/audio
-
-# rm -rf build/make
-# git clone --depth=1 https://github.com/Kyura-Ground/build_lunaris.git build/make
-
-# echo "========================"
-# echo " Starting Build: Vanilla"
-# echo "========================"
-# Setup untuk perangkat
-lunch lineage_X00TD-user
-m evolution
+# Setup device
+lunch voltage_X00TD-cp2a-userdebug
+mka bacon
