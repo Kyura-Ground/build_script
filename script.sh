@@ -1,12 +1,12 @@
 #repo init
-repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/ShinkaiProject/shinkai_manifest.git -b heptakaideka -g default,-mips,-darwin,-notdefault
+repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/ProjectInfinity-X/manifest -b 17 -g default,-mips,-darwin,-notdefault
 echo "=================="
 echo "Repo init success"
 echo "=================="
 
 #local_manifest
 rm -rf .repo/local_manifests
-git clone --depth=1 https://github.com/Kyura-Ground/local_manifests.git -b hekkaideka .repo/local_manifests
+git clone --depth=1 https://github.com/Kyura-Ground/local_manifests.git -b Infinity .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
@@ -31,7 +31,7 @@ echo "==========="
 export BUILD_USERNAME=kyura
 export BUILD_HOSTNAME=serverhive
 export TZ="Asia/Jakarta"
-. b*/env*
+. build/envsetup.sh
 
 # rm -rf vendor/evolution-priv/keys
 git clone --depth=1 https://github.com/VoltageOS/vendor_voltage-priv_keys vendor/voltage-priv/keys
@@ -40,5 +40,5 @@ cd vendor/voltage-priv/keys
 cd ../../..
 
 # Setup device
-breakfast X00TD
-mka shinkai
+lunch infinity_X00TD-userdebug
+m bacon
