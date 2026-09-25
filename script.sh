@@ -42,4 +42,4 @@ cd ../../..
 # Setup device
 lunch infinity_X00TD-userdebug
 make installclean
-m bacon
+m bacon -j$(nproc --all)
