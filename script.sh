@@ -41,4 +41,5 @@ cd ../../..
 
 # Setup device
 lunch infinity_X00TD-userdebug
+make installclean
 m bacon
