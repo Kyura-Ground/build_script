@@ -36,16 +36,12 @@ echo "============="
 echo "Sync success"
 echo "============="
 
-# ==========================================================
-# FIX KONFLIK MODULE ALREADY DEFINED
-# Dijalankan SETELAH sync agar folder tidak diunduh ulang
-# ==========================================================
-# echo "================================================="
-# echo " Menghapus folder QCOM-CAF dan Font yang bentrok "
-# echo "================================================="
-# rm -rf hardware/qcom-caf/sdm845
-# rm -rf hardware/qcom-caf/msm8998
-# rm -rf packages/overlays/Lineage/fonts
+echo "================================================="
+echo " Menghapus folder QCOM-CAF dan Font yang bentrok "
+echo "================================================="
+rm -rf hardware/qcom-caf/sdm845
+rm -rf hardware/qcom-caf/msm8998
+rm -rf packages/overlays/Lineage/fonts
 
 # Set up build environment
 export BUILD_USERNAME=kyura
