@@ -41,4 +41,4 @@ cd ../../..
 
 # Setup device
 lunch voltage_X00TD-cp2a-userdebug
-mka bacon
+mka bacon -j$(nproc --all)
