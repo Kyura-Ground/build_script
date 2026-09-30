@@ -35,7 +35,13 @@ echo "Local manifest clone success"
 echo "============================"
 
 #Sync
-repo sync -c --force-sync --optimized-fetch --no-tags --no-clone-bundle --prune --retry-fetches=3 -j8
+if [ -x /usr/bin/resync ]; then
+    /usr/bin/resync
+elif [ -f /opt/crave/resync.sh ]; then
+    bash /opt/crave/resync.sh
+else
+    repo sync -c --force-sync --optimized-fetch --no-tags --no-clone-bundle --prune --retry-fetches=3 -j8
+fi
 echo "============="
 echo "Sync success"
 echo "============="
