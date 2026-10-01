@@ -43,6 +43,16 @@ rm -rf hardware/qcom-caf/sdm845
 rm -rf hardware/qcom-caf/msm8998
 rm -rf packages/overlays/Lineage/fonts
 
+# setup KernelSU
+if [ -d kernel/asus/sdm660 ]; then 
+cd kernel/asus/sdm660
+curl -LSs "https://raw.githubusercontent.com/backslashxx/KernelSU/master/kernel/setup.sh" | bash -s master
+cd ../../..
+fi
+echo "==========="
+echo "XXKSU done"
+echo "==========="
+
 # Set up build environment
 export BUILD_USERNAME=kyura
 export BUILD_HOSTNAME=crave
