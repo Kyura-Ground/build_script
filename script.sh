@@ -70,7 +70,7 @@ echo " Starting Build: Vanilla"
 echo "========================"
 
 # Setup untuk perangkat
-lunch infinity_X00TD-userdebug
+lunch infinity_X00TD-user
 make installclean
 m bacon
 
