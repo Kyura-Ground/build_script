@@ -40,6 +40,6 @@ cd vendor/voltage-priv/keys
 cd ../../..
 
 # Setup device
-lunch infinity_X00TD-userdebug
+lunch infinity_X00TD-user
 make installclean
 m bacon -j$(nproc --all)
