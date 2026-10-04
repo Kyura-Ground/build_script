@@ -34,8 +34,8 @@ export TZ="Asia/Jakarta"
 . build/envsetup.sh
 
 # rm -rf vendor/evolution-priv/keys
-git clone --depth=1 https://github.com/VoltageOS/vendor_voltage-priv_keys vendor/voltage-priv/keys
-cd vendor/voltage-priv/keys
+git clone --depth=1 https://github.com/Evolution-X/vendor_evolution-priv_keys-template vendor/evolution-priv/keys
+cd vendor/evolution-priv/keys
 ./keys.sh
 cd ../../..
 
