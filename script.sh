@@ -64,6 +64,9 @@ cd vendor/evolution-priv/keys
 ./keys.sh
 cd ../../..
 
+rm -rf packages/resources/devicesettings
+git clone --depth=1 https://github.com/Kyura-Ground/android_packages_resources_devicesettings packages/resources/devicesettings
+
 echo "========================"
 echo " Starting Build: Vanilla"
 echo "========================"
