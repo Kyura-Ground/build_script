@@ -6,7 +6,6 @@ remove_lists=(
     vendor/asus
     vendor/voltage-priv/keys
     vendor/evolution-priv/keys
-    prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9
 )
 
 do_reclone() {
