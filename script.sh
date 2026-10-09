@@ -27,6 +27,9 @@ echo "==========="
 echo "XXKSU done"
 echo "==========="
 
+rm -rf packages/resources/devicesettings
+git clone --depth=1 https://github.com/Kyura-Ground/android_packages_resources_devicesettings packages/resources/devicesettings
+
 # Set up build environment
 export BUILD_USERNAME=kyura
 export BUILD_HOSTNAME=serverhive
