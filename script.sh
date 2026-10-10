@@ -40,6 +40,6 @@ cd vendor/evolution-priv/keys
 cd ../../..
 
 # Setup device
-lunch lineage_X00TD-cp2a-user
+lunch lineage_X00TD-cp2a-userdebug
 make installclean
 m evolution -j$(nproc --all)
