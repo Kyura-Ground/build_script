@@ -47,15 +47,10 @@ echo "XXKSU done"
 echo "==========="
 
 # Setup keys
-if [ ! -d vendor/evolution-priv/keys ]; then
-    git clone --depth=1 https://github.com/Evolution-X/vendor_evolution-priv_keys-template vendor/evolution-priv/keys
-fi
+rm -rf vendor/evolution-priv/keys
+git clone --depth=1 https://github.com/Evolution-X/vendor_evolution-priv_keys-template vendor/evolution-priv/keys
 cd vendor/evolution-priv/keys
-if [ ! -f Android.bp ] || [ ! -s avb.pk8 ]; then
-    ./keys.sh
-fi
-test -s Android.bp
-test -s avb.pk8
+./keys.sh
 cd ../../..
 
 # Setup device
