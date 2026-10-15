@@ -24,7 +24,19 @@ echo "============="
 export BUILD_USERNAME=kyura
 export BUILD_HOSTNAME=serverhive
 export TZ="Asia/Jakarta"
+set +e
 . build/envsetup.sh
+envsetup_status=$?
+set -e
+if [ "$envsetup_status" -ne 0 ]; then
+    echo "Environment setup failed (status $envsetup_status)." >&2
+    exit "$envsetup_status"
+fi
+# Setup device dependencies sebelum KernelSU
+bash device/asus/X00TD/vendorsetup.sh
+echo "========================="
+echo "Device dependencies ready"
+echo "========================="
 
 # setup KernelSU
 cd kernel/asus/sdm660
@@ -35,10 +47,15 @@ echo "XXKSU done"
 echo "==========="
 
 # Setup keys
-rm -rf vendor/evolution-priv/keys
-git clone --depth=1 https://github.com/Evolution-X/vendor_evolution-priv_keys-template vendor/evolution-priv/keys
+if [ ! -d vendor/evolution-priv/keys ]; then
+    git clone --depth=1 https://github.com/Evolution-X/vendor_evolution-priv_keys-template vendor/evolution-priv/keys
+fi
 cd vendor/evolution-priv/keys
-./keys.sh
+if [ ! -f Android.bp ] || [ ! -s avb.pk8 ]; then
+    ./keys.sh
+fi
+test -s Android.bp
+test -s avb.pk8
 cd ../../..
 
 # Setup device
