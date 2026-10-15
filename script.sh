@@ -24,8 +24,14 @@ echo "============="
 export BUILD_USERNAME=kyura
 export BUILD_HOSTNAME=serverhive
 export TZ="Asia/Jakarta"
+set +e
 . build/envsetup.sh
-
+envsetup_status=$?
+set -e
+if [ "$envsetup_status" -ne 0 ]; then
+    echo "Environment setup failed (status $envsetup_status)." >&2
+    exit "$envsetup_status"
+fi
 # Setup device dependencies sebelum KernelSU
 bash device/asus/X00TD/vendorsetup.sh
 echo "========================="
