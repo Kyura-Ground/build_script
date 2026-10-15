@@ -1,12 +1,12 @@
 #repo init
-repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/LineageOS/android.git -b lineage-24.0 -g default,-mips,-darwin,-notdefault
+repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/ProjectInfinity-X/manifest -b 17 -g default,-mips,-darwin,-notdefault
 echo "=================="
 echo "Repo init success"
 echo "=================="
 
 #local_manifest
 rm -rf .repo/local_manifests
-git clone --depth=1 https://github.com/Kyura-Ground/local_manifests.git -b lineage-24.0 .repo/local_manifests
+git clone --depth=1 https://github.com/Kyura-Ground/local_manifests.git -b infinity-17 .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
@@ -40,6 +40,6 @@ cd vendor/evolution-priv/keys
 cd ../../..
 
 # Setup device
-lunch lineage_X00TD-cp2a-userdebug
+lunch infinity_X00TD-user
 make installclean
-mka bacon -j$(nproc --all)
+m bacon -j$(nproc --all)
