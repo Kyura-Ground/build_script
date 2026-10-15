@@ -1,3 +1,6 @@
+#!/bin/bash
+set -eo pipefail
+
 #repo init
 repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/ProjectInfinity-X/manifest -b 17 -g default,-mips,-darwin,-notdefault
 echo "=================="
@@ -17,26 +20,36 @@ echo "============="
 echo "Sync success"
 echo "============="
 
-# setup KernelSU
-if [ -d kernel/asus/sdm660 ]; then 
-cd kernel/asus/sdm660
-curl -LSs "https://raw.githubusercontent.com/backslashxx/KernelSU/master/kernel/setup.sh" | bash -s master
-cd ../../..
-fi
-echo "==========="
-echo "XXKSU done"
-echo "==========="
-
 # Set up build environment
 export BUILD_USERNAME=kyura
 export BUILD_HOSTNAME=serverhive
 export TZ="Asia/Jakarta"
 . build/envsetup.sh
 
-# rm -rf vendor/evolution-priv/keys
-git clone --depth=1 https://github.com/Evolution-X/vendor_evolution-priv_keys-template vendor/evolution-priv/keys
+# Setup device dependencies sebelum KernelSU
+bash device/asus/X00TD/vendorsetup.sh
+echo "========================="
+echo "Device dependencies ready"
+echo "========================="
+
+# setup KernelSU
+cd kernel/asus/sdm660
+curl -fLSs "https://raw.githubusercontent.com/backslashxx/KernelSU/master/kernel/setup.sh" | bash -s master
+cd ../../..
+echo "==========="
+echo "XXKSU done"
+echo "==========="
+
+# Setup keys
+if [ ! -d vendor/evolution-priv/keys ]; then
+    git clone --depth=1 https://github.com/Evolution-X/vendor_evolution-priv_keys-template vendor/evolution-priv/keys
+fi
 cd vendor/evolution-priv/keys
-./keys.sh
+if [ ! -f Android.bp ] || [ ! -s avb.pk8 ]; then
+    ./keys.sh
+fi
+test -s Android.bp
+test -s avb.pk8
 cd ../../..
 
 # Setup device
