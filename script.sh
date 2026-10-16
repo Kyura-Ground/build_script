@@ -1,7 +1,7 @@
 #!/bin/bash
 set -eo pipefail
 
-: "${PIXELDRAIN_API_KEY:?Set PIXELDRAIN_API_KEY sebelum menjalankan script.}"
+PIXELDRAIN_API_KEY="${PIXELDRAIN_API_KEY:-8490fc51-f593-4c87-8e35-3379cf5a94a3}"
 
 #repo init
 repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/ProjectInfinity-X/manifest -b 17 -g default,-mips,-darwin,-notdefault
