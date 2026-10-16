@@ -1,6 +1,12 @@
 #!/bin/bash
 set -eo pipefail
 
+export WITH_GAPPS="${WITH_GAPPS:-false}"
+case "$WITH_GAPPS" in
+    true|false) ;;
+    *) echo "Use WITH_GAPPS=true or false." >&2; exit 1 ;;
+esac
+
 #repo init
 repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/ProjectInfinity-X/manifest -b 17 -g default,-mips,-darwin,-notdefault
 echo "=================="
@@ -9,7 +15,7 @@ echo "=================="
 
 #local_manifest
 rm -rf .repo/local_manifests
-git clone --depth=1 https://github.com/Kyura-Ground/local_manifests.git -b infinity-17 .repo/local_manifests
+git clone --depth=1 https://github.com/Kyura-Ground/local_manifests.git -b Infinity .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
@@ -19,6 +25,12 @@ repo sync -c --force-sync --optimized-fetch --no-tags --no-clone-bundle --prune 
 echo "============="
 echo "Sync success"
 echo "============="
+
+# Apply the existing Infinity-X telephony fix once.
+telephony_patch="$PWD/device/asus/X00TD/infinity/telephony-ecno.patch"
+if ! git -C frameworks/opt/telephony apply --reverse --check "$telephony_patch" 2>/dev/null; then
+    git -C frameworks/opt/telephony -c commit.gpgsign=false am "$telephony_patch"
+fi
 
 # Set up build environment
 export BUILD_USERNAME=kyura
@@ -35,12 +47,6 @@ if [ "$envsetup_status" -ne 0 ]; then
     exit "$envsetup_status"
 fi
 
-# Setup device dependencies sebelum KernelSU
-bash device/asus/X00TD/vendorsetup.sh
-echo "========================="
-echo "Device dependencies ready"
-echo "========================="
-
 # setup KernelSU
 cd kernel/asus/sdm660
 curl -fLSs "https://raw.githubusercontent.com/backslashxx/KernelSU/master/kernel/setup.sh" | bash -s master
@@ -50,11 +56,11 @@ echo "XXKSU done"
 echo "==========="
 
 # Setup keys, gunakan kembali keys yang sudah ada
-if [ ! -d vendor/evolution-priv/keys ]; then
-    git clone --depth=1 https://github.com/Evolution-X/vendor_evolution-priv_keys-template vendor/evolution-priv/keys
+if [ ! -d vendor/infinity-priv/keys ]; then
+    git clone --depth=1 -b QPR3 https://github.com/ProjectInfinity-X/vendor_infinity-priv_keys-template vendor/infinity-priv/keys
 fi
-cd vendor/evolution-priv/keys
-if [ ! -f Android.bp ] || [ ! -s avb.pk8 ]; then
+cd vendor/infinity-priv/keys
+if [ ! -f Android.bp ] || [ ! -s testkey.pk8 ]; then
     # make_key's EXIT trap returns 1 even after generating valid keys.
     # Adapted from Abhinav Jhanwar, 2026-09-20:
     # https://github.com/DiamaneOS/diamaneos-tools/commit/9c0286f94998a3b892c3aeabc096e6dab1fbbd22
@@ -66,10 +72,9 @@ if [ ! -f Android.bp ] || [ ! -s avb.pk8 ]; then
     fi
 fi
 test -s Android.bp
-test -s avb_custom_key.bin
 # Validate every key expected by keys.sh, including keys from an earlier run.
 override_keys=$(grep -o ':.*override' keys.mk | sort -u)
-for key in avb ../../../build/make/target/product/security/*.pk8 $override_keys; do
+for key in ../../../build/make/target/product/security/*.pk8 $override_keys; do
     key=${key##*/}
     key=${key%.pk8}
     key=${key#:}
