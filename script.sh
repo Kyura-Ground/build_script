@@ -35,12 +35,6 @@ if [ "$envsetup_status" -ne 0 ]; then
     exit "$envsetup_status"
 fi
 
-# Setup device dependencies sebelum KernelSU
-bash device/asus/X00TD/vendorsetup.sh
-echo "========================="
-echo "Device dependencies ready"
-echo "========================="
-
 # setup KernelSU
 cd kernel/asus/sdm660
 curl -fLSs "https://raw.githubusercontent.com/backslashxx/KernelSU/master/kernel/setup.sh" | bash -s master
