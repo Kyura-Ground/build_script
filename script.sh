@@ -20,11 +20,13 @@ echo "============="
 echo "Sync success"
 echo "============="
 
-# Apply the existing Evox telephony fix once.
-telephony_patch="$PWD/device/asus/X00TD/evolution/telephony-ecno.patch"
-if ! git -C frameworks/opt/telephony apply --reverse --check "$telephony_patch" 2>/dev/null; then
-    git -C frameworks/opt/telephony -c commit.gpgsign=false am "$telephony_patch"
-fi
+# Apply the Evox telephony fixes once.
+for patch_name in telephony-ecno.patch telephony-pinstorage.patch; do
+    telephony_patch="$PWD/device/asus/X00TD/evolution/$patch_name"
+    if ! git -C frameworks/opt/telephony apply --reverse --check "$telephony_patch" 2>/dev/null; then
+        git -C frameworks/opt/telephony -c commit.gpgsign=false am "$telephony_patch"
+    fi
+done
 
 # Set up build environment
 export BUILD_USERNAME=kyura
