@@ -17,7 +17,7 @@ echo "Local manifest clone success"
 echo "============================"
 
 #Sync
-repo sync -c --force-sync --optimized-fetch --no-tags --no-clone-bundle --prune -j$(nproc --all)
+repo sync -c --force-sync --optimized-fetch --no-tags --no-clone-bundle --prune --retry-fetches=3 -j8
 echo "============="
 echo "Sync success"
 echo "============="
