@@ -1,12 +1,6 @@
 #!/bin/bash
 set -eo pipefail
 
-export WITH_GAPPS="${WITH_GAPPS:-false}"
-case "$WITH_GAPPS" in
-    true|false) ;;
-    *) echo "Use WITH_GAPPS=true or false." >&2; exit 1 ;;
-esac
-
 #repo init
 repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/ProjectInfinity-X/manifest -b 17 -g default,-mips,-darwin,-notdefault
 echo "=================="
@@ -89,7 +83,15 @@ echo "=========="
 echo "Keys ready"
 echo "=========="
 
-# Setup device
-lunch infinity_X00TD-user
-make installclean
-m bacon -j$(nproc --all)
+# Build both variants and preserve each ZIP before the next installclean.
+mkdir -p dist
+for WITH_GAPPS in false true; do
+    export WITH_GAPPS
+    lunch infinity_X00TD-user
+    make installclean
+    m bacon -j$(nproc --all)
+
+    product_out="$(get_build_var PRODUCT_OUT)"
+    zip_name="$(get_build_var ZIP_NAME)"
+    cp -v "$product_out/$zip_name.zip" dist/
+done
