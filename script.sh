@@ -1,6 +1,8 @@
 #!/bin/bash
 set -eo pipefail
 
+: "${PIXELDRAIN_API_KEY:?Set PIXELDRAIN_API_KEY sebelum menjalankan script.}"
+
 #repo init
 repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/ProjectInfinity-X/manifest -b 17 -g default,-mips,-darwin,-notdefault
 echo "=================="
@@ -94,4 +96,10 @@ for WITH_GAPPS in false true; do
     product_out="$(get_build_var PRODUCT_OUT)"
     zip_name="$(get_build_var ZIP_NAME)"
     cp -v "$product_out/$zip_name.zip" dist/
+
+    file="dist/$zip_name.zip"
+    echo "Mulai upload: $file"
+    curl --fail-with-body --show-error -T "$file" -u ":$PIXELDRAIN_API_KEY" \
+        https://pixeldrain.com/api/file/ | tee "dist/$zip_name.pixeldrain.json"
+    echo
 done
