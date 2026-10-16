@@ -20,6 +20,12 @@ echo "============="
 echo "Sync success"
 echo "============="
 
+# Apply the existing Evox telephony fix once.
+telephony_patch="$PWD/device/asus/X00TD/evolution/telephony-ecno.patch"
+if ! git -C frameworks/opt/telephony apply --reverse --check "$telephony_patch" 2>/dev/null; then
+    git -C frameworks/opt/telephony -c commit.gpgsign=false am "$telephony_patch"
+fi
+
 # Set up build environment
 export BUILD_USERNAME=kyura
 export BUILD_HOSTNAME=serverhive
