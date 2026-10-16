@@ -39,6 +39,7 @@ apply_device_patch() {
 apply_device_patch hardware/lineage/interfaces lineage-touch-hidl.patch
 apply_device_patch frameworks/opt/telephony telephony-hidl.patch
 apply_device_patch frameworks/opt/telephony telephony-ecno.patch
+apply_device_patch system/sepolicy recovery-vsock.patch
 
 # Set up build environment
 export BUILD_USERNAME=kyura
