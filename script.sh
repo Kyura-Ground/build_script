@@ -32,10 +32,14 @@ echo "============="
 echo "Sync success"
 echo "============="
 
+# Custom build/soong setup
+echo "-- Replacing build/soong ..."
+rm -rf build/soong
+git clone --depth=1 https://github.com/Kyura-Ground/build_soong build/soong
+
 # Apply the Evox telephony fixes once
 for patch_name in telephony-ecno.patch telephony-pinstorage.patch; do
     telephony_patch="$PWD/device/asus/X00TD/evolution/$patch_name"
-    # Pastikan file patch ada sebelum mencoba apply
     if [ -f "$telephony_patch" ]; then
         if ! git -C frameworks/opt/telephony apply --reverse --check "$telephony_patch" 2>/dev/null; then
             echo "Applying telephony patch: $patch_name"
