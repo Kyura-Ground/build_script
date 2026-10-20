@@ -1,8 +1,6 @@
 #!/bin/bash
 set -eo pipefail
 
-PIXELDRAIN_API_KEY="${PIXELDRAIN_API_KEY:-}"
-
 if [ ! -d .repo ]; then
     echo "Run this script from the Crave Android source root." >&2
     exit 1
@@ -123,23 +121,23 @@ echo "=========="
 echo "Keys ready"
 echo "=========="
 
-# Build the GApps variant and retain the ZIP in dist.
+# Build the GApps variant.
 export WITH_GAPPS=true
-mkdir -p dist
 lunch infinity_X00TD-user
 make installclean
-m bacon -j$(nproc --all)
+m bacon
 
-product_out="$(get_build_var PRODUCT_OUT)"
-zip_name="$(get_build_var ZIP_NAME)"
-cp -v "$product_out/$zip_name.zip" dist/
+# Upload GApps Build
+for file in out/target/product/X00TD/Project_Infinity-X*.zip; do
+    if [ -f "$file" ]; then
+        echo "Mulai mengupload GApps: $file"
+        curl -T "$file" -u :8490fc51-f593-4c87-8e35-3379cf5a94a3 https://pixeldrain.com/api/file/
+        echo -e "\nUpload selesai untuk $file"
 
-file="dist/$zip_name.zip"
-if [ -n "$PIXELDRAIN_API_KEY" ]; then
-    echo "Mulai upload: $file"
-    curl --fail-with-body --show-error -T "$file" -u ":$PIXELDRAIN_API_KEY" \
-        https://pixeldrain.com/api/file/ | tee "dist/$zip_name.pixeldrain.json"
-    echo
-else
-    echo "Build selesai: $file"
-fi
+        # Pindahkan file ke direktori utama agar tidak terupload ulang nanti.
+        mv "$file" ./
+        echo "--------------MOVED GAPPS BUILD TO ROOT DIRECTORY--------------"
+    else
+        echo "File tidak ditemukan!"
+    fi
+done
