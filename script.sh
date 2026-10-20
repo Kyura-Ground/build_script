@@ -1,7 +1,7 @@
 #!/bin/bash
 set -eo pipefail
 
-PIXELDRAIN_API_KEY="${PIXELDRAIN_API_KEY:-8490fc51-f593-4c87-8e35-3379cf5a94a3}"
+PIXELDRAIN_API_KEY="${PIXELDRAIN_API_KEY:-}"
 
 #repo init
 repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/ProjectInfinity-X/manifest -b 17 -g default,-mips,-darwin,-notdefault
@@ -22,11 +22,15 @@ echo "============="
 echo "Sync success"
 echo "============="
 
-# Apply the existing Infinity-X telephony fix once.
-telephony_patch="$PWD/device/asus/X00TD/infinity/telephony-ecno.patch"
-if ! git -C frameworks/opt/telephony apply --reverse --check "$telephony_patch" 2>/dev/null; then
+# Apply the device's reviewed telephony compatibility patches once.
+for patch_name in telephony-ecno telephony-pinstorage; do
+    telephony_patch="$PWD/device/asus/X00TD/infinity/$patch_name.patch"
+    if git -C frameworks/opt/telephony apply --reverse --check "$telephony_patch" 2>/dev/null; then
+        continue
+    fi
+    git -C frameworks/opt/telephony apply --check "$telephony_patch"
     git -C frameworks/opt/telephony -c commit.gpgsign=false am "$telephony_patch"
-fi
+done
 
 # Set up build environment
 export BUILD_USERNAME=kyura
@@ -87,21 +91,23 @@ echo "=========="
 echo "Keys ready"
 echo "=========="
 
-# Build both variants and preserve each ZIP before the next installclean.
+# Build the GApps variant and retain the ZIP in dist.
+export WITH_GAPPS=true
 mkdir -p dist
-for WITH_GAPPS in false true; do
-    export WITH_GAPPS
-    lunch infinity_X00TD-user
-    make installclean
-    m bacon -j$(nproc --all)
+lunch infinity_X00TD-user
+make installclean
+m bacon -j$(nproc --all)
 
-    product_out="$(get_build_var PRODUCT_OUT)"
-    zip_name="$(get_build_var ZIP_NAME)"
-    cp -v "$product_out/$zip_name.zip" dist/
+product_out="$(get_build_var PRODUCT_OUT)"
+zip_name="$(get_build_var ZIP_NAME)"
+cp -v "$product_out/$zip_name.zip" dist/
 
-    file="dist/$zip_name.zip"
+file="dist/$zip_name.zip"
+if [ -n "$PIXELDRAIN_API_KEY" ]; then
     echo "Mulai upload: $file"
     curl --fail-with-body --show-error -T "$file" -u ":$PIXELDRAIN_API_KEY" \
         https://pixeldrain.com/api/file/ | tee "dist/$zip_name.pixeldrain.json"
     echo
-done
+else
+    echo "Build selesai: $file"
+fi
