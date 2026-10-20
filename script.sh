@@ -3,6 +3,24 @@ set -eo pipefail
 
 PIXELDRAIN_API_KEY="${PIXELDRAIN_API_KEY:-}"
 
+if [ ! -d .repo ]; then
+    echo "Run this script from the Crave Android source root." >&2
+    exit 1
+fi
+
+# Remove source directories that may belong to a previous Crave ROM.
+# Keep signing keys so subsequent builds retain the same identity.
+remove_lists=(
+    .repo/local_manifests
+    device/asus/X00TD
+    device/asus/sdm660-common
+    kernel/asus/sdm660
+    vendor/asus
+    build/soong
+)
+echo "Removing conflicting source directories..."
+rm -rf -- "${remove_lists[@]}"
+
 #repo init
 repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/ProjectInfinity-X/manifest -b 17 -g default,-mips,-darwin,-notdefault
 echo "=================="
@@ -22,19 +40,27 @@ echo "============="
 echo "Sync success"
 echo "============="
 
-# Apply the device's reviewed telephony compatibility patches once.
-for patch_name in telephony-ecno telephony-pinstorage; do
-    telephony_patch="$PWD/device/asus/X00TD/infinity/$patch_name.patch"
-    if git -C frameworks/opt/telephony apply --reverse --check "$telephony_patch" 2>/dev/null; then
-        continue
+# Apply reviewed source patches once, retaining their original metadata.
+apply_source_patch() {
+    local source_path="$1"
+    local patch_file="$2"
+    if git -C "$source_path" apply --reverse --check "$patch_file" 2>/dev/null; then
+        echo "Already applied: ${patch_file##*/}"
+        return 0
     fi
-    git -C frameworks/opt/telephony apply --check "$telephony_patch"
-    git -C frameworks/opt/telephony -c commit.gpgsign=false am "$telephony_patch"
+    git -C "$source_path" apply --check "$patch_file"
+    git -C "$source_path" -c commit.gpgsign=false am "$patch_file"
+}
+
+patch_dir="$PWD/device/asus/X00TD/infinity"
+apply_source_patch build/soong "$patch_dir/soong-memory.patch"
+for patch_name in telephony-ecno telephony-pinstorage; do
+    apply_source_patch frameworks/opt/telephony "$patch_dir/$patch_name.patch"
 done
 
 # Set up build environment
 export BUILD_USERNAME=kyura
-export BUILD_HOSTNAME=serverhive
+export BUILD_HOSTNAME=crave
 export TZ="Asia/Jakarta"
 # envsetup contains optional probes and pipelines that are not errexit-safe.
 # Reference: https://github.com/kelexine/local_manifests/commit/193bd08fd920ce8582c4295d2b096fba2a04c370
