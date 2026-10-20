@@ -1,75 +1,75 @@
 #!/bin/bash
 set -eo pipefail
 
-# cleanup
+if [ ! -d .repo ]; then
+    echo "Run this script from the Crave Android source root." >&2
+    exit 1
+fi
+
+# Remove source directories that may belong to a previous Crave ROM.
+# Keep signing keys so subsequent builds retain the same identity.
 remove_lists=(
     .repo/local_manifests
     device/asus/X00TD
+    device/asus/sdm660-common
     kernel/asus/sdm660
     vendor/asus
-    vendor/voltage-priv/keys
-    vendor/evolution-priv/keys
+    build/soong
 )
+echo "Removing conflicting source directories..."
+rm -rf -- "${remove_lists[@]}"
 
-echo "-- Removing conflicting directories..."
-rm -rf "${remove_lists[@]}"
-
-# repo init
-repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/Evolution-X/manifest -b cnb -g default,-mips,-darwin,-notdefault
+#repo init
+repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/ProjectInfinity-X/manifest -b 17 -g default,-mips,-darwin,-notdefault
 echo "=================="
 echo "Repo init success"
 echo "=================="
 
-# local_manifest
-git clone --depth=1 https://github.com/Kyura-Ground/local_manifests.git -b Evox .repo/local_manifests
+#local_manifest
+rm -rf .repo/local_manifests
+git clone --depth=1 https://github.com/Kyura-Ground/local_manifests.git -b Infinity .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
 
-# Sync
-[ -f /usr/bin/resync ] && /usr/bin/resync || /opt/crave/resync.sh
+#Sync
+if [ -x /usr/bin/resync ]; then
+    /usr/bin/resync
+elif [ -f /opt/crave/resync.sh ]; then
+    bash /opt/crave/resync.sh
+else
+    repo sync -c --force-sync --optimized-fetch --no-tags --no-clone-bundle --prune --retry-fetches=3 -j8
+fi
 echo "============="
 echo "Sync success"
 echo "============="
 
-# Custom build/soong setup
-echo "-- Replacing build/soong ..."
-rm -rf build/soong
-git clone --depth=1 https://github.com/Kyura-Ground/build_soong build/soong
-
-# Apply the Evox telephony fixes once
-for patch_name in telephony-ecno.patch telephony-pinstorage.patch; do
-    telephony_patch="$PWD/device/asus/X00TD/evolution/$patch_name"
-    if [ -f "$telephony_patch" ]; then
-        if ! git -C frameworks/opt/telephony apply --reverse --check "$telephony_patch" 2>/dev/null; then
-            echo "Applying telephony patch: $patch_name"
-            git -C frameworks/opt/telephony -c commit.gpgsign=false am "$telephony_patch"
-        else
-            echo "Telephony patch $patch_name already applied."
-        fi
-    else
-        echo "Telephony patch $patch_name not found, skipping."
+# Apply reviewed source patches once, retaining their original metadata.
+apply_source_patch() {
+    local source_path="$1"
+    local patch_file="$2"
+    if git -C "$source_path" apply --reverse --check "$patch_file" 2>/dev/null; then
+        echo "Already applied: ${patch_file##*/}"
+        return 0
     fi
-done
+    git -C "$source_path" apply --check "$patch_file"
+    git -C "$source_path" -c commit.gpgsign=false am "$patch_file"
+}
 
-# setup KernelSU
-if [ -d kernel/asus/sdm660 ]; then 
-    cd kernel/asus/sdm660
-    curl -fLSs "https://raw.githubusercontent.com/backslashxx/KernelSU/master/kernel/setup.sh" | bash -s master
-    cd ../../..
-    echo "==========="
-    echo "XXKSU done"
-    echo "==========="
-fi
+patch_dir="$PWD/device/asus/X00TD/infinity"
+apply_source_patch build/soong "$patch_dir/soong-memory.patch"
+for patch_name in telephony-ecno telephony-pinstorage; do
+    apply_source_patch frameworks/opt/telephony "$patch_dir/$patch_name.patch"
+done
 
 # Set up build environment
 export BUILD_USERNAME=kyura
 export BUILD_HOSTNAME=crave
 export TZ="Asia/Jakarta"
-
 # envsetup contains optional probes and pipelines that are not errexit-safe.
+# Reference: https://github.com/kelexine/local_manifests/commit/193bd08fd920ce8582c4295d2b096fba2a04c370
 set +e
-source build/envsetup.sh
+. build/envsetup.sh
 envsetup_status=$?
 set -e
 if [ "$envsetup_status" -ne 0 ]; then
@@ -77,34 +77,43 @@ if [ "$envsetup_status" -ne 0 ]; then
     exit "$envsetup_status"
 fi
 
-# Setup keys dengan validasi error handling
-if [ ! -d vendor/evolution-priv/keys ]; then
-    git clone --depth=1 https://github.com/Evolution-X/vendor_evolution-priv_keys-template vendor/evolution-priv/keys
+# setup KernelSU
+cd kernel/asus/sdm660
+curl -fLSs "https://raw.githubusercontent.com/backslashxx/KernelSU/master/kernel/setup.sh" | bash -s master
+cd ../../..
+echo "==========="
+echo "XXKSU done"
+echo "==========="
+
+# Setup keys, gunakan kembali keys yang sudah ada
+if [ ! -d vendor/infinity-priv/keys ]; then
+    git clone --depth=1 https://github.com/Evolution-X/vendor_evolution-priv_keys-template vendor/infinity-priv/keys
+else
+    git -C vendor/infinity-priv/keys fetch --depth=1 \
+        https://github.com/Evolution-X/vendor_evolution-priv_keys-template master
+    git -C vendor/infinity-priv/keys checkout FETCH_HEAD -- keys.mk keys.sh make_key.sh
 fi
-cd vendor/evolution-priv/keys
-if [ ! -f Android.bp ] || [ ! -s avb.pk8 ]; then
-    keys_status=0
-    ./keys.sh || keys_status=$?
-    if [ "$keys_status" -ne 0 ] && [ "$keys_status" -ne 1 ]; then
-        echo "Key generation failed (status $keys_status)." >&2
-        exit "$keys_status"
-    fi
+cd vendor/infinity-priv/keys
+sed -i 's|vendor/evolution-priv/keys|vendor/infinity-priv/keys|g' keys.mk
+# Refresh certificate modules and generate missing keys; make_key preserves existing pairs.
+keys_status=0
+./keys.sh || keys_status=$?
+if [ "$keys_status" -ne 0 ] && [ "$keys_status" -ne 1 ]; then
+    echo "Key generation failed (status $keys_status)." >&2
+    exit "$keys_status"
 fi
 test -s Android.bp
 test -s avb_custom_key.bin
-
 # Validate every key expected by keys.sh, including keys from an earlier run.
-override_keys=$(grep -o ':.*override' keys.mk | sort -u || true)
+override_keys=$(grep -o ':.*override' keys.mk | sort -u)
 for key in avb ../../../build/make/target/product/security/*.pk8 $override_keys; do
     key=${key##*/}
     key=${key%.pk8}
     key=${key#:}
-    if [ -f "$key.x509.pem" ] && [ -f "$key.pk8" ]; then
-        if ! openssl x509 -in "$key.x509.pem" -noout -checkend 0 >/dev/null ||
-           ! openssl pkcs8 -inform DER -in "$key.pk8" -nocrypt -out /dev/null; then
-            echo "Missing or invalid signing key: $key" >&2
-            exit 1
-        fi
+    if ! openssl x509 -in "$key.x509.pem" -noout -checkend 0 >/dev/null ||
+       ! openssl pkcs8 -inform DER -in "$key.pk8" -nocrypt -out /dev/null; then
+        echo "Missing or invalid signing key: $key" >&2
+        exit 1
     fi
 done
 cd ../../..
@@ -112,25 +121,22 @@ echo "=========="
 echo "Keys ready"
 echo "=========="
 
-echo "========================"
-echo " Starting Build: Evox"
-echo "========================"
-
-# Setup untuk perangkat
-lunch lineage_X00TD-cp2a-user
+# Build the GApps variant.
+export WITH_GAPPS=true
+lunch infinity_X00TD-user
 make installclean
-m evolution
+m bacon
 
-# Upload VANILLA Build
-for file in out/target/product/X00TD/EvolutionX*.zip; do
+# Upload GApps Build
+for file in out/target/product/X00TD/Project_Infinity-X*.zip; do
     if [ -f "$file" ]; then
-        echo "Mulai mengupload VANILLA: $file"
+        echo "Mulai mengupload GApps: $file"
         curl -T "$file" -u :8490fc51-f593-4c87-8e35-3379cf5a94a3 https://pixeldrain.com/api/file/
         echo -e "\nUpload selesai untuk $file"
-        
-        # Pindahkan file ke direktori utama agar tidak terupload ulang nanti
+
+        # Pindahkan file ke direktori utama agar tidak terupload ulang nanti.
         mv "$file" ./
-        echo "--------------MOVED VANILLA BUILD TO ROOT DIRECTORY--------------"
+        echo "--------------MOVED GAPPS BUILD TO ROOT DIRECTORY--------------"
     else
         echo "File tidak ditemukan!"
     fi
