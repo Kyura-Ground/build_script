@@ -15,6 +15,7 @@ remove_lists=(
     kernel/asus/sdm660
     vendor/asus
     build/soong
+    vendor/evolution-priv/keys
 )
 echo "Removing conflicting source directories..."
 rm -rf -- "${remove_lists[@]}"
