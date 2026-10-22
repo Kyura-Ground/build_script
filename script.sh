@@ -58,6 +58,8 @@ apply_source_patch() {
 
 patch_dir="$PWD/device/asus/X00TD/infinity"
 apply_source_patch build/soong "$patch_dir/soong-memory.patch"
+apply_source_patch build/soong "$patch_dir/soong-prebuilt-apex.patch"
+apply_source_patch packages/modules/ConfigInfrastructure "$patch_dir/aconfig-boot-storage.patch"
 for patch_name in telephony-ecno telephony-pinstorage; do
     apply_source_patch frameworks/opt/telephony "$patch_dir/$patch_name.patch"
 done
@@ -126,6 +128,10 @@ export WITH_GAPPS=true
 lunch infinity_X00TD-user
 make installclean
 m bacon
+
+# ExtServices must be available before normal APEX activation.
+python3 "$patch_dir/check-extservices-apex.py" \
+    out/target/product/X00TD/system/apex/com.google.android.extservices.apex
 
 # Upload GApps Build
 for file in out/target/product/X00TD/Project_Infinity-X*.zip; do
