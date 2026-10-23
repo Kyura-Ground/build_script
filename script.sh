@@ -123,7 +123,7 @@ echo "Keys ready"
 echo "=========="
 
 # Build the GApps variant.
-export WITH_GAPPS=true
+export WITH_GAPPS=false
 lunch infinity_X00TD-user
 make installclean
 m bacon
