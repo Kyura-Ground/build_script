@@ -13,22 +13,21 @@ remove_lists=(
     device/asus/X00TD
     device/asus/sdm660-common
     kernel/asus/sdm660
-    vendor/asus
+    vendor/asus/X00TD
+    vendor/asus/sdm660-common
     build/soong
-    vendor/evolution-priv/keys
 )
 echo "Removing conflicting source directories..."
 rm -rf -- "${remove_lists[@]}"
 
 #repo init
-repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/ProjectInfinity-X/manifest -b 17 -g default,-mips,-darwin,-notdefault
+repo init --depth=1 --git-lfs -u https://github.com/LineageOS/android.git -b lineage-22.2 -g default,-mips,-darwin,-notdefault
 echo "=================="
 echo "Repo init success"
 echo "=================="
 
 #local_manifest
-rm -rf .repo/local_manifests
-git clone --depth=1 https://github.com/Kyura-Ground/local_manifests.git -b Infinity .repo/local_manifests
+git clone --depth=1 https://github.com/Kyura-Ground/local_manifests.git -b lineage-22.2 .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
@@ -45,24 +44,6 @@ echo "============="
 echo "Sync success"
 echo "============="
 
-# Apply reviewed source patches once, retaining their original metadata.
-apply_source_patch() {
-    local source_path="$1"
-    local patch_file="$2"
-    if git -C "$source_path" apply --reverse --check "$patch_file" 2>/dev/null; then
-        echo "Already applied: ${patch_file##*/}"
-        return 0
-    fi
-    git -C "$source_path" apply --check "$patch_file"
-    git -C "$source_path" -c commit.gpgsign=false am "$patch_file"
-}
-
-patch_dir="$PWD/device/asus/X00TD/infinity"
-apply_source_patch build/soong "$patch_dir/soong-memory.patch"
-for patch_name in telephony-ecno telephony-pinstorage; do
-    apply_source_patch frameworks/opt/telephony "$patch_dir/$patch_name.patch"
-done
-
 # Set up build environment
 export BUILD_USERNAME=kyura
 export BUILD_HOSTNAME=crave
@@ -70,6 +51,7 @@ export TZ="Asia/Jakarta"
 # envsetup contains optional probes and pipelines that are not errexit-safe.
 # Reference: https://github.com/kelexine/local_manifests/commit/193bd08fd920ce8582c4295d2b096fba2a04c370
 set +e
+# shellcheck source=/dev/null
 . build/envsetup.sh
 envsetup_status=$?
 set -e
@@ -86,59 +68,24 @@ echo "==========="
 echo "XXKSU done"
 echo "==========="
 
-# Setup keys, gunakan kembali keys yang sudah ada
-if [ ! -d vendor/infinity-priv/keys ]; then
-    git clone --depth=1 https://github.com/Evolution-X/vendor_evolution-priv_keys-template vendor/infinity-priv/keys
-else
-    git -C vendor/infinity-priv/keys fetch --depth=1 \
-        https://github.com/Evolution-X/vendor_evolution-priv_keys-template master
-    git -C vendor/infinity-priv/keys checkout FETCH_HEAD -- keys.mk keys.sh make_key.sh
-fi
-cd vendor/infinity-priv/keys
-sed -i 's|vendor/evolution-priv/keys|vendor/infinity-priv/keys|g' keys.mk
-# Refresh certificate modules and generate missing keys; make_key preserves existing pairs.
-keys_status=0
-./keys.sh || keys_status=$?
-if [ "$keys_status" -ne 0 ] && [ "$keys_status" -ne 1 ]; then
-    echo "Key generation failed (status $keys_status)." >&2
-    exit "$keys_status"
-fi
-test -s Android.bp
-test -s avb_custom_key.bin
-# Validate every key expected by keys.sh, including keys from an earlier run.
-override_keys=$(grep -o ':.*override' keys.mk | sort -u)
-for key in avb ../../../build/make/target/product/security/*.pk8 $override_keys; do
-    key=${key##*/}
-    key=${key%.pk8}
-    key=${key#:}
-    if ! openssl x509 -in "$key.x509.pem" -noout -checkend 0 >/dev/null ||
-       ! openssl pkcs8 -inform DER -in "$key.pk8" -nocrypt -out /dev/null; then
-        echo "Missing or invalid signing key: $key" >&2
-        exit 1
-    fi
-done
-cd ../../..
-echo "=========="
-echo "Keys ready"
-echo "=========="
-
-# Build the GApps variant.
-export WITH_GAPPS=false
-lunch infinity_X00TD-user
+# Build LineageOS 22.2 (vanilla).
+unset WITH_GAPPS
+lunch lineage_X00TD-bp1a-userdebug
 make installclean
 m bacon
 
-# Upload GApps Build
-for file in out/target/product/X00TD/Project_Infinity-X*.zip; do
+# Upload LineageOS Build
+for file in out/target/product/X00TD/lineage*.zip; do
     if [ -f "$file" ]; then
-        echo "Mulai mengupload GApps: $file"
-        curl -T "$file" -u :8490fc51-f593-4c87-8e35-3379cf5a94a3 https://pixeldrain.com/api/file/
+        echo "Mulai mengupload LineageOS: $file"
+        curl --fail --show-error -T "$file" -u :8490fc51-f593-4c87-8e35-3379cf5a94a3 https://pixeldrain.com/api/file/
         echo -e "\nUpload selesai untuk $file"
 
         # Pindahkan file ke direktori utama agar tidak terupload ulang nanti.
         mv "$file" ./
-        echo "--------------MOVED GAPPS BUILD TO ROOT DIRECTORY--------------"
+        echo "--------------MOVED LINEAGE BUILD TO ROOT DIRECTORY--------------"
     else
-        echo "File tidak ditemukan!"
+        echo "File tidak ditemukan!" >&2
+        exit 1
     fi
 done
