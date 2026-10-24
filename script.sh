@@ -6,8 +6,7 @@ if [ ! -d .repo ]; then
     exit 1
 fi
 
-# Remove source directories that may belong to a previous Crave ROM.
-# Keep signing keys so subsequent builds retain the same identity.
+# Remove source and signing-key directories from previous Crave ROM builds.
 remove_lists=(
     .repo/local_manifests
     device/asus/X00TD
@@ -15,7 +14,9 @@ remove_lists=(
     kernel/asus/sdm660
     vendor/asus
     build/soong
+    vendor/infinity-priv/keys
     vendor/evolution-priv/keys
+    vendor/lineage-priv/keys
 )
 echo "Removing conflicting source directories..."
 rm -rf -- "${remove_lists[@]}"
@@ -86,26 +87,11 @@ echo "==========="
 echo "XXKSU done"
 echo "==========="
 
-# Setup keys, gunakan kembali keys yang sudah ada
-if [ ! -d vendor/infinity-priv/keys ]; then
-    git clone --depth=1 https://github.com/Evolution-X/vendor_evolution-priv_keys-template vendor/infinity-priv/keys
-else
-    git -C vendor/infinity-priv/keys fetch --depth=1 \
-        https://github.com/Evolution-X/vendor_evolution-priv_keys-template master
-    git -C vendor/infinity-priv/keys checkout FETCH_HEAD -- keys.mk keys.sh make_key.sh
-fi
-cd vendor/infinity-priv/keys
-sed -i 's|vendor/evolution-priv/keys|vendor/infinity-priv/keys|g' keys.mk
-# Refresh certificate modules and generate missing keys; make_key preserves existing pairs.
-keys_status=0
-./keys.sh || keys_status=$?
-if [ "$keys_status" -ne 0 ] && [ "$keys_status" -ne 1 ]; then
-    echo "Key generation failed (status $keys_status)." >&2
-    exit "$keys_status"
-fi
+# The local manifest syncs the shared Android 17 signing identity.
+cd vendor/lineage-priv/keys
 test -s Android.bp
-test -s avb_custom_key.bin
-# Validate every key expected by keys.sh, including keys from an earlier run.
+test -s avb.pk8
+# Validate every key referenced by the Android 17 keys.mk configuration.
 override_keys=$(grep -o ':.*override' keys.mk | sort -u)
 for key in avb ../../../build/make/target/product/security/*.pk8 $override_keys; do
     key=${key##*/}
