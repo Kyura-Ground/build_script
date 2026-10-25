@@ -1,7 +1,8 @@
 # X00TD AxionOS Android 16 — Linux 4.4
 
-Candidate workflow for the X00TD AxionOS bringup. The kernel backport is still
-under review; this branch has not been validated by a ROM build or a device boot.
+Candidate workflow for the first X00TD AxionOS server build. The selected kernel
+backport queues, Kconfig dependencies, upstream metadata and signatures have
+been checked. This branch has not been validated by a ROM build or device boot.
 
 Run the workflow on the build server from an Android source root containing
 `.repo`. It initializes `AxionAOSP/android` on `lineage-23.2`, then uses
