@@ -1,29 +1,36 @@
-# X00TD LineageOS 22.2
+# X00TD AxionOS Android 16 — Linux 4.4
 
-Script build Crave dengan alur yang sama seperti branch Infinity:
+Candidate workflow for the X00TD AxionOS bringup. The kernel backport is still
+under review; this branch has not been validated by a ROM build or a device boot.
 
-1. Bersihkan source yang bentrok, init dan sync LineageOS 22.2.
-2. Setup environment dan KernelSU; keys ikut dari local manifest.
-3. Jalankan `lunch lineage_X00TD-bp1a-userdebug`, `make installclean`, lalu `m bacon`.
-4. Upload `out/target/product/X00TD/lineage*.zip` ke Pixeldrain, lalu pindahkan ZIP ke root source.
+Run the workflow on the build server from an Android source root containing
+`.repo`. It initializes `AxionAOSP/android` on `lineage-23.2`, then uses
+`Kyura-Ground/local_manifests` on `axion-23.2-4.4` for the ASUS Linux 4.4 trees.
+That manifest/source branch must be published before running the workflow.
 
-Jalankan dari root source Android yang sudah memiliki `.repo`:
+The selected variant is **vanilla without GApps**, explicitly requested by the
+user. Configuration uses `axion X00TD userdebug va`; the build uses
+`ax -b -j${BUILD_JOBS:-32}`. Axion performs installclean in that helper.
+The existing KernelSU setup and build identity settings are retained.
 
-```bash
-curl -fLSs https://raw.githubusercontent.com/Kyura-Ground/build_script/lineage-22.2/script.sh -o /tmp/build-lineage.sh
-bash /tmp/build-lineage.sh
-```
+Existing signing keys in `vendor/lineage-priv/keys` are preserved. The script
+does not run `gk` or generate a new signing identity. Upload credentials and the
+upload destination remain as configured by the user. Output selection follows
+Axion's `axion*.zip` package name; uploaded zips are moved to the source root.
 
-KernelSU mengikuti branch `master` terbaru dari backslashxx, seperti script Infinity.
-Setup memakai `curl`; opsi KSU dibaca dari `arch/arm64/configs/vendor/extra/ksu.config` melalui `TARGET_KERNEL_CONFIG` di device tree.
-Keys di `vendor/lineage-priv/keys` tetap dipertahankan. Build menghasilkan vanilla LineageOS; GApps dipasang terpisah.
+Source sync retains the server's resync wrapper when available. The fallback
+uses `repo sync -j8` with bounded retry handling.
 
-Pemeriksaan lokal:
+## Offline verification
 
 ```bash
 bash -n script.sh
-shellcheck script.sh
 python3 tests/smoke.py
 ```
 
-Smoke test berjalan offline dengan sync, build, dan upload yang dimock.
+The smoke checks use mocked git/repo/build/upload commands and temporary
+fixtures. They verify failure propagation, the vanilla selection, artifact
+handling, and preservation of the existing key files. They do not compile a ROM,
+contact a build server, or upload a real artifact.
+
+Reference: [AxionOS A16 build instructions](https://github.com/AxionAOSP/android/blob/lineage-23.2/README.mkdn).

@@ -21,13 +21,13 @@ echo "Removing conflicting source directories..."
 rm -rf -- "${remove_lists[@]}"
 
 #repo init
-repo init --depth=1 --git-lfs -u https://github.com/LineageOS/android.git -b lineage-22.2 -g default,-mips,-darwin,-notdefault
+repo init --depth=1 --git-lfs -u https://github.com/AxionAOSP/android.git -b lineage-23.2 -g default,-mips,-darwin,-notdefault
 echo "=================="
 echo "Repo init success"
 echo "=================="
 
 #local_manifest
-git clone --depth=1 https://github.com/Kyura-Ground/local_manifests.git -b lineage-22.2 .repo/local_manifests
+git clone --depth=1 https://github.com/Kyura-Ground/local_manifests.git -b axion-23.2-4.4 .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
@@ -68,22 +68,24 @@ echo "==========="
 echo "XXKSU done"
 echo "==========="
 
-# Build LineageOS 22.2 (vanilla).
+# Build AxionOS Android 16 (vanilla) on the server.
 unset WITH_GAPPS
-lunch lineage_X00TD-bp1a-userdebug
-make installclean
-m bacon
+axion X00TD userdebug va
+# axion sets random host labels; retain this workflow's existing labels.
+export BUILD_USERNAME=kyura
+export BUILD_HOSTNAME=crave
+ax -b -j"${BUILD_JOBS:-32}"
 
-# Upload LineageOS Build
-for file in out/target/product/X00TD/lineage*.zip; do
+# Upload AxionOS Build
+for file in out/target/product/X00TD/axion*.zip; do
     if [ -f "$file" ]; then
-        echo "Mulai mengupload LineageOS: $file"
+        echo "Mulai mengupload AxionOS: $file"
         curl --fail --show-error -T "$file" -u :8490fc51-f593-4c87-8e35-3379cf5a94a3 https://pixeldrain.com/api/file/
         echo -e "\nUpload selesai untuk $file"
 
         # Pindahkan file ke direktori utama agar tidak terupload ulang nanti.
         mv "$file" ./
-        echo "--------------MOVED LINEAGE BUILD TO ROOT DIRECTORY--------------"
+        echo "--------------MOVED AXION BUILD TO ROOT DIRECTORY--------------"
     else
         echo "File tidak ditemukan!" >&2
         exit 1

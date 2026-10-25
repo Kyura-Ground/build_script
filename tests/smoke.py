@@ -21,7 +21,7 @@ def write(path, content, executable=False):
         path.chmod(0o755)
 
 
-with tempfile.TemporaryDirectory(prefix='lineage22-builder-test-') as directory:
+with tempfile.TemporaryDirectory(prefix='axion23-builder-test-') as directory:
     tmp = Path(directory)
     mockbin = tmp / 'bin'
     mockbin.mkdir()
@@ -31,7 +31,7 @@ args=sys.argv[1:]
 with open(os.environ['CALL_LOG'],'a') as f:f.write(json.dumps(['git',*args])+'\\n')
 if args[0]=='clone':
     branch_arg = '--branch' if '--branch' in args else '-b'
-    assert args[args.index(branch_arg)+1]=='lineage-22.2'
+    assert args[args.index(branch_arg)+1]=='axion-23.2-4.4'
     assert 'https://github.com/Kyura-Ground/local_manifests.git' in args
     pathlib.Path(args[-1]).mkdir(parents=True)
 ''', True)
@@ -40,8 +40,8 @@ import os,pathlib,sys,json,shutil
 args=sys.argv[1:]
 with open(os.environ['CALL_LOG'],'a') as f:f.write(json.dumps(['repo',*args])+'\\n')
 if args[0]=='init':
-    assert args[args.index('-b')+1]=='lineage-22.2'
-    assert args[args.index('-u')+1]=='https://github.com/LineageOS/android.git'
+    assert args[args.index('-b')+1]=='lineage-23.2'
+    assert args[args.index('-u')+1]=='https://github.com/AxionAOSP/android.git'
     sys.exit(0)
 assert args[0]=='sync'
 if os.environ.get('SYNC_FAIL')=='1':sys.exit(17)
@@ -70,7 +70,7 @@ if any('/kernel/setup.sh' in arg for arg in args):
     sys.exit(0)
 assert '-T' in args
 path=pathlib.Path(args[args.index('-T')+1])
-assert path.name.startswith('lineage') and path.suffix=='.zip'
+assert path.name.startswith('axion') and path.suffix=='.zip'
 assert args[args.index('-u')+1]==os.environ['EXPECTED_PIX_AUTH']
 with open(os.environ['CALL_LOG'],'a') as f:f.write(json.dumps(['upload',path.name])+'\\n')
 if os.environ.get('UPLOAD_FAIL')=='1' or path.stat().st_size==0:sys.exit(22)
@@ -85,24 +85,37 @@ with open(os.environ['EVENT_LOG'],'a') as f:f.write('installclean\\n')
         # An optional Android probe must not terminate sourcing.
         false
         lunch() {
-            [[ "$#" == 1 && "$1" == lineage_X00TD-bp1a-userdebug ]] || return 41
+            [[ "$#" == 1 && "$1" == lineage_X00TD-bp4a-userdebug ]] || return 41
             [[ -z "${WITH_GAPPS+x}" ]] || return 42
             [[ "${LUNCH_FAIL:-0}" != 1 ]] || return 19
             printf 'lunch\\n' >> "$EVENT_LOG"
         }
+        axion() {
+            [[ "$*" == "X00TD userdebug va" ]] || return 43
+            export WITH_GMS=false
+            unset TARGET_GAPPS_VARIANT
+            lunch lineage_X00TD-bp4a-userdebug
+        }
+        ax() {
+            [[ "$#" == 2 && "$1" == -b && "$2" == -j32 ]] || return 44
+            make installclean
+            m bacon
+        }
         m() {
+            [[ "${WITH_GMS:-}" == false && -z "${TARGET_GAPPS_VARIANT+x}" ]] || return 45
+            [[ "${BUILD_USERNAME:-}" == kyura && "${BUILD_HOSTNAME:-}" == crave ]] || return 46
             printf '%s\\n' "$1" >> "$EVENT_LOG"
             [[ "$1" != bacon ]] && return 0
             [[ "${BUILD_FAIL:-0}" != 1 ]] || return 23
             mkdir -p out/target/product/X00TD
             [[ "${NO_ARTIFACT:-0}" != 1 ]] || return 0
             if [[ "${EMPTY_ARTIFACT:-0}" == 1 ]]; then
-                : > out/target/product/X00TD/lineage-22.2-new-UNOFFICIAL-X00TD.zip
+                : > out/target/product/X00TD/axion-23.2-new-UNOFFICIAL-X00TD.zip
             else
-                printf 'fixture zip\\n' > out/target/product/X00TD/lineage-22.2-new-UNOFFICIAL-X00TD.zip
+                printf 'fixture zip\\n' > out/target/product/X00TD/axion-23.2-new-UNOFFICIAL-X00TD.zip
             fi
             if [[ "${EXTRA_LINEAGE_ZIP:-0}" == 1 ]]; then
-                printf 'another zip\\n' > out/target/product/X00TD/lineage-custom-X00TD.zip
+                printf 'another zip\\n' > out/target/product/X00TD/axion-custom-X00TD.zip
                 printf 'other ROM\\n' > out/target/product/X00TD/Project_Infinity-X.zip
             fi
         }
@@ -122,13 +135,14 @@ with open(os.environ['EVENT_LOG'],'a') as f:f.write('installclean\\n')
         write(work/'vendor/asus/other/keep.txt', 'unrelated vendor tree\n')
         out = work/'out/target/product/X00TD'
         out.mkdir(parents=True)
-        stale = work/'lineage-22.2-old-UNOFFICIAL-X00TD.zip'
+        stale = work/'axion-23.2-old-UNOFFICIAL-X00TD.zip'
         stale.write_bytes(b'old zip')
         os.utime(stale, (1, 1))
         env = dict(PATH=str(mockbin)+os.pathsep+os.environ['PATH'],
                    HOME=os.environ['HOME'],
                    ENV_FIXTURE=str(tmp/'envsetup.sh'), CALL_LOG=str(work/'calls.jsonl'),
                    EVENT_LOG=str(work/'events.log'), WITH_GAPPS='true',
+                   WITH_GMS='true', TARGET_GAPPS_VARIANT='full',
                    EXPECTED_PIX_AUTH=PIXELDRAIN_AUTH)
         env.update(overrides or {})
         result = subprocess.run(['bash', str(ROOT/'script.sh')], cwd=work, env=env,
@@ -144,22 +158,22 @@ with open(os.environ['EVENT_LOG'],'a') as f:f.write('installclean\\n')
         assert bool(uploads) == (expected_status == 0 or name in ['upload-failure','empty-artifact']), name
         assert stale.name not in uploads
         if name in ['upload-failure','empty-artifact']:
-            assert (out/'lineage-22.2-new-UNOFFICIAL-X00TD.zip').is_file()
+            assert (out/'axion-23.2-new-UNOFFICIAL-X00TD.zip').is_file()
         if expected_status == 0:
             assert (work/'events.log').read_text().splitlines() == ['lunch', 'installclean', 'bacon']
             kernel = work/'kernel/asus/sdm660'
             assert (kernel/'drivers/kernelsu').resolve() == kernel/'KernelSU/kernel'
             assert (kernel/'arch/arm64/configs/X00TD_defconfig').read_text() == '# fixture\n'
-            assert (work/'lineage-22.2-new-UNOFFICIAL-X00TD.zip').is_file()
-            assert not list(out.glob('lineage*.zip'))
+            assert (work/'axion-23.2-new-UNOFFICIAL-X00TD.zip').is_file()
+            assert not list(out.glob('axion*.zip'))
             if env.get('EXTRA_LINEAGE_ZIP') == '1':
-                assert len(uploads) == 2 and 'lineage-custom-X00TD.zip' in uploads
-                assert (work/'lineage-custom-X00TD.zip').is_file()
+                assert len(uploads) == 2 and 'axion-custom-X00TD.zip' in uploads
+                assert (work/'axion-custom-X00TD.zip').is_file()
                 assert (out/'Project_Infinity-X.zip').is_file()
         print(name+': PASS')
 
     run('ksu')
-    run('lineage-wildcard', {'EXTRA_LINEAGE_ZIP': '1'})
+    run('axion-wildcard', {'EXTRA_LINEAGE_ZIP': '1'})
     run('sync-failure', {'SYNC_FAIL': '1'}, 17)
     run('ksu-setup-failure', {'KSU_SETUP_FAIL': '1'}, 22)
     run('env-failure', {'ENV_FAIL': '1'}, 7, 'Environment setup failed')
