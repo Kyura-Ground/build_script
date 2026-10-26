@@ -133,6 +133,11 @@ with open(os.environ['EVENT_LOG'],'a') as f:f.write('installclean\\n')
         write(keys/'releasekey.x509.pem', 'existing certificate fixture\n')
         original = {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in keys.iterdir()}
         write(work/'vendor/asus/other/keep.txt', 'unrelated vendor tree\n')
+        markers = [work/'vendor/asus'/name/'checkout-marker' for name in ('X00TD', 'sdm660-common')]
+        for marker in markers:
+            write(marker, 'existing vendor checkout\n')
+        if name == 'combined-vendor-checkout':
+            (work/'vendor/asus/.git').mkdir()
         out = work/'out/target/product/X00TD'
         out.mkdir(parents=True)
         stale = work/'axion-23.2-old-UNOFFICIAL-X00TD.zip'
@@ -152,6 +157,7 @@ with open(os.environ['EVENT_LOG'],'a') as f:f.write('installclean\\n')
             assert expected_error in result.stdout+result.stderr, name
         assert {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in keys.iterdir()} == original
         assert (work/'vendor/asus/other/keep.txt').read_text() == 'unrelated vendor tree\n'
+        assert all(marker.exists() == (name == 'combined-vendor-checkout') for marker in markers)
         assert not list(work.glob('.lineage-build-start.*')), name
         calls = [json.loads(line) for line in (work/'calls.jsonl').read_text().splitlines()]
         uploads = [call[1] for call in calls if call[0]=='upload']
@@ -173,6 +179,7 @@ with open(os.environ['EVENT_LOG'],'a') as f:f.write('installclean\\n')
         print(name+': PASS')
 
     run('ksu')
+    run('combined-vendor-checkout')
     run('axion-wildcard', {'EXTRA_LINEAGE_ZIP': '1'})
     run('sync-failure', {'SYNC_FAIL': '1'}, 17)
     run('ksu-setup-failure', {'KSU_SETUP_FAIL': '1'}, 22)

@@ -14,11 +14,14 @@ remove_lists=(
     device/asus/sdm660-common
     device/axion/common
     kernel/asus/sdm660
-    vendor/asus/X00TD
-    vendor/asus/sdm660-common
     build/soong
 )
 echo "Removing conflicting source directories..."
+# Remove legacy nested vendor checkouts only before the combined tree exists.
+if [[ ! -e vendor/asus/.git ]]; then
+    rm -rf -- vendor/asus/X00TD vendor/asus/sdm660-common
+fi
+
 rm -rf -- "${remove_lists[@]}"
 
 #repo init
