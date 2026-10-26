@@ -2,7 +2,7 @@
 
 Run `script.sh` on the build server from an Android source root containing
 `.repo`. It initializes `LineageOS/android` on `lineage-23.2`, then syncs
-`Kyura-Ground/local_manifests` on `main` for the ASUS Linux 4.4 trees.
+`Kyura-Ground/local_manifests` on `lineage-23.2` for the ASUS Linux 4.4 trees.
 
 The build is vanilla without GApps. The workflow clears inherited GApps flags,
 sets `WITH_GMS=false`, selects `breakfast X00TD userdebug`, runs `m installclean`,

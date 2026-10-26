@@ -31,7 +31,7 @@ echo "Repo init success"
 echo "=================="
 
 #local_manifest
-git clone --depth=1 https://github.com/Kyura-Ground/local_manifests.git -b main .repo/local_manifests
+git clone --depth=1 https://github.com/Kyura-Ground/local_manifests.git -b lineage-23.2 .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
