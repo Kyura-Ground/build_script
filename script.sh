@@ -25,13 +25,13 @@ fi
 rm -rf -- "${remove_lists[@]}"
 
 #repo init
-repo init --depth=1 --git-lfs -u https://github.com/AxionAOSP/android.git -b lineage-23.2 -g default,-mips,-darwin,-notdefault
+repo init --depth=1 --git-lfs -u https://github.com/LineageOS/android.git -b lineage-23.2 -g default,-mips,-darwin,-notdefault
 echo "=================="
 echo "Repo init success"
 echo "=================="
 
 #local_manifest
-git clone --depth=1 https://github.com/Kyura-Ground/local_manifests.git -b axion .repo/local_manifests
+git clone --depth=1 https://github.com/Kyura-Ground/local_manifests.git -b main .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
@@ -64,6 +64,13 @@ if [ "$envsetup_status" -ne 0 ]; then
     exit "$envsetup_status"
 fi
 
+# Guard against syncing a tree for a different kernel generation.
+kernel_version=$(awk '/^VERSION = / { version=$3 } /^PATCHLEVEL = / { patch=$3 } END { print version "." patch }' kernel/asus/sdm660/Makefile)
+if [[ "$kernel_version" != 4.4 ]]; then
+    echo "Expected Linux 4.4, found $kernel_version." >&2
+    exit 1
+fi
+
 # setup KernelSU
 cd kernel/asus/sdm660
 curl -fLSs "https://raw.githubusercontent.com/backslashxx/KernelSU/master/kernel/setup.sh" | bash -s master
@@ -72,26 +79,32 @@ echo "==========="
 echo "XXKSU done"
 echo "==========="
 
-# Build AxionOS Android 16 (vanilla) on the server.
-unset WITH_GAPPS
-axion X00TD userdebug va
-# axion sets random host labels; retain this workflow's existing labels.
-export BUILD_USERNAME=kyura
-export BUILD_HOSTNAME=crave
-ax -b -j"${BUILD_JOBS:-32}"
+# Build LineageOS 23.2 (vanilla) on the server.
+unset WITH_GAPPS TARGET_GAPPS_VARIANT
+export WITH_GMS=false
+breakfast X00TD userdebug
+m installclean
 
-# Upload AxionOS Build
-for file in out/target/product/X00TD/axion*.zip; do
-    if [ -f "$file" ]; then
-        echo "Mulai mengupload AxionOS: $file"
+build_start=$(mktemp .lineage-build-start.XXXXXX)
+trap 'rm -f -- "$build_start"' EXIT
+m -j"${BUILD_JOBS:-32}" bacon
+
+# Upload only packages produced by this build.
+uploaded=false
+shopt -s nullglob
+for file in out/target/product/X00TD/lineage-23.2-*-X00TD.zip; do
+    if [[ -f "$file" && "$file" -nt "$build_start" ]]; then
+        echo "Mulai mengupload LineageOS: $file"
         curl --fail --show-error -T "$file" -u :8490fc51-f593-4c87-8e35-3379cf5a94a3 https://pixeldrain.com/api/file/
         echo -e "\nUpload selesai untuk $file"
 
         # Pindahkan file ke direktori utama agar tidak terupload ulang nanti.
         mv "$file" ./
-        echo "--------------MOVED AXION BUILD TO ROOT DIRECTORY--------------"
-    else
-        echo "File tidak ditemukan!" >&2
-        exit 1
+        uploaded=true
+        echo "--------------MOVED LINEAGE BUILD TO ROOT DIRECTORY--------------"
     fi
 done
+if [[ "$uploaded" != true ]]; then
+    echo "File tidak ditemukan! No new LineageOS 23.2 package was produced." >&2
+    exit 1
+fi
