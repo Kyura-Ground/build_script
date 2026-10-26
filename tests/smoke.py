@@ -31,7 +31,7 @@ args=sys.argv[1:]
 with open(os.environ['CALL_LOG'],'a') as f:f.write(json.dumps(['git',*args])+'\\n')
 if args[0]=='clone':
     branch_arg = '--branch' if '--branch' in args else '-b'
-    assert args[args.index(branch_arg)+1]=='axion-23.2-4.4'
+    assert args[args.index(branch_arg)+1]=='axion'
     assert 'https://github.com/Kyura-Ground/local_manifests.git' in args
     pathlib.Path(args[-1]).mkdir(parents=True)
 ''', True)

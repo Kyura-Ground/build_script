@@ -6,7 +6,7 @@ been checked. This branch has not been validated by a ROM build or device boot.
 
 Run the workflow on the build server from an Android source root containing
 `.repo`. It initializes `AxionAOSP/android` on `lineage-23.2`, then uses
-`Kyura-Ground/local_manifests` on `axion-23.2-4.4` for the ASUS Linux 4.4 trees.
+`Kyura-Ground/local_manifests` on `axion` for the ASUS Linux 4.4 trees.
 That manifest/source branch must be published before running the workflow.
 
 The selected variant is **vanilla without GApps**, explicitly requested by the

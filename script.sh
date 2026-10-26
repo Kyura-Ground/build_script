@@ -28,7 +28,7 @@ echo "Repo init success"
 echo "=================="
 
 #local_manifest
-git clone --depth=1 https://github.com/Kyura-Ground/local_manifests.git -b axion-23.2-4.4 .repo/local_manifests
+git clone --depth=1 https://github.com/Kyura-Ground/local_manifests.git -b axion .repo/local_manifests
 echo "============================"
 echo "Local manifest clone success"
 echo "============================"
