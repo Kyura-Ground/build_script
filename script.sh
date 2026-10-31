@@ -15,14 +15,15 @@ rm -rf -- \
     build/soong \
     vendor/infinity-priv/keys \
     vendor/evolution-priv/keys \
-    vendor/lineage-priv/keys
+    vendor/lineage-priv/keys \
+    vendor/lunaris-priv/keys
 
 repo init --depth=1 --git-lfs \
-    -u https://github.com/Evolution-X/manifest \
-    -b bka \
+    -u https://github.com/Lunaris-AOSP/android \
+    -b 16.2 \
     -g default,-mips,-darwin,-notdefault
 
-git clone --depth=1 --branch Evox16 \
+git clone --depth=1 --branch Lunaris16 \
     https://github.com/Kyura-Ground/local_manifests.git \
     .repo/local_manifests
 
@@ -56,13 +57,14 @@ fi
         | bash -s master
 )
 
+export WITH_GMS=false
 lunch lineage_X00TD-bp4a-user
 make installclean
-m evolution
+m bacon
 
 shopt -s nullglob
 
-for file in out/target/product/X00TD/Evolution*.zip; do
+for file in out/target/product/X00TD/Lunaris-AOSP-*.zip; do
     echo "Mengupload: $file"
 
     curl -fS --retry 3 \
