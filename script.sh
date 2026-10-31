@@ -1,23 +1,6 @@
 #!/bin/bash
 set -eo pipefail
 
-if [ ! -d .repo ]; then
-    echo "Jalankan dari root source Android Crave." >&2
-    exit 1
-fi
-
-rm -rf -- \
-    .repo/local_manifests \
-    device/asus/X00TD \
-    device/asus/sdm660-common \
-    kernel/asus/sdm660 \
-    vendor/asus \
-    build/soong \
-    vendor/infinity-priv/keys \
-    vendor/evolution-priv/keys \
-    vendor/lineage-priv/keys \
-    vendor/lunaris-priv/keys
-
 repo init --depth=1 --git-lfs \
     -u https://github.com/Lunaris-AOSP/android \
     -b 16.2 \
