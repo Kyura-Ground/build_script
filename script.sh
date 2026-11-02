@@ -82,12 +82,9 @@ echo "==========="
 # Build LineageOS 23.2 (vanilla) on the server.
 unset WITH_GAPPS TARGET_GAPPS_VARIANT
 export WITH_GMS=false
-breakfast X00TD userdebug
-m installclean
-
-build_start=$(mktemp .lineage-build-start.XXXXXX)
-trap 'rm -f -- "$build_start"' EXIT
-m -j"${BUILD_JOBS:-32}" bacon
+breakfast X00TD user
+make installclean
+mka bacon
 
 # Upload only packages produced by this build.
 uploaded=false
