@@ -26,7 +26,14 @@ repo init --depth=1 --no-repo-verify --git-lfs \
 git clone --depth=1 -b Lunaris16 \
     https://github.com/Kyura-Ground/local_manifests.git .repo/local_manifests
 
-repo sync -c --force-sync --optimized-fetch --no-tags --no-clone-bundle --prune -j$(nproc --all)
+# Sync
+if [ -x /usr/bin/resync ]; then
+    /usr/bin/resync
+elif [ -f /opt/crave/resync.sh ]; then
+    bash /opt/crave/resync.sh
+else
+    repo sync -c --force-sync --optimized-fetch --no-tags --no-clone-bundle --prune --retry-fetches=3 -j8
+fi
 
 # KernelSU
 (
