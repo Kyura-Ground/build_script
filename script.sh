@@ -47,7 +47,7 @@ set -e
 # Vanilla; signing keys disinkronkan oleh local manifest.
 unset WITH_GAPPS TARGET_GAPPS_VARIANT
 export WITH_GMS=false
-lunch lineage_X00TD-cp2a-user
+lunch lineage_X00TD-cp2a-userdebug
 make installclean
 m bacon
 
