@@ -44,6 +44,7 @@ if args[0]=='init':
     assert args[args.index('-u')+1]=='https://github.com/LineageOS/android.git'
     sys.exit(0)
 assert args[0]=='sync'
+assert any(a.startswith('-j') and a[2:].isdigit() and int(a[2:]) > 0 for a in args)
 if os.environ.get('SYNC_FAIL')=='1':sys.exit(17)
 for rel in ['device/asus/X00TD/lineage_X00TD.mk',
             'device/asus/sdm660-common/BoardConfigCommon.mk',
@@ -79,20 +80,21 @@ print('{"success":true}')
     write(mockbin/'make', '''#!/usr/bin/env python3
 import os,sys
 assert sys.argv[1:]==['installclean']
+if os.environ.get('CLEAN_FAIL')=='1':sys.exit(31)
 with open(os.environ['EVENT_LOG'],'a') as f:f.write('installclean\\n')
 ''', True)
     write(tmp/'envsetup.sh', '''
         # An optional Android probe must not terminate sourcing.
         false
         lunch() {
-            [[ "$#" == 1 && "$1" == lineage_X00TD-cp2a-userdebug ]] || return 41
+            [[ "$#" == 1 && "$1" == lineage_X00TD-cp2a-user ]] || return 41
             [[ -z "${WITH_GAPPS+x}" ]] || return 42
             [[ "${LUNCH_FAIL:-0}" != 1 ]] || return 19
             printf 'lunch\\n' >> "$EVENT_LOG"
         }
         breakfast() {
             [[ "$*" == "X00TD userdebug" ]] || return 43
-            lunch lineage_X00TD-cp2a-userdebug
+            lunch lineage_X00TD-cp2a-user
         }
         m() {
             [[ "${WITH_GMS:-}" == false && -z "${TARGET_GAPPS_VARIANT+x}" ]] || return 45
@@ -104,7 +106,7 @@ with open(os.environ['EVENT_LOG'],'a') as f:f.write('installclean\\n')
                 [[ "${CLEAN_FAIL:-0}" != 1 ]] || return 31
                 return 0
             fi
-            [[ "$*" == "-j${BUILD_JOBS:-32} bacon" ]] || return 44
+            [[ "$*" == bacon ]] || return 44
             [[ "${BUILD_FAIL:-0}" != 1 ]] || return 23
             mkdir -p out/target/product/X00TD
             [[ "${NO_ARTIFACT:-0}" != 1 ]] || return 0
@@ -131,7 +133,7 @@ with open(os.environ['EVENT_LOG'],'a') as f:f.write('installclean\\n')
         write(keys/'releasekey.pk8', 'existing key fixture\n')
         write(keys/'releasekey.x509.pem', 'existing certificate fixture\n')
         original = {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in keys.iterdir()}
-        write(work/'vendor/asus/other/keep.txt', 'unrelated vendor tree\n')
+        write(work/'vendor/other/keep.txt', 'unrelated vendor tree\n')
         markers = [work/'vendor/asus'/name/'checkout-marker' for name in ('X00TD', 'sdm660-common')]
         for marker in markers:
             write(marker, 'existing vendor checkout\n')
@@ -159,8 +161,8 @@ with open(os.environ['EVENT_LOG'],'a') as f:f.write('installclean\\n')
         if expected_error:
             assert expected_error in result.stdout+result.stderr, name
         assert {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in keys.iterdir()} == original
-        assert (work/'vendor/asus/other/keep.txt').read_text() == 'unrelated vendor tree\n'
-        assert all(marker.exists() == (name == 'combined-vendor-checkout') for marker in markers)
+        assert (work/'vendor/other/keep.txt').read_text() == 'unrelated vendor tree\n'
+        assert not any(marker.exists() for marker in markers)
         assert not list(work.glob('.lineage-build-start.*')), name
         calls = [json.loads(line) for line in (work/'calls.jsonl').read_text().splitlines()]
         uploads = [call[1] for call in calls if call[0]=='upload']
@@ -184,7 +186,7 @@ with open(os.environ['EVENT_LOG'],'a') as f:f.write('installclean\\n')
 
     run('ksu')
     run('combined-vendor-checkout')
-    run('jobs-192', {'BUILD_JOBS': '192'})
+    run('all-cpus-sync')
     run('lineage-wildcard', {'EXTRA_LINEAGE_ZIP': '1'})
     run('sync-failure', {'SYNC_FAIL': '1'}, 17)
     run('ksu-setup-failure', {'KSU_SETUP_FAIL': '1'}, 22)

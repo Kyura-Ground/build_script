@@ -1,24 +1,24 @@
 # X00TD LineageOS 24.0 — Linux 4.4
 
-Run `script.sh` on the build server from an Android source root containing
-`.repo`. It initializes `LineageOS/android` on `lineage-24.0`, then syncs
-`Kyura-Ground/local_manifests` on `lineage-24.0` for the ASUS Linux 4.4 trees.
+Run `script.sh` from an empty server directory or an Android source root with
+`.repo`. It uses the same workflow as the Lunaris builder: clean device/kernel/
+ASUS vendor sources, initialize the ROM and local manifest, sync directly with
+all CPUs, set up KernelSU, then source the build environment.
 
-The build is vanilla without GApps. The workflow clears inherited GApps flags,
-sets `WITH_GMS=false`, selects `breakfast X00TD userdebug`, runs `m installclean`,
-and builds with `m -j${BUILD_JOBS:-32} bacon`. Set `BUILD_JOBS` to adjust parallelism.
+Lineage-specific selections are `LineageOS/android` and local manifest branch
+`lineage-24.0`, `lunch lineage_X00TD-cp2a-user`, `make installclean`, and `m bacon`.
+The build is vanilla: inherited GApps flags are cleared and `WITH_GMS=false`.
 
-The workflow preserves the existing signing keys, KernelSU setup, build identity,
-and upload credentials. It does not generate a new signing identity. Only new
-`lineage-24.0-*-X00TD.zip` packages from the current build are uploaded; uploaded
-packages remain in `out/target/product/X00TD/`.
+Signing keys remain in place and the manifest syncs the matching key project.
+The Linux 4.4 guard and failure propagation remain enabled. Upload uses retry
+handling and only takes Lineage 24.0 packages produced by the current build.
+ZIP files remain in `out/target/product/X00TD/`; they are not moved after upload.
+The existing upload credentials and build identity are retained.
 
-Source sync retains the server resync wrapper when available. The fallback uses
-`repo sync -j8` with bounded retry handling. Legacy nested ASUS vendor checkouts
-are removed only when the combined vendor checkout does not yet exist.
-
-This is a source bringup. Offline checks pass; the LineageOS 24.0 ROM still needs
-a server build and device validation.
+Device, common, combined vendor and Linux 4.4 kernel projects all use
+`lineage-24.0`. The manifest retains the legacy msm8998 BSP/power revisions
+required by this device. A complete server build and hardware validation are
+still required.
 
 ## Offline verification
 
@@ -27,14 +27,6 @@ bash -n script.sh
 python3 tests/smoke.py
 ```
 
-The smoke checks mock source sync, builds, and uploads in temporary directories.
-They check failure propagation, vanilla selection, artifact filtering and
-preservation of signing keys. They do not build or upload a real ROM.
-
-Reference: [LineageOS 24.0 source instructions](https://github.com/LineageOS/android/blob/lineage-24.0/README.mkdn).
-
-The A17 target release is `cp2a`. Device, common, combined vendor and Linux 4.4
-kernel projects all use `lineage-24.0` in the local manifest.
-The common device branch carries legacy FCM profiles; the kernel branch carries
-the LLVM/BPF 5.10 backport queue. The BPF version property selects a compatibility path; Linux itself
-remains 4.4.302. Networking and boot still require validation on the device.
+The smoke tests mock source sync, build and upload. They check target selection,
+failure propagation, artifact filtering/location and signing-key preservation.
+They do not build a kernel/ROM or perform real uploads.
