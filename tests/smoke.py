@@ -44,7 +44,7 @@ if args[0]=='init':
     assert args[args.index('-u')+1]=='https://github.com/LineageOS/android.git'
     sys.exit(0)
 assert args[0]=='sync'
-assert any(a.startswith('-j') and a[2:].isdigit() and int(a[2:]) > 0 for a in args)
+assert '-j8' in args and '--jobs-network=4' in args
 if os.environ.get('SYNC_FAIL')=='1':sys.exit(17)
 for rel in ['device/asus/X00TD/lineage_X00TD.mk',
             'device/asus/sdm660-common/BoardConfigCommon.mk',
@@ -89,14 +89,14 @@ for p in Path('out/target/product/X00TD').glob('*.zip'):p.unlink()
         # An optional Android probe must not terminate sourcing.
         false
         lunch() {
-            [[ "$#" == 1 && "$1" == lineage_X00TD-cp2a-user ]] || return 41
+            [[ "$#" == 1 && "$1" == lineage_X00TD-cp2a-userdebug ]] || return 41
             [[ -z "${WITH_GAPPS+x}" ]] || return 42
             [[ "${LUNCH_FAIL:-0}" != 1 ]] || return 19
             printf 'lunch\\n' >> "$EVENT_LOG"
         }
         breakfast() {
             [[ "$*" == "X00TD userdebug" ]] || return 43
-            lunch lineage_X00TD-cp2a-user
+            lunch lineage_X00TD-cp2a-userdebug
         }
         m() {
             [[ "${WITH_GMS:-}" == false && -z "${TARGET_GAPPS_VARIANT+x}" ]] || return 45
@@ -188,7 +188,7 @@ for p in Path('out/target/product/X00TD').glob('*.zip'):p.unlink()
 
     run('ksu')
     run('combined-vendor-checkout')
-    run('all-cpus-sync')
+    run('bounded-network-sync')
     run('lineage-wildcard', {'EXTRA_LINEAGE_ZIP': '1'})
     run('sync-failure', {'SYNC_FAIL': '1'}, 17)
     run('ksu-setup-failure', {'KSU_SETUP_FAIL': '1'}, 22)
