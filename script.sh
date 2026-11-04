@@ -18,10 +18,10 @@ rm -rf -- "${remove_lists[@]}"
 
 # Source LineageOS dan local manifest
 repo init --depth=1 --git-lfs \
-    -u https://github.com/LineageOS/android.git -b lineage-24.0 \
+    -u https://github.com/ProjectInfinity-X/manifest -b 17 \
     -g default,-mips,-darwin,-notdefault
 
-git clone --depth=1 -b lineage-24.0 \
+git clone --depth=1 -b Infinity-4.4 \
     https://github.com/Kyura-Ground/local_manifests.git .repo/local_manifests
 
 # Sync
@@ -46,13 +46,13 @@ set -e
 
 # Vanilla; signing keys disinkronkan oleh local manifest.
 unset WITH_GAPPS TARGET_GAPPS_VARIANT
-export WITH_GMS=false
-lunch lineage_X00TD-cp2a-userdebug
+export WITH_GAPPS=false
+lunch infinity_X00TD-userdebug
 make installclean
 m bacon
 
 # Upload Vanilla
-for file in out/target/product/X00TD/lineage-24.0-*-X00TD.zip; do
+for file in out/target/product/X00TD/Project_Infinity-X-*-X00TD.zip; do
     if [ -f "$file" ]; then
         echo "Mengupload: $file"
         curl -fS --retry 3 -T "$file" -u :8490fc51-f593-4c87-8e35-3379cf5a94a3 https://pixeldrain.com/api/file/
