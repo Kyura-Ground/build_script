@@ -173,11 +173,12 @@ with open(os.environ['EVENT_LOG'],'a') as f:f.write('installclean\\n')
             kernel = work/'kernel/asus/sdm660'
             assert (kernel/'drivers/kernelsu').resolve() == kernel/'KernelSU/kernel'
             assert (kernel/'arch/arm64/configs/X00TD_defconfig').read_text() == '# fixture\n'
-            assert (work/'lineage-24.0-new-UNOFFICIAL-X00TD.zip').is_file()
-            assert not list(out.glob('lineage-24.0-*-X00TD.zip'))
+            assert (out/'lineage-24.0-new-UNOFFICIAL-X00TD.zip').is_file()
+            assert not (work/'lineage-24.0-new-UNOFFICIAL-X00TD.zip').exists()
             if env.get('EXTRA_LINEAGE_ZIP') == '1':
                 assert len(uploads) == 2 and 'lineage-24.0-custom-X00TD.zip' in uploads
-                assert (work/'lineage-24.0-custom-X00TD.zip').is_file()
+                assert (out/'lineage-24.0-custom-X00TD.zip').is_file()
+                assert not (work/'lineage-24.0-custom-X00TD.zip').exists()
                 assert (out/'Project_Infinity-X.zip').is_file()
         print(name+': PASS')
 

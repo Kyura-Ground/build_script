@@ -98,10 +98,7 @@ for file in out/target/product/X00TD/lineage-24.0-*-X00TD.zip; do
         curl --fail --show-error -T "$file" -u :8490fc51-f593-4c87-8e35-3379cf5a94a3 https://pixeldrain.com/api/file/
         echo -e "\nUpload selesai untuk $file"
 
-        # Pindahkan file ke direktori utama agar tidak terupload ulang nanti.
-        mv "$file" ./
         uploaded=true
-        echo "--------------MOVED LINEAGE BUILD TO ROOT DIRECTORY--------------"
     fi
 done
 if [[ "$uploaded" != true ]]; then
