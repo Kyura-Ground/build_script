@@ -25,7 +25,7 @@ git clone --depth=1 -b lineage-24.0 \
     https://github.com/Kyura-Ground/local_manifests.git .repo/local_manifests
 
 # Sync
-repo sync -c --force-sync --optimized-fetch --no-tags --no-clone-bundle --prune -j8 --jobs-network=4
+repo sync -c --force-sync --optimized-fetch --no-tags --no-clone-bundle --prune -j$(nproc --all)
 
 # KernelSU
 (
