@@ -1,7 +1,10 @@
 #!/bin/bash
 set -eo pipefail
 
-[ -d .repo ] || { echo "Jalankan dari root source Android Crave." >&2; exit 1; }
+if [ ! -d .repo ]; then
+    directory_contents=$(ls -A)
+    [ -z "$directory_contents" ] || { echo "Jalankan dari direktori kosong atau root source Android (.repo)." >&2; exit 1; }
+fi
 
 # Cleanup
 remove_lists=(

@@ -1,6 +1,8 @@
 # Lunaris AOSP 16.2 for X00TD
 
-Run `script.sh` from an existing Crave Android source root. It switches the
+Run `script.sh` from an empty build directory on your server or an existing
+Android source root containing `.repo`. Install `repo`, Git with Git LFS, and
+the Android build dependencies first. It initializes or switches the
 manifest to Lunaris AOSP 16.2 and local manifest branch `Lunaris16`, then builds
 `lineage_X00TD-bp4a-user` with `m bacon` and uploads the resulting ROM ZIP.
 
