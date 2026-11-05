@@ -47,7 +47,7 @@ set -e
 # Vanilla; signing keys disinkronkan oleh local manifest.
 unset WITH_GAPPS TARGET_GAPPS_VARIANT
 export WITH_GAPPS=false
-lunch infinity_X00TD-userdebug
+lunch infinity_X00TD-user
 make installclean
 m bacon
 
