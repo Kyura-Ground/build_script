@@ -52,7 +52,7 @@ make installclean
 m bacon
 
 # Upload Vanilla
-for file in out/target/product/X00TD/Project_Infinity-X-*-X00TD.zip; do
+for file in out/target/product/X00TD/Project_Infinity-X-*.zip; do
     if [ -f "$file" ]; then
         echo "Mengupload: $file"
         curl -fS --retry 3 -T "$file" -u :8490fc51-f593-4c87-8e35-3379cf5a94a3 https://pixeldrain.com/api/file/
