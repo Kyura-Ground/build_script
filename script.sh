@@ -21,17 +21,17 @@ repo init --depth=1 --git-lfs \
     -u https://github.com/LineageOS/android.git -b lineage-24.0 \
     -g default,-mips,-darwin,-notdefault
 
-git clone --depth=1 -b lineage-24.0 \
+git clone --depth=1 -b lineage-24.0-5.4 \
     https://github.com/Kyura-Ground/local_manifests.git .repo/local_manifests
 
 # Sync
 repo sync -c --force-sync --optimized-fetch --no-tags --no-clone-bundle --prune -j$(nproc --all) --jobs-network=4
 
 # KernelSU
-(
-    cd kernel/asus/sdm660
-    curl -fLSs https://raw.githubusercontent.com/backslashxx/KernelSU/master/kernel/setup.sh | bash -s master
-)
+# (
+#    cd kernel/asus/sdm660
+#    curl -fLSs https://raw.githubusercontent.com/backslashxx/KernelSU/master/kernel/setup.sh | bash -s master
+# )
 
 # Build environment
 export BUILD_USERNAME=kyura
