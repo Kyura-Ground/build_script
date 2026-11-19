@@ -18,7 +18,7 @@ rm -rf -- "${remove_lists[@]}"
 
 # Source LineageOS dan local manifest
 repo init --depth=1 --git-lfs \
-    -u https://github.com/LineageOS/android.git -b lineage-24.0 \
+    -u https://github.com/Evolution-X/manifest -b cnb \
     -g default,-mips,-darwin,-notdefault
 
 git clone --depth=1 -b lineage-24.0-5.4 \
@@ -49,7 +49,7 @@ unset WITH_GAPPS TARGET_GAPPS_VARIANT
 export WITH_GMS=false
 lunch lineage_X00TD-cp2a-userdebug
 make installclean
-m bacon
+m evolution
 
 # Upload Vanilla
 for file in out/target/product/X00TD/lineage-24.0-*-X00TD.zip; do
