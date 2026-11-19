@@ -28,10 +28,10 @@ git clone --depth=1 -b lineage-24.0-5.4 \
 repo sync -c --force-sync --optimized-fetch --no-tags --no-clone-bundle --prune -j$(nproc --all) --jobs-network=4
 
 # KernelSU
-# (
-#    cd kernel/asus/sdm660
-#    curl -fLSs https://raw.githubusercontent.com/backslashxx/KernelSU/master/kernel/setup.sh | bash -s master
-# )
+(
+    cd kernel/asus/sdm660
+    curl -fLSs https://raw.githubusercontent.com/backslashxx/KernelSU/master/kernel/setup.sh | bash -s master
+)
 
 # Build environment
 export BUILD_USERNAME=kyura
