@@ -29,7 +29,7 @@ repo sync -c --force-sync --optimized-fetch --no-tags --no-clone-bundle --prune 
 
 # KernelSU
 (
-    cd kernel/asus/sdm660-5.4
+    cd kernel/asus/sdm660
     curl -fLSs https://raw.githubusercontent.com/backslashxx/KernelSU/master/kernel/setup.sh | bash -s master
 )
 
